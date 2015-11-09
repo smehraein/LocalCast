@@ -109,7 +109,7 @@ module.exports = {
         });
       }
     },
-    
+
     post: function (req, res) {
       db.Game.create({
         team1: req.body.team1id,
@@ -135,6 +135,14 @@ module.exports = {
           console.error(err);
         });
       }
+      else if (req.body.teamid) {
+       db.User.findAll({where: {team: req.body.teamid}})
+       .then(function (users) {
+         res.json(users);
+       }).catch(function (err) {
+         console.error(err);
+       }); 
+      }
       else {
         db.User.findAll().then(function (users) {
           res.json(users);
@@ -145,7 +153,8 @@ module.exports = {
     },
     post: function (req, res) {
       db.User.create({
-        username: req.body.username
+        username: req.body.username,
+        TeamId: req.body.teamid
       }).then(function(user) {
         res.sendStatus(201);
       })

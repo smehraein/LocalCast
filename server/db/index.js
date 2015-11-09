@@ -4,7 +4,7 @@ var orm = new Sequelize("localCast", "root", "SQL");
 
 // we define the models we need using js--we don't need a schema file!
 var User = orm.define('User', {
-  username: Sequelize.STRING
+  username: Sequelize.STRING,
 });
 
 var League = orm.define('League', {
@@ -30,13 +30,10 @@ var Game = orm.define('Game', {
 
 
 
-Team.belongsTo(League, {as: 'leagueId'});
-User.belongsTo(Team, {as: 'teamId'});
-Game.belongsTo(League, {as: 'leagueId'});
-League.hasMany(Team);
+Team.belongsTo(League, {as: 'league'});
+Game.belongsTo(League, {as: 'league'});
 Team.hasMany(Game);
 Team.hasMany(User);
-Game.hasMany(Team);
 
 
 User.sync();
@@ -49,4 +46,4 @@ Game.sync();
 exports.User = User;
 exports.League = League;
 exports.Team = Team;
-exports.Team = Team;
+exports.Game = Game;
