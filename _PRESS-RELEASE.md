@@ -1,4 +1,4 @@
-# Project Name #
+# Local Cast #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -17,28 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > ESPN for Yuppies and Small Children
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > Information/collaboration app for local and little-league sports teams.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > This app will keep track of custom leagues, teams, players and games. Players and other registered users can see information about teams and games within a league. Future iterations of the app will include the ability for admins to message players with league and team specific updates and news.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Local and Little League sports are fun, but hard for everyone to keep track of.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > This app provides a simple and localized way to keep track of all important information regarding your sports league.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "It's not just for professionals anymore."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > You and the rest of your friends sign up and create your league within the app. Update with game scores as the season goes on and the app will make sure that everyone gets the information they want.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "I've never been to one of little Jimmy's baseball games, but with this app, I can make him think I care!"
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Please read the FAQ for more detailed information on how to use the app. Hope you enjoy it!
