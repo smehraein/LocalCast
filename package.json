@@ -19,6 +19,7 @@
     "express": "^4.13.3",
     "morgan": "^1.6.1",
     "mysql": "^2.9.0",
+    "request": "^2.65.0",
     "sequelize": "^3.13.0"
   },
   "repository": {

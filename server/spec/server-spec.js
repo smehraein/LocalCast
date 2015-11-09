@@ -18,16 +18,16 @@ describe("Persistent Node Chat Server", function() {
 
 
     var tablename0 = "Users";
-    var tablename1 = "Leagues";
-    var tablename2 = "Games";
-    var tablename3 = "Teams";
+    var tablename1 = "Games";
+    var tablename2 = "Teams";
+    var tablename3 = "Leagues";
     
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
     dbConnection.query("truncate " + tablename0, done);
-    dbConnection.query("truncate " + tablename1, done);
-    dbConnection.query("truncate " + tablename2, done);
-    dbConnection.query("truncate " + tablename3, done);
+    // dbConnection.query("truncate " + tablename1, done);
+    // dbConnection.query("truncate " + tablename2, done);
+    // dbConnection.query("truncate " + tablename3, done);
   });
 
   afterEach(function() {
