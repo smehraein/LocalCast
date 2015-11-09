@@ -15,7 +15,9 @@
     "chai": "^1.9.0"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "mysql": "^2.9.0",
+    "sequelize": "^3.13.0"
   },
   "repository": {
     "type": "git",
