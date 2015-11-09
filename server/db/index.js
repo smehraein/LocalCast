@@ -30,8 +30,9 @@ var Game = orm.define('Game', {
 
 
 
-Team.belongsTo(League);
-User.belongsTo(Team);
+Team.belongsTo(League, {as: 'leagueId'});
+User.belongsTo(Team, {as: 'teamId'});
+Game.belongsTo(League, {as: 'leagueId'});
 League.hasMany(Team);
 Team.hasMany(Game);
 Team.hasMany(User);

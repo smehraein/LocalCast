@@ -1,27 +1,34 @@
-var models = require('../models');
+var db = require('../db');
 
 module.exports = {
 
   leagues: {
     get: function (req, res) {
-      if (req.body.leagueid) {
-        models.leagues.getOne(req.body.leagueid, function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+      if (req.body.leaguename) {
+        db.League.findOne({where: {leaguename: req.body.leaguename}})
+        .then(function (league) {
+          res.json(league);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
       else {
-        models.leagues.getAll(function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.League.findAll().then(function (leagues) {
+          res.json(league);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
     },
+
     post: function (req, res) {
-      var params = [req.body.leaguename, req.body.leaguesport];
-      models.leagues.post(params, function(err, results) {
-        if (err) { console.error(err); }
+      db.League.create({
+        leaguename: req.body.leaguename
+      }).then(function(league) {
         res.sendStatus(201);
+      })
+      .catch(function (err) {
+      console.error(err);
       });
     }
   },
@@ -29,29 +36,39 @@ module.exports = {
   teams: {
     get: function (req, res) {
       if (req.body.teamid) {
-        models.teams.getOne(req.body.teamid, function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.Team.findById(req.body.teamid)
+        .then(function (team) {
+          res.json(team);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
       else if (req.body.leagueid) {
-        models.teams.getFromLeague(req.body.leagueid, function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.Team.findAll({where: {leagueId: req.body.leagueid}})
+        .then(function (teams) {
+          res.json(teams);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
       else {
-        models.teams.getAll(function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.Team.findAll().then(function (teams) {
+          res.json(teams);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
     },
+
     post: function (req, res) {
-      var params = [req.body.teamname, req.body.leaguename];
-      models.teams.post(params, function(err, results) {
-        if (err) { console.error(err); }
+      db.Team.create({
+        teamname: req.body.teamname,
+        leagueId: req.body.leagueId
+      }).then(function(league) {
         res.sendStatus(201);
+      })
+      .catch(function (err) {
+        console.error(err);
       });
     }
   },
@@ -59,35 +76,51 @@ module.exports = {
   games: {
     get: function (req, res) {
       if (req.body.gameid) {
-        models.games.getOne(req.body.gameid, function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.Game.findById(req.body.gameid)
+        .then(function (game) {
+          res.json(game);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
       else if (req.body.teamid) {
-        models.games.getFromTeam(req.body.teamid, function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.Game.findAll({where: Sequelize.or(
+          {team1: req.body.teamid},
+          {team2: req.body.teamid})})
+        .then(function (games) {
+          res.json(games);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
       else if (req.body.leagueid) {
-        models.games.getFromLeague(req.body.leagueid, function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.Game.findAll({where: {leagueId: req.body.leagueid}})
+        .then(function (games) {
+          res.json(games);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
       else {
-        models.games.getAll(function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.Game.findAll().then(function (games) {
+          res.json(games);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
     },
+    
     post: function (req, res) {
-      var params = [req.body.team1id, req.body.team2id, req.body.team1score, req.body.team2score];
-      models.games.post(params, function(err, results) {
-        if (err) { console.error(err); }
+      db.Game.create({
+        team1: req.body.team1id,
+        team2: req.body.team2id,
+        team1score: req.body.team1score,
+        team2score: req.body.team2score
+      }).then(function(game) {
         res.sendStatus(201);
+      })
+      .catch(function (err) {
+        console.error(err);
       });
     }
   },
@@ -95,23 +128,29 @@ module.exports = {
   users: {
     get: function (req, res) {
       if (req.body.userid) {
-        models.users.getOne(req.body.userid, function(err, results) {
-          if (err) { console.error(err); }
-          res.json(results);
+        db.User.findById(req.body.userid)
+        .then(function (user) {
+          res.json(user);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
       else {
-        models.users.get(function(err, results) {
-        if (err) { console.error(err); }
-        res.json(results);
+        db.User.findAll().then(function (users) {
+          res.json(users);
+        }).catch(function (err) {
+          console.error(err);
         });
       }
     },
     post: function (req, res) {
-      var params = [req.body.username];
-      models.users.post(params, function(err, results) {
-        if (err) { console.error(err); }
+      db.User.create({
+        username: req.body.username
+      }).then(function(user) {
         res.sendStatus(201);
+      })
+      .catch(function (err) {
+        console.error(err);
       });
     }
   }
