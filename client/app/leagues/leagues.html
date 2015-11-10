@@ -13,7 +13,7 @@
     </form>
 
     <div class="leagues">
-      <div ng-repeat="league in data.leagues" class="league" ui-sref="leagues.teams({leagueId: league.id})">
+      <div ng-repeat="league in data.leagues" class="league" ui-sref="teams({leagueId: league.id})">
         <img src="../assets/redirect_icon.png" />
         <a class="title">{{league.leaguename}}</a>
         <div class="original">{{ league.sport }}</div>

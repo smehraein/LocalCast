@@ -15,14 +15,13 @@ angular.module('localCast.teams', [])
   };
 
   $scope.getTeams = function () {
-    Teams.getTeams()
+    Teams.getTeams($scope.leagueId)
       .then(function (respData) {
         $scope.data.teams = respData;
     });
   };
 
   $scope.init = function () {
-    console.log("WUT");
     $scope.getTeams();
   };
 

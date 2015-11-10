@@ -1,6 +1,6 @@
 angular.module('localCast.leagues', [])
 
-.controller('LeaguesController', function ($scope, Leagues, Teams) {
+.controller('LeaguesController', function ($scope, Leagues) {
   $scope.data = {};
   $scope.data.leagues = [];
 

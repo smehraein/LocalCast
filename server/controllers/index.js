@@ -1,24 +1,15 @@
 var db = require('../db');
+var url = require('url');
 
 module.exports = {
 
   leagues: {
     get: function (req, res) {
-      if (req.body.leaguename) {
-        db.League.findOne({where: {leaguename: req.body.leaguename}})
-        .then(function (league) {
-          res.json(league);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
-      else {
-        db.League.findAll().then(function (leagues) {;
-          res.json(leagues);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
+      db.League.findAll().then(function (leagues) {
+        res.json(leagues);
+      }).catch(function (err) {
+        console.error(err);
+      });
     },
 
     post: function (req, res) {
@@ -36,16 +27,10 @@ module.exports = {
 
   teams: {
     get: function (req, res) {
-      if (req.body.teamid) {
-        db.Team.findById(req.body.teamid)
-        .then(function (team) {
-          res.json(team);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
-      else if (req.body.leagueid) {
-        db.Team.findAll({where: {leagueId: req.body.leagueid}})
+      var url_parts = url.parse(req.url, true);
+      var query = url_parts.query;
+      if (query.id) {
+        db.Team.findAll({where: {leagueId: query.id}})
         .then(function (teams) {
           res.json(teams);
         }).catch(function (err) {

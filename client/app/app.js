@@ -15,7 +15,7 @@ angular.module('localCast', [
       url: '/leagues',
       controller: 'LeaguesController'
     })
-    .state('leagues.teams', {
+    .state('teams', {
       templateUrl: 'app/teams/teams.html',
       url: '/:leagueId/teams',
       controller: 'TeamsController'
