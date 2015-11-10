@@ -15,8 +15,9 @@
     <div class="leagues">
       <div ng-repeat="league in data.leagues" class="league" ui-sref="teams({leagueId: league.id})">
         <img src="../assets/redirect_icon.png" />
-        <a class="title">{{league.leaguename}}</a>
+        <div class="title">{{league.leaguename}}</div>
         <div class="original">{{ league.sport }}</div>
+        <button class="delete" ng-click="removeLeague(league)">Delete</button>
       </div>
     </div>
 </div>

@@ -19,6 +19,7 @@
         <img src="../assets/redirect_icon.png" />
         <div class="title">{{team.teamname}}</div>
         <div class="original">{{ team.wins }}/{{ team.losses }}/{{ team.ties }}</div>
+        <button class="delete" ng-click="removeTeam(team)">Delete</button>
       </div>
     </div>
 </div>

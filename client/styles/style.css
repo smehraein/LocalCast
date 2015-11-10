@@ -156,3 +156,7 @@ input[type=url]:focus {
   clear: both;
 }
 
+.delete {
+  float: right;
+}
+

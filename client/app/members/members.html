@@ -11,6 +11,7 @@
       <div ng-repeat="member in data.members" class="league">
         <img src="../assets/redirect_icon.png" />
         <div class="title">{{member.username}}</div>
+        <button class="delete" ng-click="removeMember(member)">Delete</button>
       </div>
     </div>
 </div>
