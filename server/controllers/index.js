@@ -40,7 +40,19 @@ module.exports = {
 
     },
     delete: function (req, res) {
-      
+      var url_parts = url.parse(req.url, true);
+      var query = url_parts.query;
+      if (query.id) {
+        db.League.destroy({where: {id: query.id}})
+        .then(function () {
+          res.sendStatus(200);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
+      else {
+        res.sendStatus(404);
+      }
     }
   },
 

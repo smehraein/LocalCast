@@ -24,12 +24,52 @@ angular.module('localCast.services', [])
       function (resp) {
         return resp.data;
       });
+  };
 
+  var deleteLeague = function (id, teamsdata) {
+    var countdown = teamsdata.length;
+    for (var i=0; i<teamsdata.length; i++) {
+      (function (i){
+        deleteLeagueTeam(teamsdata[i].id)
+        .then(function () {
+          countdown--;
+          if (countdown === 0) {
+            return $http({
+              method: 'DELETE',
+              url: '/leagues/?id='+id
+            })
+            .then (function () {
+              $window.location.reload();
+            });
+          }
+        });
+      })(i);
+    }
+  };
+
+  var deleteLeagueTeam = function (teamid) {
+    return $http({
+      method: 'DELETE',
+      url: '/users/?tid='+teamid
+    })
+    .then(function () {
+      return $http({
+        method: 'DELETE',
+        url: '/games/?tid='+teamid
+      });  
+    })
+    .then(function () {
+      return $http({
+        method: 'DELETE',
+        url: '/teams/?id='+teamid
+      });  
+    });
   };
 
   return {
     createLeague: createLeague,
-    getLeagues: getLeagues
+    getLeagues: getLeagues,
+    deleteLeague: deleteLeague
   };
 })
 .factory('Teams', function ($http, $location, $window) {

@@ -1,6 +1,6 @@
 angular.module('localCast.leagues', [])
 
-.controller('LeaguesController', function ($scope, Leagues) {
+.controller('LeaguesController', function ($scope, Leagues, Teams) {
   $scope.data = {};
   $scope.data.leagues = [];
 
@@ -10,6 +10,13 @@ angular.module('localCast.leagues', [])
         $scope.data.leagues = respData;
     });
   };
+
+  $scope.removeLeague = function (league) {
+    Teams.getTeams(league.id)
+    .then(function (teamdata) {
+      Leagues.deleteLeague(league.id, teamdata);
+    });
+  };  
 
   $scope.createLeague = function () {
     Leagues.createLeague($scope.data.leaguename, $scope.data.sport);
