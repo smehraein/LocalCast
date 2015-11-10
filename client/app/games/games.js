@@ -1,6 +1,6 @@
 angular.module('localCast.games', [])
 
-.controller('GamesController', function ($scope, $location, $stateParams, TeamPage) {
+.controller('GamesController', function ($scope, $location, $stateParams, Games) {
   $scope.leagueId = $stateParams.leagueId;
   $scope.teamId = $stateParams.teamId;
   $scope.currentTeamName = '';

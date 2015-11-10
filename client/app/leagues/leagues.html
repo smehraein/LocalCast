@@ -7,8 +7,8 @@
   <h1>Leagues</h1>
 
     <form name="createLeagueForm" ng-submit='createLeague()'>
-      <input type='text'ng-model='data.leaguename' novalidate required>
-      <input type='text' ng-model='data.sport' novalidate required>
+      <input type='text'ng-model='data.leaguename' placeholder="League Name" novalidate required>
+      <input type='text' ng-model='data.sport' placeholder="Sport" novalidate required>
       <button ng-disabled="createLeagueForm.$invalid">Create League</button>
     </form>
 

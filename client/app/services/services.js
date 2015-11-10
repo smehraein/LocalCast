@@ -78,32 +78,6 @@ angular.module('localCast.services', [])
 })
 
 .factory('TeamPage', function ($http, $location, $window) {
-
-  var createTeam = function (name, leagueid) {
-    return $http({
-      method: 'POST',
-      url: '/teams',
-      data: {
-        teamname: name,
-        leagueid: leagueid
-      }
-    }).
-    then(function() {
-      $window.location.reload();
-    });
-  };
-
-  var getTeams = function (leagueid) {
-    return $http({
-      method: 'GET',
-      url: '/teams/?id='+leagueid
-    })
-    .then(
-      function (resp) {
-        return resp.data;
-      });
-  };
-
   var getTeamName = function (teamid) {
     return $http({
       method: 'GET',
@@ -116,6 +90,52 @@ angular.module('localCast.services', [])
   };
 
   return {
+    getTeamName: getTeamName
+  };
+})
+.factory('Games', function ($http, $location, $window) {
+
+  var createGame = function (team1, team2, team1score, team2score) {
+    return $http({
+      method: 'POST',
+      url: '/games',
+      data: {
+        team1: team1,
+        team2: team2,
+        team1score: team1score,
+        team2score: team2score
+      }
+    }).
+    then(function() {
+      $window.location.reload();
+    });
+  };
+
+  var getTeamId = function (teamname) {
+    return $http({
+      method: 'GET',
+      url: '/teams/?tn='+teamname
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
+  var getTeamName = function (teamid) {
+    return $http({
+      method: 'GET',
+      url: '/teams/?tid='+teamid
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
+  return {
+    createGame: createGame,
+    getTeamId: getTeamId,
     getTeamName: getTeamName
   };
 })

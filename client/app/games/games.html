@@ -2,16 +2,22 @@
 
   <h2>Games</h2>
 
-  <form name="createTeamForm" ng-submit='addTeam()'>
-    <input type='text'ng-model='data.teamname' novalidate required>
-    <button ng-disabled="createTeamForm.$invalid">Create Team</button>
+  <form name="addGameForm" ng-submit='addGame()'>
+    <input type='text'ng-model='data.teamname2' placeholder="Opposing Team" novalidate required>
+    <input type='number'ng-model='data.teamscore1' placeholder="Team Score" novalidate required>
+    <input type='number'ng-model='data.teamscore2' placeholder="Opposing Team Score" novalidate required>
+    <button ng-disabled="addGameForm.$invalid">Add Game</button>
   </form>
 
   <div class="leagues">
-      <div ng-repeat="team in data.teams" class="league" ui-sref="teampage({leagueId: leagueId ,teamId: team.id})">
-        <img src="../assets/redirect_icon.png" />
-        <div class="title">{{team.teamname}}</div>
-        <div class="original">{{ team.rank }}</div>
+    <div ng-repeat="game in data.games" class="league">
+      <img src="../assets/redirect_icon.png" />
+      <div class='gamedisplay'>
+        <div class="title">{{game.team1}}</div>
+        <div class="original">{{game.team1score}}</div>
+        <div class="title">{{game.team2}}</div>
+        <div class="original">{{game.team2score}}</div>
       </div>
     </div>
+  </div>
 </div>

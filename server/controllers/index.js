@@ -77,26 +77,10 @@ module.exports = {
 
   games: {
     get: function (req, res) {
-      if (req.body.gameid) {
-        db.Game.findById(req.body.gameid)
-        .then(function (game) {
-          res.json(game);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
-      else if (req.body.teamid) {
+      if (req.body.teamid) {
         db.Game.findAll({where: Sequelize.or(
           {team1: req.body.teamid},
           {team2: req.body.teamid})})
-        .then(function (games) {
-          res.json(games);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
-      else if (req.body.leagueid) {
-        db.Game.findAll({where: {leagueId: req.body.leagueid}})
         .then(function (games) {
           res.json(games);
         }).catch(function (err) {

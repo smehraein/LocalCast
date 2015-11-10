@@ -10,7 +10,7 @@
   <h1>{{data.currentLeagueName}}</h1>
 
   <form name="createTeamForm" ng-submit='addTeam()'>
-    <input type='text'ng-model='data.teamname' novalidate required>
+    <input type='text'ng-model='data.teamname' placeholder="Team Name" novalidate required>
     <button ng-disabled="createTeamForm.$invalid">Create Team</button>
   </form>
 
