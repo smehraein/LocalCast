@@ -15,9 +15,9 @@
   </form>
 
   <div class="leagues">
-      <div ng-repeat="team in data.teams" class="league" ui-sref="teampage({leagueId: leagueId, teamId: team.id})" | orderBy:"team.wins">
+      <div ng-repeat="team in data.teams" class="league" | orderBy:"team.wins">
         <img src="../assets/redirect_icon.png" />
-        <div class="title">{{team.teamname}}</div>
+        <a class="title"  ui-sref="teampage({leagueId: leagueId, teamId: team.id})">{{team.teamname}}</a>
         <div class="original">{{ team.wins }}/{{ team.losses }}/{{ team.ties }}</div>
         <button class="delete" ng-click="removeTeam(team)">Delete</button>
       </div>

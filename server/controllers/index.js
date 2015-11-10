@@ -167,7 +167,10 @@ module.exports = {
       var url_parts = url.parse(req.url, true);
       var query = url_parts.query;
       if (query.id) {
-        db.Game.destroy({where: {id: query.id}})
+        db.Game.destroy({
+          where: Sequelize.or(
+          {TeamId: query.id},
+          {team2Id: query.id})})
         .then(function () {
           res.sendStatus(200);
         }).catch(function (err) {
