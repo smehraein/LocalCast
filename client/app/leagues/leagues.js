@@ -15,10 +15,6 @@ angular.module('localCast.leagues', [])
     Leagues.createLeague($scope.data.leaguename, $scope.data.sport);
   };
 
-  $scope.selectLeague = function (league) {
-    Teams.setLeague(league.id, league.leaguename);
-  };
-
   $scope.init = function () {
     $scope.getLeagues();
   };

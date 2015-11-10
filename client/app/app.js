@@ -3,33 +3,25 @@ angular.module('localCast', [
   'localCast.leagues',
   'localCast.teams',
   'localCast.auth',
+  'ui.router',
   'ngRoute'
 ])
-.config(function ($routeProvider, $httpProvider) {
-  $routeProvider
-    .when('/signin', {
-      templateUrl: 'app/auth/signin.html',
-      controller: 'AuthController'
-    })
-    .when('/signup', {
-      templateUrl: 'app/auth/signup.html',
-      controller: 'AuthController'
-    })
-    // Your code here
-    .when('/leagues', { //guess
+.config(function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/leagues');
+
+  $stateProvider
+    .state('leagues', {
       templateUrl: 'app/leagues/leagues.html',
+      url: '/leagues',
       controller: 'LeaguesController'
     })
-    .when('/teams', { //or create?
+    .state('leagues.teams', {
       templateUrl: 'app/teams/teams.html',
+      url: '/:leagueId/teams',
       controller: 'TeamsController'
-    })
-    .otherwise({
-      redirectTo: '/leagues'
     });
 
-    // We add our $httpInterceptor into the array
-    // of interceptors. Think of it like middleware for your ajax calls
+    
     $httpProvider.interceptors.push('AttachTokens');
 })
 .factory('AttachTokens', function ($window) {

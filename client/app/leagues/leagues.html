@@ -13,9 +13,9 @@
     </form>
 
     <div class="leagues">
-      <div ng-repeat="league in data.leagues" class="league" ng-click="selectLeague(league)">
+      <div ng-repeat="league in data.leagues" class="league" ui-sref="leagues.teams({leagueId: league.id})">
         <img src="../assets/redirect_icon.png" />
-        <div class="title">{{league.leaguename}}</div>
+        <a class="title">{{league.leaguename}}</a>
         <div class="original">{{ league.sport }}</div>
       </div>
     </div>

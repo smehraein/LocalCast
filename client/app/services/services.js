@@ -36,7 +36,6 @@ angular.module('localCast.services', [])
   var currentLeague;
   var currentLeagueName;
 
-
   var createTeam = function (name) {
     return $http({
       method: 'POST',
@@ -51,7 +50,8 @@ angular.module('localCast.services', [])
     });
   };
 
-  var getTeams = function () { 
+  var getTeams = function () {
+  console.log("GETTING", currentLeague); 
     return $http({
       method: 'GET',
       url: '/teams',

@@ -1,8 +1,9 @@
 angular.module('localCast.teams', [])
 
-.controller('TeamsController', function ($scope, $location, Teams) {
+.controller('TeamsController', function ($scope, $location, $stateParams, Teams) {
   $scope.data = {};
   $scope.data.teams = [];
+  $scope.leagueId = $stateParams.leagueId;
   $scope.data.currentLeagueName = '';
 
   $scope.addTeam = function () {
@@ -21,7 +22,7 @@ angular.module('localCast.teams', [])
   };
 
   $scope.init = function () {
-    $scope.data.currentLeagueName = Teams.getLeagueName();
+    console.log("WUT");
     $scope.getTeams();
   };
 
