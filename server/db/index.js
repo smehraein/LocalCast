@@ -21,8 +21,7 @@ var Team = orm.define('Team', {
 });
 
 var Game = orm.define('Game', {
-  team1: Sequelize.INTEGER,
-  team2: Sequelize.INTEGER,
+  team2Id: Sequelize.INTEGER,
   team1score: Sequelize.INTEGER,
   team2score: Sequelize.INTEGER
 });
@@ -31,6 +30,7 @@ var Game = orm.define('Game', {
 
 Team.belongsTo(League, {as: 'league'});
 Team.hasMany(User);
+Game.belongsTo(Team);
 
 
 User.sync();

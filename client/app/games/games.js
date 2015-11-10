@@ -2,6 +2,7 @@ angular.module('localCast.games', [])
 
 .controller('GamesController', function ($scope, $location, $stateParams, Games) {
   $scope.teamId = $stateParams.teamId;
+  $scope.leagueId = $stateParams.leagueId;
   $scope.data = {};
   $scope.data.games = [];
 
@@ -12,21 +13,22 @@ angular.module('localCast.games', [])
     });
   };
 
+  $scope.addGame = function() {
+    Games.getTeamId($scope.data.teamname2)
+    .then(function (respData) {
+      if (!respData[0].id || respData[0].leagueId != $scope.leagueId) {
+        alert('Invalid Team Name');
+      }
+      else {
+        Games.createGame($scope.teamId, respData[0].id, $scope.data.teamscore1, $scope.data.teamscore2);
+      }
+    });
+  };
+
   $scope.init = function () {
     Games.getGames($scope.teamId)
     .then(function (respData) {
-      for (var i=0; i<respData.length; i++) {
-        var game = respData[i];
-        $scope.getName(game.team1)
-        .then(function(name1) {
-          game.team1 = name1;
-          return $scope.getName(game.team2);
-        })
-        .then(function(name2) {
-          game.team2 = name2;
-          $scope.data.games.push(game);
-        });
-      }
+      $scope.data.games = respData;
     });
   };
 

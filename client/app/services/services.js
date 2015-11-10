@@ -100,8 +100,8 @@ angular.module('localCast.services', [])
       method: 'POST',
       url: '/games',
       data: {
-        team1: team1,
-        team2: team2,
+        team1id: team1,
+        team2id: team2,
         team1score: team1score,
         team2score: team2score
       }

@@ -53,9 +53,9 @@ module.exports = {
       else if (query.tid) {
        db.Team.findById(query.tid)
        .then(function (teams) {
-         res.json(teams);
+          res.json(teams);
        }).catch(function (err) {
-         console.error(err);
+          console.error(err);
        });
       }
       else if (query.tn) {
@@ -97,12 +97,16 @@ module.exports = {
       var url_parts = url.parse(req.url, true);
       var query = url_parts.query;
       if (query.id) {
-        db.Game.findAll({where: Sequelize.or(
-          {team1: query.id},
-          {team2: query.id})})
+        // console.log(db.Team);
+        db.Game.findAll({
+          include: [db.Team],
+          where: Sequelize.or(
+          {TeamId: query.id},
+          {team2Id: query.id})})
         .then(function (games) {
           res.json(games);
         }).catch(function (err) {
+          console.log("ER");
           console.error(err);
         });
       }
@@ -117,8 +121,8 @@ module.exports = {
 
     post: function (req, res) {
       db.Game.create({
-        team1: req.body.team1id,
-        team2: req.body.team2id,
+        TeamId: req.body.team1id,
+        team2Id: req.body.team2id,
         team1score: req.body.team1score,
         team2score: req.body.team2score
       }).then(function(game) {
