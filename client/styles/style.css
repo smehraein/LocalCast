@@ -20,6 +20,10 @@ h1 {
   float: left;
 }
 
+.gamedisplay {
+  float: left;
+}
+
 .navigation {
   width: 100%;
   height: 40px;

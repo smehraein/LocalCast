@@ -13,10 +13,8 @@
     <div ng-repeat="game in data.games track by $index" class="league">
       <img src="../assets/redirect_icon.png" />
       <div class='gamedisplay'>
-        <div class="title">{{game.Team.teamname}}</div>
-        <div class="original">{{game.team1score}}</div>
-        <div class="title">{{game.team2name}}</div>
-        <div class="original">{{game.team2score}}</div>
+        <div class="title">{{game.Team.teamname}} {{game.team1score}}</div>
+        <div class="title">{{game.team2name}} {{game.team2score}}</div>
       </div>
     </div>
   </div>
