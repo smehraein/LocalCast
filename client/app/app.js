@@ -1,6 +1,6 @@
 angular.module('shortly', [
   'shortly.services',
-  'shortly.links',
+  'localCast.leagues',
   'shortly.shorten',
   'shortly.auth',
   'ngRoute'
@@ -16,16 +16,16 @@ angular.module('shortly', [
       controller: 'AuthController'
     })
     // Your code here
-    .when('/links', { //guess
-      templateUrl: 'app/links/links.html',
-      controller: 'LinksController'
+    .when('/leagues', { //guess
+      templateUrl: 'app/leagues/leagues.html',
+      controller: 'LeaguesController'
     })
     .when('/shorten', { //or create?
       templateUrl: 'app/shorten/shorten.html',
       controller: 'ShortenController'
     })
     .otherwise({
-      redirectTo: '/links'
+      redirectTo: '/leagues'
     });
 
     // We add our $httpInterceptor into the array

@@ -1,25 +1,27 @@
 angular.module('shortly.services', [])
 
-.factory('Links', function ($http, $location) {
+.factory('Leagues', function ($http, $location, $route) {
   // Your code here
   // create
-  var createLink = function (url) { //passes in json obj req.body.url
-      console.log("url: ", url);
+  var createLeague = function (name, sport) { //passes in json obj req.body.url
     return $http({
       method: 'POST',
-      url: '/api/links', //from /create page
-      data: url
-    })
-    .then(function (resp) {
-      $location.path('/links');
+      url: '/leagues', //from /create page
+      data: {
+        leaguename: name,
+        sport: sport
+      }
+    }).
+    then(function() {
+      $route.reload();
     });
   };
 
   // getLinks
-  var getLinks = function () { //later MAY need to take user if want to be user specific
+  var getLeagues = function () { //later MAY need to take user if want to be user specific
     return $http({
       method: 'GET',
-      url: '/api/links'
+      url: '/leagues'
     })
     .then(
       //return json obj (in controller: update the controller scope's reference to links)
@@ -29,22 +31,9 @@ angular.module('shortly.services', [])
 
   };
 
-  // // goToLink (server updates visits)
-  // var goToLink = function (code) {
-  //   console.log("code in services.js goToLink: ", code);
-  //   return $http({
-  //     method: 'GET',
-  //     url: '/api/links/' + code
-  //   });
-  //   // .then(function (resp) {
-  //   //   $location.path('/'+resp.body.url);
-  //   // });
-  // };
-
   return {
-    createLink: createLink,
-    getLinks: getLinks
-    // goToLink: goToLink
+    createLeague: createLeague,
+    getLeagues: getLeagues
   };
 })
 .factory('Auth', function ($http, $location, $window) {

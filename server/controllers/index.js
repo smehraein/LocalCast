@@ -13,8 +13,8 @@ module.exports = {
         });
       }
       else {
-        db.League.findAll().then(function (leagues) {
-          res.json(league);
+        db.League.findAll().then(function (leagues) {;
+          res.json(leagues);
         }).catch(function (err) {
           console.error(err);
         });

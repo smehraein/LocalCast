@@ -1,0 +1,24 @@
+<div id='container'>
+  <div class="navigation">
+    <ul>
+      <li>
+        <a href="#/shorten">Shorten Link</a>
+      </li>
+    </ul>
+  </div>
+  <h1>Links</h1>
+
+    <form name="createLeagueForm" ng-submit='createLeague()'>
+      <input type='text'ng-model='data.leaguename' novalidate required>
+      <input type='text' ng-model='data.sport' novalidate required>
+      <button ng-disabled="signinForm.$invalid">Create League</button>
+    </form>
+
+    <ul class="info">
+      <!-- insert images -->
+      <li ng-repeat="league in data.leagues">
+        <img src="../assets/redirect_icon.png" />
+        <div class="title">{{league.leaguename}}</div>
+      </li>
+    </ul>
+</div>
