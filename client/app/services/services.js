@@ -155,6 +155,16 @@ angular.module('localCast.services', [])
     });
   };
 
+  var deleteGame = function (gameid) {
+    return $http({
+      method: 'DELETE',
+      url: '/games/?id='+gameid
+    }).
+    then(function() {
+      $window.location.reload();
+    });
+  };
+
   var getGames = function(teamid) {
     return $http({
       method: 'GET',
@@ -192,7 +202,8 @@ angular.module('localCast.services', [])
     createGame: createGame,
     getTeamId: getTeamId,
     getTeamName: getTeamName,
-    getGames: getGames
+    getGames: getGames,
+    deleteGame: deleteGame
   };
 })
 

@@ -147,7 +147,24 @@ module.exports = {
 
     },
     delete: function (req, res) {
-      
+      var url_parts = url.parse(req.url, true);
+      var query = url_parts.query;
+      if (query.id) {
+        db.Game.destroy({where: {id: query.id}})
+        .then(function () {
+          res.sendStatus(200);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
+      else if (query.tid) {
+        db.Game.destroy({where: {TeamId: query.tid}})
+        .then(function () {
+          res.sendStatus(200);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
     }
   },
 

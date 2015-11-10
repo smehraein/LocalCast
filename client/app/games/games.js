@@ -25,6 +25,11 @@ angular.module('localCast.games', [])
     });
   };
 
+
+  $scope.removeGame = function(game) {
+    Games.deleteGame(game.id);
+  };
+
   $scope.init = function () {
     Games.getGames($scope.teamId)
     .then(function (respData) {
