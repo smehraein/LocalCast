@@ -48,6 +48,28 @@ angular.module('localCast.services', [])
     });
   };
 
+  var deleteTeam = function (teamid) {
+    return $http({
+      method: 'DELETE',
+      url: '/users/?tid='+teamid
+    })
+    .then(function () {
+      return $http({
+        method: 'DELETE',
+        url: '/games/?tid='+teamid
+      });  
+    })
+    .then(function () {
+      return $http({
+        method: 'DELETE',
+        url: '/teams/?id='+teamid
+      });  
+    })
+    .then(function() {
+      $window.location.reload();
+    });
+  };
+
   var getTeams = function (leagueid) {
     return $http({
       method: 'GET',
@@ -73,7 +95,8 @@ angular.module('localCast.services', [])
   return {
     createTeam: createTeam,
     getTeams: getTeams,
-    getLeagueName: getLeagueName
+    getLeagueName: getLeagueName,
+    deleteTeam: deleteTeam
   };
 })
 

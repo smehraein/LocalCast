@@ -10,6 +10,10 @@ angular.module('localCast.teams', [])
     Teams.createTeam($scope.data.teamname, $scope.leagueId);
   };
 
+  $scope.removeTeam = function (team) {
+    Teams.deleteTeam(team.id);
+  };
+
   $scope.getTeams = function () {
     Teams.getTeams($scope.leagueId)
       .then(function (respData) {

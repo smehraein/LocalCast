@@ -100,7 +100,24 @@ module.exports = {
 
     },
     delete: function (req, res) {
-      
+      var url_parts = url.parse(req.url, true);
+      var query = url_parts.query;
+      if (query.id) {
+        db.Team.destroy({where: {id: query.id}})
+        .then(function () {
+          res.sendStatus(200);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
+      else if (query.lid) {
+        db.Team.destroy({where: {leagueId: query.lid}})
+        .then(function () {
+          res.sendStatus(200);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
     }
   },
 
