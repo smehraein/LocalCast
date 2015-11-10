@@ -1,6 +1,6 @@
 angular.module('localCast.services', [])
 
-.factory('Leagues', function ($http, $location, $route) {
+.factory('Leagues', function ($http, $location, $window) {
   var createLeague = function (name, sport) {
     return $http({
       method: 'POST',
@@ -11,7 +11,7 @@ angular.module('localCast.services', [])
       }
     }).
     then(function() {
-      $route.reload();
+      $window.location.reload();
     });
   };
 
@@ -32,19 +32,19 @@ angular.module('localCast.services', [])
     getLeagues: getLeagues
   };
 })
-.factory('Teams', function ($http, $location, $route) {
+.factory('Teams', function ($http, $location, $window) {
 
-  var createTeam = function (name) {
+  var createTeam = function (name, leagueid) {
     return $http({
       method: 'POST',
       url: '/teams',
       data: {
         teamname: name,
-        leagueid: "TEST"
+        leagueid: leagueid
       }
     }).
     then(function() {
-      $route.reload();
+      $window.location.reload();
     });
   };
 
@@ -60,7 +60,6 @@ angular.module('localCast.services', [])
   };
 
   var getLeagueName = function (leagueid) {
-    console.log(leagueid);
     return $http({
       method: 'GET',
       url: '/leagues/?id='+leagueid

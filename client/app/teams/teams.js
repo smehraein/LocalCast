@@ -7,7 +7,7 @@ angular.module('localCast.teams', [])
   $scope.data.currentLeagueName = '';
 
   $scope.addTeam = function () {
-    Teams.createTeam($scope.data.teamname);
+    Teams.createTeam($scope.data.teamname, $scope.leagueId);
   };
 
   $scope.selectTeam = function (name) {
