@@ -15,7 +15,7 @@
   </form>
 
   <div class="leagues">
-      <div ng-repeat="team in data.teams" class="league" ui-sref="teampage({leagueId: leagueId ,teamId: team.id})" | orderBy:"team.wins">
+      <div ng-repeat="team in data.teams" class="league" ui-sref="teampage({leagueId: leagueId, teamId: team.id})" | orderBy:"team.wins">
         <img src="../assets/redirect_icon.png" />
         <div class="title">{{team.teamname}}</div>
         <div class="original">{{ team.wins }}/{{ team.losses }}/{{ team.ties }}</div>

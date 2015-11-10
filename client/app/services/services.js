@@ -120,9 +120,20 @@ angular.module('localCast.services', [])
     });
   };
 
+  var deleteMember = function (userid) {
+    return $http({
+      method: 'DELETE',
+      url: '/users?id='+userid,
+    }).
+    then(function() {
+      $window.location.reload();
+    });
+  };
+
   return {
     getMembers: getMembers,
-    addMember: addMember
+    addMember: addMember,
+    deleteMember: deleteMember
   };
 })
 

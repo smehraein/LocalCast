@@ -16,6 +16,10 @@ angular.module('localCast.members', [])
     Members.addMember($scope.data.username, $scope.teamId);
   };
 
+  $scope.removeMember = function (member) {
+    Members.deleteMember(member.id);
+  };
+
   $scope.init = function () {
     $scope.getMembers();
   };
