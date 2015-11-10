@@ -50,6 +50,22 @@ module.exports = {
           console.error(err);
         });
       }
+      else if (query.tid) {
+       db.Team.findById(query.tid)
+       .then(function (teams) {
+         res.json(teams);
+       }).catch(function (err) {
+         console.error(err);
+       });
+      }
+      else if (query.tn) {
+       db.Team.findAll({where: {teamname: query.tn}})
+       .then(function (teams) {
+         res.json(teams);
+       }).catch(function (err) {
+         console.error(err);
+       });
+      }
       else {
         db.Team.findAll().then(function (teams) {
           res.json(teams);
