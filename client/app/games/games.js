@@ -1,6 +1,6 @@
 angular.module('localCast.games', [])
 
-.controller('GamesController', function ($scope, $location, $stateParams, Games) {
+.controller('GamesController', function ($scope, $location, $stateParams, $window, Games) {
   $scope.teamId = $stateParams.teamId;
   $scope.leagueId = $stateParams.leagueId;
   $scope.data = {};
@@ -51,7 +51,19 @@ angular.module('localCast.games', [])
 
 
   $scope.removeGame = function(game) {
-    Games.deleteGame(game.id);
+    team1 = game.TeamId;
+    team2 = game.team2id;
+    Games.deleteGame(game.id)
+    // Can optimize by having teams recalc async
+    .then(function () {
+      Games.recalculateTeam(team1)
+      .then(function () {
+        Games.recalculateTeam(team2);
+      })
+      .then(function () {
+      $window.location.reload();
+      });
+    });
   };
 
   $scope.init = function () {

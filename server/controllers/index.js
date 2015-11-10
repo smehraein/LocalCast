@@ -97,7 +97,6 @@ module.exports = {
       db.Team.create({
         teamname: req.body.teamname,
         leagueId: req.body.leagueid,
-        rank: 0,
         wins: 0,
         losses: 0,
         ties: 0
@@ -129,6 +128,14 @@ module.exports = {
       else if (req.body.outcome === "tie") {
         db.Team.update(
           {ties: Sequelize.literal('ties + 1')},
+          {where: {id: req.body.teamid}}
+        ).then(function(league) {
+          res.sendStatus(201);
+        });
+      }
+      else if (req.body.outcome === "reset") {
+        db.Team.update(
+          {wins: 0, losses: 0, ties: 0},
           {where: {id: req.body.teamid}}
         ).then(function(league) {
           res.sendStatus(201);
@@ -207,10 +214,18 @@ module.exports = {
       var url_parts = url.parse(req.url, true);
       var query = url_parts.query;
       if (query.id) {
+        db.Game.destroy({where: {id: query.id}})
+        .then(function () {
+          res.sendStatus(200);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
+      else if (query.tid) {
         db.Game.destroy({
           where: Sequelize.or(
-          {TeamId: query.id},
-          {team2Id: query.id})})
+          {TeamId: query.tid},
+          {team2Id: query.tid})})
         .then(function () {
           res.sendStatus(200);
         }).catch(function (err) {

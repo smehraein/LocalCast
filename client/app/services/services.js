@@ -233,9 +233,35 @@ angular.module('localCast.services', [])
     return $http({
       method: 'DELETE',
       url: '/games/?id='+gameid
-    }).
-    then(function() {
-      $window.location.reload();
+    })
+    .then(function () {
+      return;
+    });
+  };
+
+  var recalculateTeam = function (teamid) {
+    return getGames(teamid)
+    .then(function (gamesData) {
+      var countdown = gamesData.length;
+      for (var i=0; i<gamesData.length; i++) {
+        (function(i){
+          var game = gamesData[i];
+          //Tie
+          if (game.team1score === game.team2score) {
+            addTie(teamid);
+          }
+          // Win
+          else if ((game.TeamId === teamid && game.team1score > game.team2score) || (game.team2Id === teamid && game.team2score > game.team1score)) {
+            addWin(teamid);
+          }
+          //Loss
+          else {
+            addLoss(teamid);
+          }
+          countdown--;
+          if (countdown === 0) return;
+        })(i);
+      }
     });
   };
 
@@ -313,7 +339,8 @@ angular.module('localCast.services', [])
     deleteGame: deleteGame,
     addWin: addWin,
     addLoss: addLoss,
-    addTie: addTie
+    addTie: addTie,
+    recalculateTeam: recalculateTeam
   };
 })
 
