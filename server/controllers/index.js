@@ -5,11 +5,23 @@ module.exports = {
 
   leagues: {
     get: function (req, res) {
-      db.League.findAll().then(function (leagues) {
-        res.json(leagues);
-      }).catch(function (err) {
-        console.error(err);
-      });
+      var url_parts = url.parse(req.url, true);
+      var query = url_parts.query;
+      if (query.id) {
+        db.League.findById(query.id)
+        .then(function (league) {
+          res.json(league);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
+      else {
+        db.League.findAll().then(function (leagues) {
+          res.json(leagues);
+        }).catch(function (err) {
+          console.error(err);
+        });
+      }
     },
 
     post: function (req, res) {

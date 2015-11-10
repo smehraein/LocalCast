@@ -59,9 +59,22 @@ angular.module('localCast.services', [])
       });
   };
 
+  var getLeagueName = function (leagueid) {
+    console.log(leagueid);
+    return $http({
+      method: 'GET',
+      url: '/leagues/?id='+leagueid
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
   return {
     createTeam: createTeam,
-    getTeams: getTeams
+    getTeams: getTeams,
+    getLeagueName: getLeagueName
   };
 })
 

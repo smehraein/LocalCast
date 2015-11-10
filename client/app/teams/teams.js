@@ -22,6 +22,10 @@ angular.module('localCast.teams', [])
   };
 
   $scope.init = function () {
+    Teams.getLeagueName($scope.leagueId)
+      .then(function(respData) {
+        $scope.data.currentLeagueName = respData.leaguename;
+      });
     $scope.getTeams();
   };
 
