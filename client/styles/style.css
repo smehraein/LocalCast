@@ -16,6 +16,10 @@ h1 {
   color: cornflowerblue;
 }
 
+.teaminfo {
+  float: left;
+}
+
 .navigation {
   width: 100%;
   height: 40px;

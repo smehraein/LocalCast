@@ -5,17 +5,17 @@
         <a href="#/leagues">All Leagues</a>
       </li>
       <li>
-        <a ui-sref="teams({leagueId: league.id})">Teams</a>
+        <a ui-sref="teams({leagueId: leagueId})">Teams</a>
       </li>
     </ul>
   </div>
 
   <h1>{{currentTeamName}}</h1>
 
-  <div>
+  <div class="teaminfo">
     <div ui-view="games"></div>
   </div>
-  <div>
+  <div class="teaminfo">
     <div ui-view="members"></div>
   </div>
 </div>
