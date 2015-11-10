@@ -23,7 +23,8 @@ module.exports = {
 
     post: function (req, res) {
       db.League.create({
-        leaguename: req.body.leaguename
+        leaguename: req.body.leaguename,
+        sport: req.body.sport
       }).then(function(league) {
         res.sendStatus(201);
       })
@@ -130,7 +131,7 @@ module.exports = {
       if (req.body.userid) {
         db.User.findById(req.body.userid)
         .then(function (user) {
-          res.json(user);
+          res.json(user.dataValues);
         }).catch(function (err) {
           console.error(err);
         });
