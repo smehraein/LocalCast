@@ -64,7 +64,11 @@ module.exports = {
     post: function (req, res) {
       db.Team.create({
         teamname: req.body.teamname,
-        leagueId: req.body.leagueId
+        leagueId: req.body.leagueId,
+        rank: 0,
+        wins: 0,
+        losses: 0,
+        ties: 0
       }).then(function(league) {
         res.sendStatus(201);
       })
@@ -137,7 +141,7 @@ module.exports = {
         });
       }
       else if (req.body.teamid) {
-       db.User.findAll({where: {team: req.body.teamid}})
+       db.User.findAll({where: {teamId: req.body.teamid}})
        .then(function (users) {
          res.json(users);
        }).catch(function (err) {

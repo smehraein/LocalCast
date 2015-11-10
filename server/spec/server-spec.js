@@ -157,10 +157,7 @@ describe("Teams", function() {
     request({ method: "POST",
               uri: "http://127.0.0.1:3000/teams",
               json: { teamname: "Soroushs Cool Team",
-                      leagueId: 1,
-                      wins: 99,
-                      losses: 0,
-                      ties: 0 }
+                      leagueId: 1 }
     }, function () {
         // Now if we look in the database, we should find the
         // user there.
@@ -233,4 +230,69 @@ describe("Games", function() {
         });
       });
     });
+  });
+
+describe("All together now", function() {
+  var dbConnection;
+
+  beforeEach(function(done) {
+    dbConnection = mysql.createConnection({
+      user: "root",
+      password: "SQL",
+      database: "localCast"
+    });
+    dbConnection.connect();
+    done();
+  });
+
+  afterEach(function() {
+    dbConnection.end();
+  });
+
+  it("Should insert users with a team into the DB", function(done) {
+    // Post the user to the chat server.
+   request({ method: "POST",
+              uri: "http://127.0.0.1:3000/users",
+              json: { username: "Yoshi",
+                      teamid: 1 }
+    }, function() {
+     request({ method: "POST",
+                uri: "http://127.0.0.1:3000/users",
+                json: { username: "David",
+                        teamid: 1 }
+      }, function () {
+          // Now if we look in the database, we should find the
+          // user there.
+          var queryString = "SELECT * FROM Users";
+          var queryArgs = [];
+
+          dbConnection.query(queryString, queryArgs, function(err, results) {
+            // Should have one result:
+            expect(results.length).to.equal(3);
+
+            // TODO: If you don't have a column named text, change this test.
+            expect(results[2].username).to.equal("David");
+
+            done();
+          });
+        });
+      });
+    });
+
+
+  it("Should find user by team", function(done) {
+    // Post the user to the chat server.
+   request({ method: "GET",
+              uri: "http://127.0.0.1:3000/users",
+              json: { teamid: 1 }
+    }, function (err, response) {
+          // Should have one result:
+          expect(response.body.length).to.equal(2);
+
+          // TODO: If you don't have a column named text, change this test.
+          expect(response.body[1].username).to.equal("David");
+
+          done();
+        });
+      });
   });
