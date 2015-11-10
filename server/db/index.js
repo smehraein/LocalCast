@@ -24,15 +24,12 @@ var Game = orm.define('Game', {
   team1: Sequelize.INTEGER,
   team2: Sequelize.INTEGER,
   team1score: Sequelize.INTEGER,
-  team2score: Sequelize.INTEGER,
-  date: Sequelize.DATE,
+  team2score: Sequelize.INTEGER
 });
 
 
 
 Team.belongsTo(League, {as: 'league'});
-Game.belongsTo(League, {as: 'league'});
-Team.hasMany(Game);
 Team.hasMany(User);
 
 

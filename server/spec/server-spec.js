@@ -122,5 +122,115 @@ describe("Leagues", function() {
         });
       });
     });
-  
+  });
+
+describe("Teams", function() {
+  var dbConnection;
+
+  beforeEach(function(done) {
+    dbConnection = mysql.createConnection({
+      user: "root",
+      password: "SQL",
+      database: "localCast"
+    });
+    dbConnection.connect();
+
+
+    var tablename = "Teams";
+    /* Empty the db table before each test so that multiple tests
+     * (or repeated runs of the tests) won't screw each other up: */
+    // dbConnection.query("truncate " + tablename, done);
+
+    dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", function() {
+      dbConnection.query("truncate " + tablename, function() {
+        dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", done);
+      });
+    });
+  });
+
+  afterEach(function() {
+    dbConnection.end();
+  });
+
+  it("Should insert a team into the DB", function(done) {
+    // Post the user to the chat server.
+    request({ method: "POST",
+              uri: "http://127.0.0.1:3000/teams",
+              json: { teamname: "Soroushs Cool Team",
+                      leagueId: 1,
+                      wins: 99,
+                      losses: 0,
+                      ties: 0 }
+    }, function () {
+        // Now if we look in the database, we should find the
+        // user there.
+        var queryString = "SELECT * FROM Teams";
+        var queryArgs = [];
+
+        dbConnection.query(queryString, queryArgs, function(err, results) {
+          // Should have one result:
+          expect(results.length).to.equal(1);
+
+          // TODO: If you don't have a column named text, change this test.
+          expect(results[0].teamname).to.equal("Soroushs Cool Team");
+          expect(results[0].leagueId).to.equal(1);
+          done();
+        });
+      });
+    });
+  });
+
+describe("Games", function() {
+  var dbConnection;
+
+  beforeEach(function(done) {
+    dbConnection = mysql.createConnection({
+      user: "root",
+      password: "SQL",
+      database: "localCast"
+    });
+    dbConnection.connect();
+
+
+    var tablename = "Games";
+    /* Empty the db table before each test so that multiple tests
+     * (or repeated runs of the tests) won't screw each other up: */
+    // dbConnection.query("truncate " + tablename, done);
+
+    dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", function() {
+      dbConnection.query("truncate " + tablename, function() {
+        dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", done);
+      });
+    });
+  });
+
+  afterEach(function() {
+    dbConnection.end();
+  });
+
+  it("Should insert a game into the DB", function(done) {
+    // Post the user to the chat server.
+    request({ method: "POST",
+              uri: "http://127.0.0.1:3000/games",
+              json: { team1id: 1,
+                      team2id: 1,
+                      team1score: 10,
+                      team2score: 20 }
+    }, function () {
+        // Now if we look in the database, we should find the
+        // user there.
+        var queryString = "SELECT * FROM Games";
+        var queryArgs = [];
+
+        dbConnection.query(queryString, queryArgs, function(err, results) {
+          // Should have one result:
+          expect(results.length).to.equal(1);
+
+          // TODO: If you don't have a column named text, change this test.
+          expect(results[0].team1).to.equal(1);
+          expect(results[0].team1score).to.equal(10);
+          done();
+        });
+      });
+    });
   });
