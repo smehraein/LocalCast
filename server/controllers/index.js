@@ -108,9 +108,37 @@ module.exports = {
         console.error(err);
       });
     },
-    put: function (req, res) {
 
+    put: function (req, res) {
+      if (req.body.outcome === "win") {
+        db.Team.update(
+          {wins: Sequelize.literal('wins + 1')},
+          {where: {id: req.body.teamid}}
+        ).then(function(league) {
+          res.sendStatus(201);
+        });
+      }
+      else if (req.body.outcome === "loss") {
+        db.Team.update(
+          {losses: Sequelize.literal('losses + 1')},
+          {where: {id: req.body.teamid}}
+        ).then(function(league) {
+          res.sendStatus(201);
+        });
+      }
+      else if (req.body.outcome === "tie") {
+        db.Team.update(
+          {ties: Sequelize.literal('ties + 1')},
+          {where: {id: req.body.teamid}}
+        ).then(function(league) {
+          res.sendStatus(201);
+        });
+      }
+      else {
+        res.sendStatus(404);
+      }
     },
+
     delete: function (req, res) {
       var url_parts = url.parse(req.url, true);
       var query = url_parts.query;

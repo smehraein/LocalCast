@@ -20,9 +20,33 @@ angular.module('localCast.games', [])
         alert('Invalid Team Name');
       }
       else {
-        Games.createGame($scope.teamId, respData[0].id, $scope.data.teamscore1, $scope.data.teamscore2);
+        $scope.updateStandings(+$scope.teamId, +respData[0].id, $scope.data.teamscore1-$scope.data.teamscore2)
+        .then(function () {
+          Games.createGame($scope.teamId, respData[0].id, $scope.data.teamscore1, $scope.data.teamscore2);
+        });
       }
     });
+  };
+
+  $scope.updateStandings = function (team1, team2, diff) {
+    if (diff === 0) {
+      return Games.addTie(team1)
+      .then (function () {
+        Games.addTie(team2);
+      });
+    }
+    else if (diff > 0) {
+      return Games.addWin(team1)
+      .then (function () {
+        Games.addLoss(team2);
+      });
+    }
+    else {
+      return Games.addLoss(team1)
+      .then (function () {
+        Games.addWin(team2);
+      }); 
+    }
   };
 
 

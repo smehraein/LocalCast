@@ -14,7 +14,6 @@ var League = orm.define('League', {
 
 var Team = orm.define('Team', {
   teamname: Sequelize.STRING,
-  rank: Sequelize.INTEGER,
   losses: Sequelize.INTEGER,
   wins: Sequelize.INTEGER,
   ties: Sequelize.INTEGER,

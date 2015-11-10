@@ -239,7 +239,7 @@ angular.module('localCast.services', [])
     });
   };
 
-  var getGames = function(teamid) {
+  var getGames = function (teamid) {
     return $http({
       method: 'GET',
       url: '/games/?id='+teamid
@@ -248,6 +248,39 @@ angular.module('localCast.services', [])
       function (resp) {
         return resp.data;
       });
+  };
+
+  var addWin = function (teamid) {
+    return $http({
+      method: 'PUT',
+      url: '/teams',
+      data: {
+        teamid: teamid,
+        outcome: 'win'
+      }
+    });
+  };
+
+  var addLoss = function (teamid) {
+    return $http({
+      method: 'PUT',
+      url: '/teams',
+      data: {
+        teamid: teamid,
+        outcome: 'loss'
+      }
+    });
+  };
+
+  var addTie = function (teamid) {
+    return $http({
+      method: 'PUT',
+      url: '/teams',
+      data: {
+        teamid: teamid,
+        outcome: 'tie'
+      }
+    });
   };
 
   var getTeamId = function (teamname) {
@@ -277,7 +310,10 @@ angular.module('localCast.services', [])
     getTeamId: getTeamId,
     getTeamName: getTeamName,
     getGames: getGames,
-    deleteGame: deleteGame
+    deleteGame: deleteGame,
+    addWin: addWin,
+    addLoss: addLoss,
+    addTie: addTie
   };
 })
 
