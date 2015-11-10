@@ -4,10 +4,13 @@
       <li>
         <a href="#/leagues">All Leagues</a>
       </li>
+      <li>
+        <a ui-sref="teams({leagueId: league.id})">Teams</a>
+      </li>
     </ul>
   </div>
 
-  <h1>{{data.currentLeagueName}}</h1>
+  <h1>{{currentTeamName}}</h1>
 
   <form name="createTeamForm" ng-submit='addTeam()'>
     <input type='text'ng-model='data.teamname' novalidate required>

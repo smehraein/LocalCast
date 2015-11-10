@@ -2,6 +2,7 @@ angular.module('localCast', [
   'localCast.services',
   'localCast.leagues',
   'localCast.teams',
+  'localCast.teampage',
   'localCast.auth',
   'ui.router',
   'ngRoute'
@@ -17,10 +18,14 @@ angular.module('localCast', [
     })
     .state('teams', {
       templateUrl: 'app/teams/teams.html',
-      url: '/:leagueId/teams',
+      url: '/teams/:leagueId',
       controller: 'TeamsController'
+    })
+    .state('teampage', {
+      templateUrl: 'app/teampage/teampage.html',
+      url: '/teampage/:leagueId/:teamId',
+      controller: 'TeamPageController'
     });
-
     
     $httpProvider.interceptors.push('AttachTokens');
 })

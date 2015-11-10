@@ -77,6 +77,49 @@ angular.module('localCast.services', [])
   };
 })
 
+.factory('TeamPage', function ($http, $location, $window) {
+
+  var createTeam = function (name, leagueid) {
+    return $http({
+      method: 'POST',
+      url: '/teams',
+      data: {
+        teamname: name,
+        leagueid: leagueid
+      }
+    }).
+    then(function() {
+      $window.location.reload();
+    });
+  };
+
+  var getTeams = function (leagueid) {
+    return $http({
+      method: 'GET',
+      url: '/teams/?id='+leagueid
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
+  var getTeamName = function (teamid) {
+    return $http({
+      method: 'GET',
+      url: '/teams/?id='+teamid
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
+  return {
+    getTeamName: getTeamName
+  };
+})
+
 .factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user

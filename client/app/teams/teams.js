@@ -10,10 +10,6 @@ angular.module('localCast.teams', [])
     Teams.createTeam($scope.data.teamname, $scope.leagueId);
   };
 
-  $scope.selectTeam = function (name) {
-    return;
-  };
-
   $scope.getTeams = function () {
     Teams.getTeams($scope.leagueId)
       .then(function (respData) {
