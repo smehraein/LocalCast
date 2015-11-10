@@ -115,9 +115,6 @@ angular.module('localCast.services', [])
         method: 'DELETE',
         url: '/teams/?id='+teamid
       });  
-    })
-    .then(function() {
-      $window.location.reload();
     });
   };
 
