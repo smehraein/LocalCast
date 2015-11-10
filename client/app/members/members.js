@@ -6,11 +6,5 @@ angular.module('localCast.members', [])
   $scope.currentTeamName = '';
 
   $scope.init = function () {
-    TeamPage.getTeamName($scope.teamId)
-      .then(function(respData) {
-        $scope.currentTeamName = respData[0].teamname;
-      });
   };
-
-  $scope.init();
 });

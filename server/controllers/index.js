@@ -97,7 +97,6 @@ module.exports = {
       var url_parts = url.parse(req.url, true);
       var query = url_parts.query;
       if (query.id) {
-        // console.log(db.Team);
         db.Game.findAll({
           include: [db.Team],
           where: Sequelize.or(

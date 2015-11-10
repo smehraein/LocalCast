@@ -81,7 +81,7 @@ angular.module('localCast.services', [])
   var getTeamName = function (teamid) {
     return $http({
       method: 'GET',
-      url: '/teams/?id='+teamid
+      url: '/teams/?tid='+teamid
     })
     .then(
       function (resp) {
