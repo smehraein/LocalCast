@@ -1,5 +1,6 @@
 var db = require('../db');
 var url = require('url');
+var Sequelize = require("sequelize");
 
 module.exports = {
 
@@ -77,10 +78,12 @@ module.exports = {
 
   games: {
     get: function (req, res) {
-      if (req.body.teamid) {
+      var url_parts = url.parse(req.url, true);
+      var query = url_parts.query;
+      if (query.id) {
         db.Game.findAll({where: Sequelize.or(
-          {team1: req.body.teamid},
-          {team2: req.body.teamid})})
+          {team1: query.id},
+          {team2: query.id})})
         .then(function (games) {
           res.json(games);
         }).catch(function (err) {

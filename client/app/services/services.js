@@ -111,6 +111,17 @@ angular.module('localCast.services', [])
     });
   };
 
+  var getGames = function(teamid) {
+    return $http({
+      method: 'GET',
+      url: '/games/?id='+teamid
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
   var getTeamId = function (teamname) {
     return $http({
       method: 'GET',
@@ -136,7 +147,8 @@ angular.module('localCast.services', [])
   return {
     createGame: createGame,
     getTeamId: getTeamId,
-    getTeamName: getTeamName
+    getTeamName: getTeamName,
+    getGames: getGames
   };
 })
 
