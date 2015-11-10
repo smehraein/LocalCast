@@ -52,13 +52,13 @@ angular.module('localCast.games', [])
 
   $scope.removeGame = function(game) {
     team1 = game.TeamId;
-    team2 = game.team2id;
+    team2 = game.team2Id;
     Games.deleteGame(game.id)
     // Can optimize by having teams recalc async
     .then(function () {
-      Games.recalculateTeam(team1)
+      return Games.recalculateTeam(team1)
       .then(function () {
-        Games.recalculateTeam(team2);
+        return Games.recalculateTeam(team2);
       })
       .then(function () {
       $window.location.reload();

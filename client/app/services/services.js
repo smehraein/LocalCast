@@ -240,28 +240,31 @@ angular.module('localCast.services', [])
   };
 
   var recalculateTeam = function (teamid) {
-    return getGames(teamid)
-    .then(function (gamesData) {
-      var countdown = gamesData.length;
-      for (var i=0; i<gamesData.length; i++) {
-        (function(i){
-          var game = gamesData[i];
-          //Tie
-          if (game.team1score === game.team2score) {
-            addTie(teamid);
-          }
-          // Win
-          else if ((game.TeamId === teamid && game.team1score > game.team2score) || (game.team2Id === teamid && game.team2score > game.team1score)) {
-            addWin(teamid);
-          }
-          //Loss
-          else {
-            addLoss(teamid);
-          }
-          countdown--;
-          if (countdown === 0) return;
-        })(i);
-      }
+    return resetTeam(teamid)
+    .then(function () {
+      getGames(teamid)
+      .then(function (gamesData) {
+        var countdown = gamesData.length;
+        for (var i=0; i<gamesData.length; i++) {
+          (function(i){
+            var game = gamesData[i];
+            //Tie
+            if (game.team1score === game.team2score) {
+              addTie(teamid);
+            }
+            // Win
+            else if ((game.TeamId === teamid && game.team1score > game.team2score) || (game.team2Id === teamid && game.team2score > game.team1score)) {
+              addWin(teamid);
+            }
+            //Loss
+            else {
+              addLoss(teamid);
+            }
+            countdown--;
+            if (countdown === 0) return;
+          })(i);
+        }
+      });
     });
   };
 
@@ -305,6 +308,17 @@ angular.module('localCast.services', [])
       data: {
         teamid: teamid,
         outcome: 'tie'
+      }
+    });
+  };
+
+  var resetTeam = function (teamid) {
+    return $http({
+      method: 'PUT',
+      url: '/teams',
+      data: {
+        teamid: teamid,
+        outcome: 'reset'
       }
     });
   };
