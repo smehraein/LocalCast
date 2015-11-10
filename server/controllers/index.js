@@ -64,7 +64,7 @@ module.exports = {
     post: function (req, res) {
       db.Team.create({
         teamname: req.body.teamname,
-        leagueId: req.body.leagueId,
+        leagueId: req.body.leagueid,
         rank: 0,
         wins: 0,
         losses: 0,

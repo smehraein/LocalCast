@@ -1,0 +1,26 @@
+<div id='container'>
+    <div class="navigation">
+    <ul>
+      <li>
+        <a href="#/leagues">All Leagues</a>
+      </li>
+    </ul>
+  </div>
+
+  <h1>{{data.currentLeagueName}}</h1>
+
+  <form name="createTeamForm" ng-submit='addTeam()'>
+    <input type='text'ng-model='data.teamname' novalidate required>
+    <button ng-disabled="createTeamForm.$invalid">Create Team</button>
+  </form>
+
+  <div class="leagues">
+      <div ng-repeat="team in data.teams" class="league" ng-click="selectTeam(team.id)">
+        <img src="../assets/redirect_icon.png" />
+        <div class="title">{{team.teamname}}</div>
+        <div class="original">{{ team.rank }}</div>
+      </div>
+    </div>
+</div>
+
+

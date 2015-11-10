@@ -1,6 +1,6 @@
 angular.module('localCast.leagues', [])
 
-.controller('LeaguesController', function ($scope, Leagues) {
+.controller('LeaguesController', function ($scope, Leagues, Teams) {
   $scope.data = {};
   $scope.data.leagues = [];
 
@@ -13,6 +13,10 @@ angular.module('localCast.leagues', [])
 
   $scope.createLeague = function () {
     Leagues.createLeague($scope.data.leaguename, $scope.data.sport);
+  };
+
+  $scope.selectLeague = function (league) {
+    Teams.setLeague(league.id, league.leaguename);
   };
 
   $scope.init = function () {

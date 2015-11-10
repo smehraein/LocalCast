@@ -1,12 +1,10 @@
-angular.module('shortly.services', [])
+angular.module('localCast.services', [])
 
 .factory('Leagues', function ($http, $location, $route) {
-  // Your code here
-  // create
-  var createLeague = function (name, sport) { //passes in json obj req.body.url
+  var createLeague = function (name, sport) {
     return $http({
       method: 'POST',
-      url: '/leagues', //from /create page
+      url: '/leagues',
       data: {
         leaguename: name,
         sport: sport
@@ -17,14 +15,12 @@ angular.module('shortly.services', [])
     });
   };
 
-  // getLinks
-  var getLeagues = function () { //later MAY need to take user if want to be user specific
+  var getLeagues = function () { 
     return $http({
       method: 'GET',
       url: '/leagues'
     })
     .then(
-      //return json obj (in controller: update the controller scope's reference to links)
       function (resp) {
         return resp.data;
       });
@@ -36,6 +32,57 @@ angular.module('shortly.services', [])
     getLeagues: getLeagues
   };
 })
+.factory('Teams', function ($http, $location, $route) {
+  var currentLeague;
+  var currentLeagueName;
+
+
+  var createTeam = function (name) {
+    return $http({
+      method: 'POST',
+      url: '/teams',
+      data: {
+        teamname: name,
+        leagueid: currentLeague
+      }
+    }).
+    then(function() {
+      $route.reload();
+    });
+  };
+
+  var getTeams = function () { 
+    return $http({
+      method: 'GET',
+      url: '/teams',
+      data: {
+        leagueid: currentLeague
+      }
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
+  var setLeague = function(leagueId, leaguename) {
+    currentLeague = leagueId;
+    currentLeagueName = leaguename;
+    $location.path('/teams');
+  };
+
+  var getLeagueName = function() {
+    return currentLeagueName;
+  };
+
+  return {
+    createTeam: createTeam,
+    getTeams: getTeams,
+    setLeague: setLeague,
+    getLeagueName: getLeagueName
+  };
+})
+
 .factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user

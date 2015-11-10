@@ -54,43 +54,43 @@ h1 {
   margin-top: 10px;
 }
 
-.link {
+.league {
   clear: both;
   margin-bottom: 5px;
   padding: 5px;
   min-height: 50px;
 }
 
-.link:hover {
+.league:hover {
   background-color: #efe;
 }
 
-.link img {
+.league img {
   float: left;
   margin: 0 5px;
 }
 
-.link .visits {
+.league .visits {
   float: right;
   margin-right: 10px;
   margin-left: 20px;
 }
 
-.link .visits .count {
+.league .visits .count {
   font-size: 46px;
   font-weight: 600;
 }
 
-.link .title {
+.league .title {
   font-weight: 600;
 }
 
-.link .original {
+.league .original {
   color: #aaa;
   font-size: 12px;
 }
 
-.link .info {
+.league .info {
   margin-left: 55px;
 }
 

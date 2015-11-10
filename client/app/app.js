@@ -1,8 +1,8 @@
-angular.module('shortly', [
-  'shortly.services',
+angular.module('localCast', [
+  'localCast.services',
   'localCast.leagues',
-  'shortly.shorten',
-  'shortly.auth',
+  'localCast.teams',
+  'localCast.auth',
   'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider) {
@@ -20,9 +20,9 @@ angular.module('shortly', [
       templateUrl: 'app/leagues/leagues.html',
       controller: 'LeaguesController'
     })
-    .when('/shorten', { //or create?
-      templateUrl: 'app/shorten/shorten.html',
-      controller: 'ShortenController'
+    .when('/teams', { //or create?
+      templateUrl: 'app/teams/teams.html',
+      controller: 'TeamsController'
     })
     .otherwise({
       redirectTo: '/leagues'
