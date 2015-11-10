@@ -1,10 +1,24 @@
 angular.module('localCast.members', [])
 
-.controller('MembersController', function ($scope, $location, $stateParams, TeamPage) {
-  $scope.leagueId = $stateParams.leagueId;
+.controller('MembersController', function ($scope, $location, $stateParams, Members) {
   $scope.teamId = $stateParams.teamId;
-  $scope.currentTeamName = '';
+  $scope.data = {};
+
+
+  $scope.getMembers = function () {
+    Members.getMembers($scope.teamId)
+    .then(function (members) {
+      $scope.data.members = members;
+    });
+  };
+
+  $scope.addMember = function () {
+    Members.addMember($scope.data.username, $scope.teamId);
+  };
 
   $scope.init = function () {
+    $scope.getMembers();
   };
+
+  $scope.init();
 });

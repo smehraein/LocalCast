@@ -93,6 +93,39 @@ angular.module('localCast.services', [])
     getTeamName: getTeamName
   };
 })
+
+.factory('Members', function ($http, $location, $window) {
+  var getMembers = function (teamid) {
+    return $http({
+      method: 'GET',
+      url: '/users/?tid='+teamid
+    })
+    .then(
+      function (resp) {
+        return resp.data;
+      });
+  };
+
+  var addMember = function (username, teamid) {
+    return $http({
+      method: 'POST',
+      url: '/users',
+      data: {
+        username: username,
+        teamid: teamid
+      }
+    }).
+    then(function() {
+      $window.location.reload();
+    });
+  };
+
+  return {
+    getMembers: getMembers,
+    addMember: addMember
+  };
+})
+
 .factory('Games', function ($http, $location, $window) {
 
   var createGame = function (team1, team2, team1score, team2score) {

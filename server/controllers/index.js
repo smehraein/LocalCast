@@ -135,16 +135,18 @@ module.exports = {
 
   users: {
     get: function (req, res) {
-      if (req.body.userid) {
-        db.User.findById(req.body.userid)
+      var url_parts = url.parse(req.url, true);
+      var query = url_parts.query;
+      if (query.id) {
+        db.User.findById(query.id)
         .then(function (user) {
           res.json(user.dataValues);
         }).catch(function (err) {
           console.error(err);
         });
       }
-      else if (req.body.teamid) {
-       db.User.findAll({where: {teamId: req.body.teamid}})
+      else if (query.tid) {
+       db.User.findAll({where: {teamId: query.tid}})
        .then(function (users) {
          res.json(users);
        }).catch(function (err) {

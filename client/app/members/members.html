@@ -2,16 +2,15 @@
 
   <h2>Members</h2>
 
-  <form name="createTeamForm" ng-submit='addTeam()'>
-    <input type='text'ng-model='data.teamname' novalidate required>
-    <button ng-disabled="createTeamForm.$invalid">Create Team</button>
+  <form name="addMemberForm" ng-submit='addMember()'>
+    <input type='text'ng-model='data.username' novalidate required>
+    <button ng-disabled="addMemberForm.$invalid">Add Member</button>
   </form>
 
   <div class="leagues">
-      <div ng-repeat="team in data.teams" class="league" ui-sref="teampage({leagueId: leagueId ,teamId: team.id})">
+      <div ng-repeat="member in data.members" class="league">
         <img src="../assets/redirect_icon.png" />
-        <div class="title">{{team.teamname}}</div>
-        <div class="original">{{ team.rank }}</div>
+        <div class="title">{{member.username}}</div>
       </div>
     </div>
 </div>
