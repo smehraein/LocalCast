@@ -29,6 +29,14 @@ angular.module('localCast.games', [])
     Games.getGames($scope.teamId)
     .then(function (respData) {
       $scope.data.games = respData;
+      for (var i=0; i<$scope.data.games.length; i++) {
+        (function (i) {var game = $scope.data.games[i];
+        $scope.getName(game.team2Id)
+        .then(function(name) {
+          game.team2name = name;
+        });
+      })(i);
+      }
     });
   };
 
