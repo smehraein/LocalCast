@@ -27,23 +27,34 @@ angular.module('localCast.services', [])
   };
 
   var deleteLeague = function (id, teamsdata) {
-    var countdown = teamsdata.length;
-    for (var i=0; i<teamsdata.length; i++) {
-      (function (i){
-        deleteLeagueTeam(teamsdata[i].id)
-        .then(function () {
-          countdown--;
-          if (countdown === 0) {
-            return $http({
-              method: 'DELETE',
-              url: '/leagues/?id='+id
-            })
-            .then (function () {
-              $window.location.reload();
-            });
-          }
-        });
-      })(i);
+    if (teamsdata.length === 0) {
+      return $http({
+        method: 'DELETE',
+        url: '/leagues/?id='+id
+      })
+      .then (function () {
+        $window.location.reload();
+      });
+    }
+    else {
+      var countdown = teamsdata.length;
+        for (var i=0; i<teamsdata.length; i++) {
+        (function (i){
+          deleteLeagueTeam(teamsdata[i].id)
+          .then(function () {
+            countdown--;
+            if (countdown === 0) {
+              return $http({
+                method: 'DELETE',
+                url: '/leagues/?id='+id
+              })
+              .then (function () {
+                $window.location.reload();
+              });
+            }
+          });
+        })(i);
+      }
     }
   };
 

@@ -16,7 +16,7 @@ angular.module('localCast.games', [])
   $scope.addGame = function() {
     Games.getTeamId($scope.data.teamname2)
     .then(function (respData) {
-      if (!respData[0].id || respData[0].leagueId != $scope.leagueId) {
+      if (!respData[0].id || respData[0].id == $scope.teamId || respData[0].leagueId != $scope.leagueId) {
         alert('Invalid Team Name');
       }
       else {
