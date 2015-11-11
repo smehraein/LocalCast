@@ -1,20 +1,51 @@
-<div class='container'>
-  <div class="page-header">
-    <h1>Games</h1>
+<div class="container theme-showcase" role="main">
+  <div class="container">
+    <div class="page-header">
+      <h1>Games</h1>
+    </div>
+
+
+    <form name="addGameForm" ng-submit='addGame()'>
+      <div class="input-group input-group-md">
+        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamname2' placeholder="Opposing Team" novalidate required>
+      </div>
+      <div class="input-group input-group-md">
+        <input type='number' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamscore1' placeholder="Team Score" novalidate required>
+      </div>
+      <div class="input-group input-group-md">
+        <input type='number' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamscore2' placeholder="Opposing Score" novalidate required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-lg btn-default" ng-disabled="addGameForm.$invalid">Add Game</button>
+    </form>
   </div>
 
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Home Team</th>
+            <th>Away Team</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="game in data.games track by $index">
+            <td>{{game.Team.teamname}} ({{game.team1score}})</td>
+            <td>{{game.team2name}} ({{game.team2score}})</td>
+            <td><button class="btn btn-sm btn-danger" ng-click="removeGame(game)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
   
-
-  <form name="addGameForm" ng-submit='addGame()'>
-    <input type='text'ng-model='data.teamname2' placeholder="Opposing Team" novalidate required>
-    <input type='number'ng-model='data.teamscore1' placeholder="Team Score" novalidate required>
-    <input type='number'ng-model='data.teamscore2' placeholder="Opposing Team Score" novalidate required>
-    <button ng-disabled="addGameForm.$invalid">Add Game</button>
-  </form>
-
+<!-- 
   <div class="leagues">
     <div ng-repeat="game in data.games track by $index" class="league">
-      <img src="../assets/redirect_icon.png" />
       <div class='gamedisplay'>
         <div class="title">{{game.Team.teamname}} {{game.team1score}}</div>
         <div class="title">{{game.team2name}} {{game.team2score}}</div>
@@ -22,4 +53,4 @@
       </div>
     </div>
   </div>
-</div>
+</div -->
