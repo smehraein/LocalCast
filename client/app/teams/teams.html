@@ -1,27 +1,74 @@
-<div id='container'>
-    <div class="navigation">
-    <ul>
-      <li>
-        <a href="#/leagues">All Leagues</a>
-      </li>
-    </ul>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#leagues">Local Cast</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Navigation <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#leagues">Leagues</a></li>
+          </ul>
+        </li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container theme-showcase" role="main">
+
+  <br>
+  <br>
+  <br>
+
+  <div class="jumbotron">
+  <h1>{{data.currentLeagueName}} League Page</h1>
   </div>
 
-  <h1>{{data.currentLeagueName}}</h1>
+  <div class="container">
+    <div class="page-header">
+      <h1>Create a Team</h1>
+    </div>
 
-  <form name="createTeamForm" ng-submit='addTeam()'>
-    <input type='text'ng-model='data.teamname' placeholder="Team Name" novalidate required>
-    <button ng-disabled="createTeamForm.$invalid">Create Team</button>
-  </form>
+    <form name="createTeamForm" ng-submit='addTeam()'>
+      <div class="input-group input-group-lg">
+        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamname' placeholder="Team Name" novalidate required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-lg btn-default" ng-disabled="createTeamForm.$invalid">Create Team</button>
+    </form>
+  </div>
 
-  <div class="leagues">
-      <div ng-repeat="team in data.teams" class="league" | orderBy:"team.wins">
-        <img src="../assets/redirect_icon.png" />
-        <a class="title"  ui-sref="teampage({leagueId: leagueId, teamId: team.id})">{{team.teamname}}</a>
-        <div class="original">{{ team.wins }}/{{ team.losses }}/{{ team.ties }}</div>
-        <button class="delete" ng-click="removeTeam(team)">Delete</button>
+  <div class="container">
+    <div class="page-header">
+      <h1>Active Teams</h1>
+    </div>
+
+    <div ng-repeat="team in data.teams" | orderBy:"team.wins">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="panel-title" ui-sref="teampage({leagueId: leagueId, teamId: team.id})">{{team.teamname}}</a>
+              <button class="btn btn-sm btn-danger pull-right" ng-click="removeTeam(team)">Delete</button>
+            </div>
+            <div class="panel-body">
+              {{ team.wins }}/{{ team.losses }}/{{ team.ties }}
+            </div>
+          </div>
+        </div><!-- /.col-sm-4 -->
       </div>
     </div>
+  </div>
 </div>
-
-
