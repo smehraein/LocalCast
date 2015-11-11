@@ -1,23 +1,77 @@
-<div id='container'>
-  <div class="navigation">
-    <ul>
-      
-    </ul>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#leagues">Local Cast</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Navigation <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#leagues">Leagues</a></li>
+          </ul>
+        </li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
   </div>
-  <h1>Leagues</h1>
+</nav>
+
+<div class="container theme-showcase" role="main">
+
+  <br>
+  <br>
+  <br>
+
+  <div class="jumbotron">
+  <h1>Welcome to Local Cast</h1>
+  <p>Join a league or create your own! Keep track of teams, games and players
+  all in one place. </p>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Create a League</h1>
+    </div>
 
     <form name="createLeagueForm" ng-submit='createLeague()'>
-      <input type='text'ng-model='data.leaguename' placeholder="League Name" novalidate required>
-      <input type='text' ng-model='data.sport' placeholder="Sport" novalidate required>
-      <button ng-disabled="createLeagueForm.$invalid">Create League</button>
+      <div class="input-group input-group-lg">
+        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.leaguename' placeholder="League Name" novalidate required>
+      </div>
+      <div class="input-group input-group-lg">
+        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.sport' placeholder="Sport" novalidate required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-lg btn-default" ng-disabled="createLeagueForm.$invalid">Create League</button>
     </form>
+  </div>
 
-    <div class="leagues">
-      <div ng-repeat="league in data.leagues" class="league">
-        <img src="../assets/redirect_icon.png" />
-        <a class="title" ui-sref="teams({leagueId: league.id})">{{league.leaguename}}</a>
-        <div class="original">{{ league.sport }}</div>
-        <button class="delete" ng-click="removeLeague(league)">Delete</button>
+  <div class="container">
+    <div class="page-header">
+      <h1>Active Leagues</h1>
+    </div>
+
+    <div ng-repeat="league in data.leagues">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="panel-title" ui-sref="teams({leagueId: league.id})">{{league.leaguename}}</a>
+              <button class="btn btn-sm btn-danger pull-right" ng-click="removeLeague(league)">Delete</button>
+            </div>
+            <div class="panel-body">
+              {{ league.sport }}
+            </div>
+          </div>
+        </div><!-- /.col-sm-4 -->
       </div>
     </div>
+  </div>
 </div>
