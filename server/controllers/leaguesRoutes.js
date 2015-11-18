@@ -1,51 +1,58 @@
-var db = require('../db');
-var url = require('url');
-var Sequelize = require('sequelize');
+/**
+ * Router for all requests to '/leagues'.
+ *
+ * GET: Accepts the follow queries:
+ *         'id'  - Return league by Id
+ *         ''    - Returns all leagues
+ *
+ * POST: Takes a name and description and creates a new league.
+ *
+ * PUT:
+ *
+ * DELETE: Accepts the follow queries:
+ *         'id'         - Deletes a league
+ *
+ * @type {Object}
+ */
+
+var Leagues = require('../models/leaguesModel.js');
 
 module.exports = {
   get: function (req, res) {
-      if (req.query.id) {
-        db.League.findById(req.query.id)
-        .then(function (league) {
-          res.json(league);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
-      else {
-        db.League.findAll().then(function (leagues) {
-          res.json(leagues);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
-    },
-
-    post: function (req, res) {
-      db.League.create({
-        leaguename: req.body.leaguename,
-        sport: req.body.sport
-      }).then(function(league) {
-        res.sendStatus(201);
-      })
-      .catch(function (err) {
-      console.error(err);
+    if (req.query.id) {
+      Leagues.getById(req.query.id)
+      .then(function (league) {
+      res.json(league);
       });
-    },
-    put: function (req, res) {
-
-    },
-    delete: function (req, res) {
-      if (req.query.id) {
-        db.League.destroy({where: {id: req.query.id}})
-        .then(function () {
-          res.sendStatus(200);
-        }).catch(function (err) {
-          console.error(err);
-        });
-      }
-      else {
-        res.sendStatus(404);
-      }
     }
+    else {
+      Leagues.getAll()
+      .then(function (leagues) {
+      res.json(leagues); 
+      });
+    }
+  },
+  post: function (req, res) {
+    if (!req.body.leaguename || !req.body.description) {
+      res.sendStatus(400);
+    }
+    Leagues.createLeague(req.body.leaguename, req.body.description)
+    .then(function () {
+      res.sendStatus(201);
+    });
+  },
+  put: function (req, res) {
+
+  },
+  delete: function (req, res) {
+    if (req.query.id) {
+      Leagues.deleteUser(req.query.id)
+      .then(function () {
+        res.sendStatus(200);
+      });
+    }
+    else {
+      res.sendStatus(400);
+    }
+  }
 };

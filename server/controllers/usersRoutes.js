@@ -1,7 +1,5 @@
 /**
- * Router for all requests to '/user'.
- * Requires 'url' and 'sequelize' for more advanced query operations
- * such as parsing parameters from a request URL and using 'or' queries.
+ * Router for all requests to '/users'.
  *
  * GET: Accepts the follow queries:
  *         'id'  - Return user by Id
