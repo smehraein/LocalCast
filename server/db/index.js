@@ -20,24 +20,21 @@ var Team = orm.define('Team', {
 });
 
 var Game = orm.define('Game', {
-  team2Id: Sequelize.INTEGER,
   team1score: Sequelize.INTEGER,
   team2score: Sequelize.INTEGER
 });
 
 
-
-Team.belongsTo(League, {as: 'league'});
+// Assign associations
+Team.belongsTo(League);
 Team.hasMany(User);
-Game.belongsTo(Team);
+User.belongsTo(Team);
+Team.belongsToMany(Team, {as: "Game", through: Game});
 
 
-User.sync();
-League.sync();
-Team.sync();
-Game.sync();
 // creates these tables in MySQL if they don't already exist. Pass in {force: true}
-// to drop any existing user and message tables and make new ones.
+// to drop any existing tables and make new ones.
+sequelize.sync({force:true});
 
 exports.User = User;
 exports.League = League;
