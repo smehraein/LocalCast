@@ -24,11 +24,14 @@ var Game = orm.define('Game', {
   team2score: Sequelize.INTEGER
 });
 
+var Roster = orm.define('Roster', {
+});
+
 
 // Assign associations
 Team.belongsTo(League);
-Team.hasMany(User);
-User.belongsTo(Team);
+User.belongsToMany(Team, {through: Roster});
+Team.belongsToMany(User, {through: Roster});
 Team.belongsToMany(Team, {as: "Game", through: Game});
 
 
@@ -40,3 +43,4 @@ exports.User = User;
 exports.League = League;
 exports.Team = Team;
 exports.Game = Game;
+exports.Roster = Roster;

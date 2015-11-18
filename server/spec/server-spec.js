@@ -57,8 +57,7 @@ describe("Users", function() {
               json: { username: "Soroush" }
     }, function () {
       request({ method: "GET",
-              uri: "http://127.0.0.1:3000/users",
-              json: { userid: 1 }
+              uri: "http://127.0.0.1:3000/users/?id=1"
       }, function (err, response) {
         // Should have one result:
         expect(response.body.username).to.equal("Soroush");

@@ -1,51 +1,80 @@
+/**
+ * Router for all requests to '/user'.
+ * Requires 'url' and 'sequelize' for more advanced query operations
+ * such as parsing parameters from a request URL and using 'or' queries.
+ *
+ * GET: Accepts the follow queries:
+ *         'id'  - Return user by Id
+ *         'tid' - Return all users in a given team
+ *         ''    - Returns all users
+ *
+ * POST: Takes a username and creates a new user.
+ *
+ * PUT: Takes a userId and teamId and associates them.
+ *
+ * DELETE: Accepts the follow queries:
+ *         'tid & id' - Removes a user from a given team.
+ *         'id'       - Deletes a user
+ *
+ * @type {Object}
+ */
+
 var Users = require('../models/userModel.js');
-var url = require('url');
-var Sequelize = require('sequelize');
 
 module.exports = {
   get: function (req, res) {
     if (req.query.id) {
-      return res.json(Users.getById(req.query.id));
+      Users.getById(req.query.id)
+      .then(function (user) {
+      res.json(user);
+      });
     }
     else if (query.tid) {
-     return res.json(Users.getByTeamId(req.query.tid)); 
+      Users.getByTeamId(req.query.tid)
+      .then(function (users) {
+      res.json(users); 
+      });
     }
     else {
-      return res.json(Users.getAll()); 
+      Users.getAll()
+      .then(function (users) {
+      res.json(users); 
+      });
     }
   },
   post: function (req, res) {
-    db.User.create({
-      username: req.body.username,
-      TeamId: req.body.teamid
-    }).then(function(user) {
+    if (!req.body.username) {
+      res.sendStatus(400);
+    }
+    Users.createUser(req.body.username)
+    .then(function () {
       res.sendStatus(201);
-    })
-    .catch(function (err) {
-      console.error(err);
     });
   },
   put: function (req, res) {
-
+    if (!req.body.userId || !req.body.teamId) {
+      res.sendStatus(400);
+    }
+    Users.addUserToTeam(req.body.userId, req.body.teamId)
+    .then(function () {
+      res.sendStatus(201);
+    });
   },
   delete: function (req, res) {
-    var url_parts = url.parse(req.url, true);
-    var query = url_parts.query;
-    if (query.id) {
-      db.User.destroy({where: {id: query.id}})
+    if (req.query.id && req.query.tid) {
+      Users.removeUserFromTeam(req.query.id, req.query.tid)
       .then(function () {
         res.sendStatus(200);
-      }).catch(function (err) {
-        console.error(err);
       });
     }
-    else if (query.tid) {
-      db.User.destroy({where: {TeamId: query.tid}})
+    else if (req.query.id) {
+      Users.deleteUser(req.query.id)
       .then(function () {
         res.sendStatus(200);
-      }).catch(function (err) {
-        console.error(err);
       });
+    }
+    else {
+      res.sendStatus(400);
     }
   }
 };
