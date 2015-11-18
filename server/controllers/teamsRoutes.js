@@ -1,54 +1,60 @@
-var db = require('../db');
-var url = require('url');
-var Sequelize = require('sequelize');
+/**
+ * Router for all requests to '/teams'.
+ *
+ * GET: Accepts the follow queries:
+ *         'id'  - Return team by Id
+ *         'lid' - Return all teams in a given league
+ *         'tn'  - Return teams by teamname
+ *         ''    - Returns all users
+ *
+ * POST: Takes a teamname and leagueId and creates a new team.
+ *
+ * PUT: Takes an outcome and teamId and updates win/loss/ties.
+ *
+ * DELETE: Accepts the follow queries:
+ *         'id'  - Deletes a team
+ *         'lid' - Deletes ALL teams in a league.
+ *
+ * @type {Object}
+ */
+
+var Teams = require('../models/teamsModel.js');
 
 module.exports = {
   get: function (req, res) {
     if (req.query.id) {
-      return db.Team.findById(req.query.id)
+      Teams.getById(req.query.id)
       .then(function (team) {
-        res.json(team);
-      }).catch(function (err) {
-        console.error(err);
+      res.json(team);
       });
     }
-    else if (req.query.lid) {
-     return db.Team.findAll({where: {leagueId: req.query.lid}})
-     .then(function (teams) {
-        res.json(teams);
-     }).catch(function (err) {
-        console.error(err);
-     });
+    else if (query.lid) {
+      Teams.getByLeagueId(req.query.lid)
+      .then(function (teams) {
+      res.json(teams); 
+      });
     }
-    else if (req.query.tn) {
-     return db.Team.findAll({where: {teamname: req.query.tn}})
-     .then(function (teams) {
-       res.json(teams);
-     }).catch(function (err) {
-       console.error(err);
-     });
+    else if (query.tn) {
+      Teams.getByTeamname(req.query.tn)
+      .then(function (teams) {
+      res.json(teams); 
+      });
     }
     else {
-      return db.Team.findAll().then(function (teams) {
-        res.json(teams);
-      }).catch(function (err) {
-        console.error(err);
+      Teams.getAll()
+      .then(function (teams) {
+      res.json(teams); 
       });
     }
   },
 
   post: function (req, res) {
-    return db.Team.create({
-      teamname: req.body.teamname,
-      leagueId: req.body.leagueid,
-      wins: 0,
-      losses: 0,
-      ties: 0
-    }).then(function (league) {
+    if (!req.body.teamname || !req.body.leagueId) {
+      res.sendStatus(400);
+    }
+    Teams.createTeam(req.body.teamname, req.body.leagueId)
+    .then(function () {
       res.sendStatus(201);
-    })
-    .catch(function (err) {
-      console.error(err);
     });
   },
 
