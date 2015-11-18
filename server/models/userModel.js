@@ -50,6 +50,8 @@ module.exports.addUserToTeam = function (userId, teamId) {
   })
   .then(function (team) {
     return team.addUser(currentUser);
+  }).catch(function (err) {
+    console.error("Error adding user to team: ", err);
   });
 };
 
@@ -57,9 +59,14 @@ module.exports.removeUserFromTeam = function (userId, teamId) {
   return db.Roster.destroy({where: {
     UserId: userId,
     TeamId: teamId
-  }});
+  }}).catch(function (err) {
+    console.error("Error removing user from team: ", err);
+  });
 };
 
 module.exports.deleteUser = function (id) {
-  return db.User.destroy({where: {id: id}});
+  return db.User.destroy({where: {id: id}})
+  .catch(function (err) {
+    console.error("Error deleting user: ", err);
+  });
 };

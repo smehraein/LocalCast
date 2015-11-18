@@ -13,8 +13,8 @@
  * PUT: Takes a userId and teamId and associates them.
  *
  * DELETE: Accepts the follow queries:
- *         'tid & id' - Removes a user from a given team.
- *         'id'       - Deletes a user
+ *         'tid' & 'id' - Removes a user from a given team.
+ *         'id'         - Deletes a user
  *
  * @type {Object}
  */
