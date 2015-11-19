@@ -46,7 +46,7 @@
         <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.leaguename' placeholder="League Name" novalidate required>
       </div>
       <div class="input-group input-group-lg">
-        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.sport' placeholder="Sport" novalidate required>
+        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.description' placeholder="Description" novalidate required>
       </div>
       <br>
       <button type="submit" class="btn btn-lg btn-default" ng-disabled="createLeagueForm.$invalid">Create League</button>
@@ -67,7 +67,7 @@
               <button class="btn btn-sm btn-danger pull-right" ng-click="removeLeague(league)">Delete</button>
             </div>
             <div class="panel-body">
-              {{ league.sport }}
+              {{ league.description }}
             </div>
           </div>
         </div><!-- /.col-sm-4 -->
