@@ -67,10 +67,3 @@ module.exports.deleteTeam = function (id) {
     console.error("Error deleting team: ", err);
   });
 };
-
-module.exports.deleteAllTeams = function (leagueid) {
-  return db.Team.destroy({where: {leagueId: req.query.lid}})
-  .catch(function (err) {
-    console.error("Error deleting all teams in league: ", err);
-  });
-};
