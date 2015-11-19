@@ -100,7 +100,7 @@ describe("Backend", function() {
   it("Should insert a team into the DB", function(done) {
     var postOptions = {
       method: "POST",
-      uri: "http://127.0.0.1:3000/leagues",
+      uri: "http://127.0.0.1:3000/teams",
       body: {
         teamname: "Soroush's Testing Team",
         leagueId: 1
@@ -118,13 +118,13 @@ describe("Backend", function() {
     });
   });
 
-  it("Should put a user on a team DB", function(done) {
+  it("Should put a user on a team", function(done) {
     var postOptions = {
-      method: "POST",
-      uri: "http://127.0.0.1:3000/leagues",
+      method: "PUT",
+      uri: "http://127.0.0.1:3000/users",
       body: {
-        teamname: "Soroush's Testing Team",
-        leagueId: 1
+        userId: 1,
+        teamId: 1
       },
       json: true
     };
@@ -133,8 +133,18 @@ describe("Backend", function() {
     .then(function () {
       return db.Team.findById(1);
     })
-    .then(function (team) {
-      expect(team.teamname).to.equal("Soroush's Testing Team");
+    .then(function (team) { // Test relation from team
+      return team.getUsers();
+    })
+    .then(function (users) {
+      expect(users[0].username).to.equal("Soroush");
+      return db.User.findById(1); // Test relation from user
+    })
+    .then(function (user) {
+      return user.getTeams();
+    })
+    .then(function (teams) {
+      expect(teams[0].teamname).to.equal("Soroush's Testing Team");
       done();
     });
   });

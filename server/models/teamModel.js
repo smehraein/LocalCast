@@ -44,10 +44,7 @@ module.exports.getAll = function () {
 module.exports.createTeam = function (teamname, leagueId) {
   return db.Team.create({
     teamname: teamname,
-    leagueId: leagueId,
-    wins: 0,
-    losses: 0,
-    ties: 0
+    LeagueId: leagueId,
   }).catch(function (err) {
     console.error("Error creating team: ", err);
   });
