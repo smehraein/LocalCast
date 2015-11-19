@@ -1,17 +1,17 @@
 var Sequelize = require("sequelize");
-var orm = new Sequelize("localCast", "root", "SQL");
+var sequelize = new Sequelize("localCast", "root", "SQL");
 
 
-var User = orm.define('User', {
+var User = sequelize.define('User', {
   username: Sequelize.STRING,
 });
 
-var League = orm.define('League', {
+var League = sequelize.define('League', {
   leaguename: Sequelize.STRING,
   description: Sequelize.STRING
 });
 
-var Team = orm.define('Team', {
+var Team = sequelize.define('Team', {
   teamname: Sequelize.STRING,
   },
   { instanceMethods: {
@@ -42,7 +42,7 @@ var Team = orm.define('Team', {
   }
 });
 
-var Game = orm.define('Game', {
+var Game = sequelize.define('Game', {
   teamScore: Sequelize.INTEGER,
   opponentScore: Sequelize.INTEGER
   },
@@ -61,7 +61,7 @@ var Game = orm.define('Game', {
   }
 });
 
-var Roster = orm.define('Roster', {
+var Roster = sequelize.define('Roster', {
 });
 
 // Assign associations

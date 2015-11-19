@@ -27,7 +27,7 @@ module.exports = {
       res.json(user);
       });
     }
-    else if (query.tid) {
+    else if (req.query.tid) {
       Users.getByTeamId(req.query.tid)
       .then(function (users) {
       res.json(users); 

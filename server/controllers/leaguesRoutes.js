@@ -15,7 +15,7 @@
  * @type {Object}
  */
 
-var Leagues = require('../models/leaguesModel.js');
+var Leagues = require('../models/leagueModel.js');
 
 module.exports = {
   get: function (req, res) {

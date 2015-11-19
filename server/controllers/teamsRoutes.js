@@ -18,7 +18,7 @@
  * @type {Object}
  */
 
-var Teams = require('../models/teamsModel.js');
+var Teams = require('../models/teamModel.js');
 
 module.exports = {
   get: function (req, res) {

@@ -1,11 +1,11 @@
 /* You'll need to have MySQL running and your Node server running
  * for these tests to pass. */
-
+var Sequelize = require("sequelize");
 var mysql = require('mysql');
 var request = require("request"); // You might need to npm install the request module!
 var expect = require('../../node_modules/chai/chai').expect;
 
-describe("Users", function() {
+describe("Backend", function() {
   var dbConnection;
 
   beforeEach(function(done) {
@@ -15,12 +15,11 @@ describe("Users", function() {
       database: "localCast"
     });
     dbConnection.connect();
-
-
-    var tablename = "Users";
-    /* Empty the db table before each test so that multiple tests
-     * (or repeated runs of the tests) won't screw each other up: */
-    dbConnection.query("truncate " + tablename, done);
+    sequelize = new Sequelize("localCast", "root", "SQL");
+    sequelize.sync({force:true})
+    .then(function() {
+      done();
+    });
   });
 
   afterEach(function() {
@@ -60,41 +59,12 @@ describe("Users", function() {
               uri: "http://127.0.0.1:3000/users/?id=1"
       }, function (err, response) {
         // Should have one result:
-        expect(response.body.username).to.equal("Soroush");
+        var data = JSON.parse(response.body);
+        expect(data.username).to.equal("Soroush");
         done();
         });
       });
     });
-  });
-
-
-
-describe("Leagues", function() {
-  var dbConnection;
-
-  beforeEach(function(done) {
-    dbConnection = mysql.createConnection({
-      user: "root",
-      password: "SQL",
-      database: "localCast"
-    });
-    dbConnection.connect();
-
-
-    var tablename = "Leagues";
-    /* Empty the db table before each test so that multiple tests
-     * (or repeated runs of the tests) won't screw each other up: */
-    // dbConnection.query("truncate " + tablename, done);
-
-    dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", function() {
-      dbConnection.query("truncate " + tablename, function() {
-        dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", done);
-      });
-    });
-  });
-
-  afterEach(function() {
-    dbConnection.end();
   });
 
   it("Should insert a league into the DB", function(done) {
@@ -121,7 +91,6 @@ describe("Leagues", function() {
         });
       });
     });
-  });
 
 describe("Teams", function() {
   var dbConnection;
