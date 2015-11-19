@@ -32,7 +32,7 @@ module.exports.createLeague = function (leaguename, description) {
 };
 
 module.exports.deleteLeague = function (id) {
-  return db.Team.destroy({where: {leagueId: req.query.lid}})
+  return db.Team.destroy({where: {leagueId: id}})
   .then(function () {
     return db.League.destroy({where: {id: id}});
   })

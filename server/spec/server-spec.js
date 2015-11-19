@@ -213,4 +213,67 @@ describe("Backend", function() {
       done();
     });
   });
+
+  it("Should delete a user", function(done) {
+    var deleteOptions = {
+      method: "DELETE",
+      uri: "http://127.0.0.1:3000/users/?id=2",
+      json: true
+    };
+
+    rp(deleteOptions)
+    .then(function () {
+      return db.User.findById(2);
+    })
+    .then(function (user) {
+      expect(user).to.equal(null);
+      return db.User.findById(1);
+    })
+    .then(function (user) { // Don't delete the other user
+      expect(user.username).to.equal("Soroush");
+      done();
+    });
+  });
+
+  it("Should delete a team", function(done) {
+    var deleteOptions = {
+      method: "DELETE",
+      uri: "http://127.0.0.1:3000/teams/?id=2",
+      json: true
+    };
+
+    rp(deleteOptions)
+    .then(function () {
+      return db.Team.findById(2);
+    })
+    .then(function (team) {
+      expect(team).to.equal(null);
+      return db.Team.findById(1);
+    })
+    .then(function (team) { // Don't delete the other Team
+      expect(team.teamname).to.equal("Soroush's Testing Team");
+      done();
+    });
+  });
+
+  it("Should delete a league", function(done) {
+    var deleteOptions = {
+      method: "DELETE",
+      uri: "http://127.0.0.1:3000/leagues/?id=1",
+      json: true
+    };
+
+    rp(deleteOptions)
+    .then(function () {
+      return db.League.findById(1);
+    })
+    .then(function (league) {
+      expect(league).to.equal(null);
+      return db.Team.findById(1);
+    })
+    .then(function (team) { // Should also delete teams in the league
+      expect(team).to.equal(null);
+      done();
+    });
+  });
 });

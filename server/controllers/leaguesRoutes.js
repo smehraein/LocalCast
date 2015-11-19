@@ -46,7 +46,7 @@ module.exports = {
   },
   delete: function (req, res) {
     if (req.query.id) {
-      Leagues.deleteUser(req.query.id)
+      Leagues.deleteLeague(req.query.id)
       .then(function () {
         res.sendStatus(200);
       });
