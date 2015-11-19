@@ -9,7 +9,7 @@
  *
  * POST: Takes a teamname and leagueId and creates a new team.
  *
- * PUT: Takes an outcome and teamId and updates win/loss/ties.
+ * PUT: Takes two team Ids, two scores and creates a game
  *
  * DELETE: Accepts the follow queries:
  *         'id'  - Deletes a team
@@ -47,7 +47,6 @@ module.exports = {
       });
     }
   },
-
   post: function (req, res) {
     if (!req.body.teamname || !req.body.leagueId) {
       res.sendStatus(400);
@@ -57,8 +56,14 @@ module.exports = {
       res.sendStatus(201);
     });
   },
-
   put: function (req, res) {
+    if (!req.body.teamId || !req.body.opponentId) {
+      res.sendStatus(400);
+    }
+    Teams.createGame(req.body.teamId, req.body.opponentId, req.body.teamScore, req.body.opponentScore)
+    .then(function () {
+      res.sendStatus(201);
+    });
     if (req.body.outcome === "win") {
       db.Team.update(
         {wins: Sequelize.literal('wins + 1')},
