@@ -1,6 +1,7 @@
 angular.module('localCast', [
   'localCast.services',
   'localCast.leagues',
+  'localCast.leaguesService',
   'localCast.teams',
   'localCast.teampage',
   'localCast.games',
