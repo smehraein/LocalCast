@@ -200,4 +200,17 @@ describe("Backend", function() {
       done();
     });
   });
+
+  it("Should calculate the stats of a team", function(done) {
+    db.Team.findById(1)
+    .then(function (team) {
+      return team.getStats();
+    })
+    .then(function (stats) {
+      expect(stats.wins).to.equal(1);
+      expect(stats.losses).to.equal(0);
+      expect(stats.ties).to.equal(0);
+      done();
+    });
+  });
 });

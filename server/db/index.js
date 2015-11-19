@@ -1,7 +1,6 @@
 var Sequelize = require("sequelize");
 var sequelize = new Sequelize("localCast", "root", "SQL");
 
-
 var User = sequelize.define('User', {
   username: Sequelize.STRING,
 });
@@ -16,6 +15,7 @@ var Team = sequelize.define('Team', {
   },
   { instanceMethods: {
     getStats: function() {
+      var teamId = this.id;
       var stats = {
         wins: 0,
         losses: 0,
@@ -27,7 +27,7 @@ var Team = sequelize.define('Team', {
         if (winner === null) {
           stats.ties += 1;
         }
-        else if (winner === this.id) {
+        else if (winner === teamId) {
           stats.wins += 1;
         }
         else {
@@ -38,16 +38,16 @@ var Team = sequelize.define('Team', {
       return Game.findAll({
         where : {
           $or: [
-          {TeamId: this.id},
-          {OpponentId: this.id}
+          {TeamId: teamId},
+          {OpponentId: teamId}
           ]
         }
       })
       .then(function (games) {
-      return Sequelize.Promise.all(games, calculate);
-      })
-      .then(function () {
-        return stats;
+      for (var i=0; i<games.length; i++) {
+        calculate(games[i]);
+      }
+      return stats;
       });
     }
   }
