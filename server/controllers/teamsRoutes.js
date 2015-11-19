@@ -13,7 +13,6 @@
  *
  * DELETE: Accepts the follow queries:
  *         'id'  - Deletes a team
- *         'lid' - Deletes ALL teams in a league.
  *
  * @type {Object}
  */
@@ -68,12 +67,6 @@ module.exports = {
   delete: function (req, res) {
     if (req.query.id) {
       Teams.deleteTeam(req.query.id)
-      .then(function () {
-        res.sendStatus(200);
-      });
-    }
-    else if (query.lid) {
-      Teams.deleteAllTeams(req.query.lid)
       .then(function () {
         res.sendStatus(200);
       });
