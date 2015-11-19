@@ -1,14 +1,11 @@
 /* You'll need to have MySQL running and your Node server running
  * for these tests to pass. */
 var Sequelize = require("sequelize");
-var mysql = require('mysql');
 var db = require('../db');
 var rp = require('request-promise');
-var request = require("request"); // You might need to npm install the request module!
 var expect = require('../../node_modules/chai/chai').expect;
 
 describe("Backend", function() {
-  var dbConnection;
 
   before(function(done) {
     sequelize = new Sequelize("localCast", "root", "SQL");
@@ -93,6 +90,7 @@ describe("Backend", function() {
     })
     .then(function (league) {
       expect(league.leaguename).to.equal("Soroush's Test League");
+      expect(league.description).to.equal("Extreme underwater testing.");
       done();
     });
   });
@@ -107,8 +105,21 @@ describe("Backend", function() {
       },
       json: true
     };
+
+    var postOptions2 = {
+      method: "POST",
+      uri: "http://127.0.0.1:3000/teams",
+      body: {
+        teamname: "Yoshio's Testing Team",
+        leagueId: 1
+      },
+      json: true
+    };
     
     rp(postOptions)
+    .then(function () {
+      return rp(postOptions2);
+    })
     .then(function () {
       return db.Team.findById(1);
     })
@@ -150,74 +161,43 @@ describe("Backend", function() {
   });
 
   it("Should insert a game into the DB", function(done) {
-    // Post the user to the chat server.
-    request({ method: "POST",
-              uri: "http://127.0.0.1:3000/games",
-              json: { team1id: 1,
-                      team2id: 1,
-                      team1score: 10,
-                      team2score: 20 }
-    }, function () {
-        // Now if we look in the database, we should find the
-        // user there.
-        var queryString = "SELECT * FROM Games";
-        var queryArgs = [];
+    var postOptions = {
+      method: "PUT",
+      uri: "http://127.0.0.1:3000/teams",
+      body: {
+        teamId: 1,
+        opponentId: 2,
+        teamScore: 10,
+        opponentScore: 5
+      },
+      json: true
+    };
 
-        dbConnection.query(queryString, queryArgs, function(err, results) {
-          // Should have one result:
-          expect(results.length).to.equal(1);
-
-          // TODO: If you don't have a column named text, change this test.
-          expect(results[0].team1).to.equal(1);
-          expect(results[0].team1score).to.equal(10);
-          done();
-        });
-      });
+    rp(postOptions)
+    .then(function () {
+      return db.Game.findById(1);
+    })
+    .then(function (game) { // Test data storage
+      expect(game.TeamId).to.equal(1);
+      expect(game.OpponentId).to.equal(2);
+      expect(game.teamScore).to.equal(10);
+      expect(game.opponentScore).to.equal(5);
+      return db.Team.findById(1);
+    })
+    .then(function (team) { // Test relation
+      return team.getOpponent();
+    })
+    .then(function (opponent) {
+      expect(opponent[0].teamname).to.equal("Yoshio's Testing Team");
+      done();
     });
-
-  it("Should insert users with a team into the DB", function(done) {
-    // Post the user to the chat server.
-   request({ method: "POST",
-              uri: "http://127.0.0.1:3000/users",
-              json: { username: "Yoshi",
-                      teamid: 1 }
-    }, function() {
-     request({ method: "POST",
-                uri: "http://127.0.0.1:3000/users",
-                json: { username: "David",
-                        teamid: 1 }
-      }, function () {
-          // Now if we look in the database, we should find the
-          // user there.
-          var queryString = "SELECT * FROM Users";
-          var queryArgs = [];
-
-          dbConnection.query(queryString, queryArgs, function(err, results) {
-            // Should have one result:
-            expect(results.length).to.equal(3);
-
-            // TODO: If you don't have a column named text, change this test.
-            expect(results[2].username).to.equal("David");
-
-            done();
-          });
-        });
-      });
-    });
-
-
-  it("Should find user by team", function(done) {
-    // Post the user to the chat server.
-   request({ method: "GET",
-              uri: "http://127.0.0.1:3000/users",
-              json: { teamid: 1 }
-    }, function (err, response) {
-          // Should have one result:
-          expect(response.body.length).to.equal(2);
-
-          // TODO: If you don't have a column named text, change this test.
-          expect(response.body[1].username).to.equal("David");
-          done();
-        });
-      });
   });
+
+  it("Should calculate the winner of a game", function(done) {
+    db.Game.findById(1)
+    .then(function (game) {
+      expect(game.getWinner()).to.equal(1);
+      done();
+    });
+  });
+});

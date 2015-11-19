@@ -34,7 +34,18 @@ var Team = sequelize.define('Team', {
           stats.losses += 1;
         }
       };
-      Sequelize.Promise.all(this.getGame(), calculate)
+
+      return Game.findAll({
+        where : {
+          $or: [
+          {TeamId: this.id},
+          {OpponentId: this.id}
+          ]
+        }
+      })
+      .then(function (games) {
+      return Sequelize.Promise.all(games, calculate);
+      })
       .then(function () {
         return stats;
       });
@@ -48,10 +59,10 @@ var Game = sequelize.define('Game', {
   },
   { instanceMethods: {
     getWinner: function() {
-      if (this.team1score === this.team2score) {
+      if (this.teamScore === this.opponentScore) {
         return null;
       }
-      else if (this.team1score > this.team2score) {
+      else if (this.teamScore > this.opponentScore) {
         return this.TeamId;
       }
       else {
