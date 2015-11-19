@@ -52,3 +52,28 @@ module.exports.createTeam = function (teamname, leagueId) {
     console.error("Error creating team: ", err);
   });
 };
+
+module.exports.createGame = function (teamId, opponentId, teamScore, opponentScore) {
+  return db.Game.create({
+    TeamId: teamId,
+    OpponentId: opponentId,
+    teamScore: teamScore || 0,
+    opponentScore: opponentScore || 0
+  }).catch(function (err) {
+    console.error("Error creating game: ", err);
+  });
+};
+
+module.exports.deleteTeam = function (id) {
+  return db.Team.destroy({where: {id: id}})
+  .catch(function (err) {
+    console.error("Error deleting team: ", err);
+  });
+};
+
+module.exports.deleteAllTeams = function (leagueid) {
+  return db.Team.destroy({where: {leagueId: req.query.lid}})
+  .catch(function (err) {
+    console.error("Error deleting all teams in league: ", err);
+  });
+};

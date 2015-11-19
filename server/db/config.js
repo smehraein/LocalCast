@@ -1,7 +1,7 @@
 var Sequelize = require("sequelize");
 var orm = new Sequelize("localCast", "root", "SQL");
 
-// we define the models we need using js--we don't need a schema file!
+
 var User = orm.define('User', {
   username: Sequelize.STRING,
 });
@@ -43,8 +43,8 @@ var Team = orm.define('Team', {
 });
 
 var Game = orm.define('Game', {
-  team1score: Sequelize.INTEGER,
-  team2score: Sequelize.INTEGER
+  teamScore: Sequelize.INTEGER,
+  opponentScore: Sequelize.INTEGER
   },
   { instanceMethods: {
     getWinner: function() {

@@ -28,13 +28,13 @@ module.exports = {
       res.json(team);
       });
     }
-    else if (query.lid) {
+    else if (req.query.lid) {
       Teams.getByLeagueId(req.query.lid)
       .then(function (teams) {
       res.json(teams); 
       });
     }
-    else if (query.tn) {
+    else if (req.query.tn) {
       Teams.getByTeamname(req.query.tn)
       .then(function (teams) {
       res.json(teams); 
@@ -64,59 +64,22 @@ module.exports = {
     .then(function () {
       res.sendStatus(201);
     });
-    if (req.body.outcome === "win") {
-      db.Team.update(
-        {wins: Sequelize.literal('wins + 1')},
-        {where: {id: req.body.teamid}}
-      ).then(function (league) {
-        res.sendStatus(201);
-      });
-    }
-    else if (req.body.outcome === "loss") {
-      db.Team.update(
-        {losses: Sequelize.literal('losses + 1')},
-        {where: {id: req.body.teamid}}
-      ).then(function (league) {
-        res.sendStatus(201);
-      });
-    }
-    else if (req.body.outcome === "tie") {
-      db.Team.update(
-        {ties: Sequelize.literal('ties + 1')},
-        {where: {id: req.body.teamid}}
-      ).then(function (league) {
-        res.sendStatus(201);
-      });
-    }
-    else if (req.body.outcome === "reset") {
-      db.Team.update(
-        {wins: 0, losses: 0, ties: 0},
-        {where: {id: req.body.teamid}}
-      ).then(function (league) {
-        res.sendStatus(201);
-      });
-    }
-    else {
-      res.sendStatus(404);
-    }
   },
-
   delete: function (req, res) {
     if (req.query.id) {
-      db.Team.destroy({where: {id: req.query.id}})
+      Teams.deleteTeam(req.query.id)
       .then(function () {
         res.sendStatus(200);
-      }).catch(function (err) {
-        console.error(err);
       });
     }
     else if (query.lid) {
-      db.Team.destroy({where: {leagueId: req.query.lid}})
+      Teams.deleteAllTeams(req.query.lid)
       .then(function () {
         res.sendStatus(200);
-      }).catch(function (err) {
-        console.error(err);
       });
+    }
+    else {
+      res.sendStatus(400);
     }
   }
 };
