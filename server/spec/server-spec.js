@@ -2,19 +2,15 @@
  * for these tests to pass. */
 var Sequelize = require("sequelize");
 var mysql = require('mysql');
+var db = require('../db');
+var rp = require('request-promise');
 var request = require("request"); // You might need to npm install the request module!
 var expect = require('../../node_modules/chai/chai').expect;
 
 describe("Backend", function() {
   var dbConnection;
 
-  beforeEach(function(done) {
-    dbConnection = mysql.createConnection({
-      user: "root",
-      password: "SQL",
-      database: "localCast"
-    });
-    dbConnection.connect();
+  before(function(done) {
     sequelize = new Sequelize("localCast", "root", "SQL");
     sequelize.sync({force:true})
     .then(function() {
@@ -22,155 +18,125 @@ describe("Backend", function() {
     });
   });
 
-  afterEach(function() {
-    dbConnection.end();
+  it("Should insert a user into the DB", function(done) {
+    var postOptions = {
+      method: "POST",
+      uri: "http://127.0.0.1:3000/users",
+      body: { username: "Soroush" },
+      json: true
+    };
+
+    rp(postOptions)
+    .then(function () {
+      return db.User.findById(1);
+    })
+    .then(function (user) {
+      expect(user.username).to.equal("Soroush");
+      done();
+    });
   });
 
-  it("Should insert a user into the DB", function(done) {
-    // Post the user to the chat server.
-    request({ method: "POST",
-              uri: "http://127.0.0.1:3000/users",
-              json: { username: "Soroush" }
-    }, function () {
-        // Now if we look in the database, we should find the
-        // user there.
-        var queryString = "SELECT * FROM Users";
-        var queryArgs = [];
-
-        dbConnection.query(queryString, queryArgs, function(err, results) {
-          // Should have one result:
-          expect(results.length).to.equal(1);
-
-          // TODO: If you don't have a column named text, change this test.
-          expect(results[0].username).to.equal("Soroush");
-
-          done();
-        });
-      });
-    });
-
   it("Should get users by ID", function(done) {
-    // Post the user to the chat server.
-    request({ method: "POST",
-              uri: "http://127.0.0.1:3000/users",
-              json: { username: "Soroush" }
-    }, function () {
-      request({ method: "GET",
-              uri: "http://127.0.0.1:3000/users/?id=1"
-      }, function (err, response) {
-        // Should have one result:
-        var data = JSON.parse(response.body);
-        expect(data.username).to.equal("Soroush");
-        done();
-        });
-      });
+    var postOptions = {
+      method: "POST",
+      uri: "http://127.0.0.1:3000/users",
+      body: { username: "Yoshio" },
+      json: true
+    };
+
+    var getOptions = {
+      method: "GET",
+      uri: "http://127.0.0.1:3000/users/?id=1",
+      json: true
+    };
+
+    rp(postOptions)
+    .then(function () {
+      return rp(getOptions);
+    })
+    .then(function (user) {
+      expect(user.username).to.equal("Soroush");
+      done();
+    });
+  });
+
+  it("Should get all users", function(done) {
+    var getOptions = {
+      method: "GET",
+      uri: "http://127.0.0.1:3000/users",
+      json: true
+    };
+
+    rp(getOptions)
+    .then(function (users) {
+      expect(users.length).to.equal(2);
+      expect(users[0].username).to.equal("Soroush");
+      expect(users[1].username).to.equal("Yoshio");
+      done();
     });
   });
 
   it("Should insert a league into the DB", function(done) {
-    // Post the user to the chat server.
-    request({ method: "POST",
-              uri: "http://127.0.0.1:3000/leagues",
-              json: { leaguename: "Soroushs Cool League",
-                      sport: "Yurting" }
-    }, function () {
-        // Now if we look in the database, we should find the
-        // user there.
-        var queryString = "SELECT * FROM Leagues";
-        var queryArgs = [];
+    var postOptions = {
+      method: "POST",
+      uri: "http://127.0.0.1:3000/leagues",
+      body: {
+        leaguename: "Soroush's Test League",
+        description: "Extreme underwater testing."
+      },
+      json: true
+    };
 
-        dbConnection.query(queryString, queryArgs, function(err, results) {
-          // Should have one result:
-          expect(results.length).to.equal(1);
-
-          // TODO: If you don't have a column named text, change this test.
-          expect(results[0].leaguename).to.equal("Soroushs Cool League");
-          expect(results[0].sport).to.equal("Yurting");
-
-          done();
-        });
-      });
+    rp(postOptions)
+    .then(function () {
+      return db.League.findById(1);
+    })
+    .then(function (league) {
+      expect(league.leaguename).to.equal("Soroush's Test League");
+      done();
     });
-
-describe("Teams", function() {
-  var dbConnection;
-
-  beforeEach(function(done) {
-    dbConnection = mysql.createConnection({
-      user: "root",
-      password: "SQL",
-      database: "localCast"
-    });
-    dbConnection.connect();
-
-
-    var tablename = "Teams";
-    /* Empty the db table before each test so that multiple tests
-     * (or repeated runs of the tests) won't screw each other up: */
-    // dbConnection.query("truncate " + tablename, done);
-
-    dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", function() {
-      dbConnection.query("truncate " + tablename, function() {
-        dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", done);
-      });
-    });
-  });
-
-  afterEach(function() {
-    dbConnection.end();
   });
 
   it("Should insert a team into the DB", function(done) {
-    // Post the user to the chat server.
-    request({ method: "POST",
-              uri: "http://127.0.0.1:3000/teams",
-              json: { teamname: "Soroushs Cool Team",
-                      leagueId: 1 }
-    }, function () {
-        // Now if we look in the database, we should find the
-        // user there.
-        var queryString = "SELECT * FROM Teams";
-        var queryArgs = [];
-
-        dbConnection.query(queryString, queryArgs, function(err, results) {
-          // Should have one result:
-          expect(results.length).to.equal(1);
-
-          // TODO: If you don't have a column named text, change this test.
-          expect(results[0].teamname).to.equal("Soroushs Cool Team");
-          expect(results[0].leagueId).to.equal(1);
-          done();
-        });
-      });
+    var postOptions = {
+      method: "POST",
+      uri: "http://127.0.0.1:3000/leagues",
+      body: {
+        teamname: "Soroush's Testing Team",
+        leagueId: 1
+      },
+      json: true
+    };
+    
+    rp(postOptions)
+    .then(function () {
+      return db.Team.findById(1);
+    })
+    .then(function (team) {
+      expect(team.teamname).to.equal("Soroush's Testing Team");
+      done();
     });
   });
 
-describe("Games", function() {
-  var dbConnection;
-
-  beforeEach(function(done) {
-    dbConnection = mysql.createConnection({
-      user: "root",
-      password: "SQL",
-      database: "localCast"
+  it("Should put a user on a team DB", function(done) {
+    var postOptions = {
+      method: "POST",
+      uri: "http://127.0.0.1:3000/leagues",
+      body: {
+        teamname: "Soroush's Testing Team",
+        leagueId: 1
+      },
+      json: true
+    };
+    
+    rp(postOptions)
+    .then(function () {
+      return db.Team.findById(1);
+    })
+    .then(function (team) {
+      expect(team.teamname).to.equal("Soroush's Testing Team");
+      done();
     });
-    dbConnection.connect();
-
-
-    var tablename = "Games";
-    /* Empty the db table before each test so that multiple tests
-     * (or repeated runs of the tests) won't screw each other up: */
-    // dbConnection.query("truncate " + tablename, done);
-
-    dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", function() {
-      dbConnection.query("truncate " + tablename, function() {
-        dbConnection.query("SET FOREIGN_KEY_CHECKS = 0", done);
-      });
-    });
-  });
-
-  afterEach(function() {
-    dbConnection.end();
   });
 
   it("Should insert a game into the DB", function(done) {
@@ -198,24 +164,6 @@ describe("Games", function() {
         });
       });
     });
-  });
-
-describe("All together now", function() {
-  var dbConnection;
-
-  beforeEach(function(done) {
-    dbConnection = mysql.createConnection({
-      user: "root",
-      password: "SQL",
-      database: "localCast"
-    });
-    dbConnection.connect();
-    done();
-  });
-
-  afterEach(function() {
-    dbConnection.end();
-  });
 
   it("Should insert users with a team into the DB", function(done) {
     // Post the user to the chat server.
@@ -259,7 +207,6 @@ describe("All together now", function() {
 
           // TODO: If you don't have a column named text, change this test.
           expect(response.body[1].username).to.equal("David");
-
           done();
         });
       });
