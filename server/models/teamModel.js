@@ -61,6 +61,13 @@ module.exports.createGame = function (teamId, opponentId, teamScore, opponentSco
   });
 };
 
+module.exports.deleteGame = function (id) {
+  return db.Game.destroy({where: {id: id}})
+  .catch(function (err) {
+    console.error("Error deleting game: ", err);
+  });
+};
+
 module.exports.deleteTeam = function (id) {
   return db.Team.destroy({where: {id: id}})
   .catch(function (err) {
