@@ -4,7 +4,7 @@ angular.module('localCast.services', [])
   var getTeamName = function (teamid) {
     return $http({
       method: 'GET',
-      url: '/teams/?tid='+teamid
+      url: '/teams/?id='+teamid
     })
     .then(
       function (resp) {
@@ -81,39 +81,10 @@ angular.module('localCast.services', [])
   var deleteGame = function (gameid) {
     return $http({
       method: 'DELETE',
-      url: '/games/?id='+gameid
+      url: '/teams/?gid='+gameid
     })
     .then(function () {
       return;
-    });
-  };
-
-  var recalculateTeam = function (teamid) {
-    return resetTeam(teamid)
-    .then(function () {
-      getGames(teamid)
-      .then(function (gamesData) {
-        var countdown = gamesData.length;
-        for (var i=0; i<gamesData.length; i++) {
-          (function(i){
-            var game = gamesData[i];
-            //Tie
-            if (game.team1score === game.team2score) {
-              addTie(teamid);
-            }
-            // Win
-            else if ((game.TeamId === teamid && game.team1score > game.team2score) || (game.team2Id === teamid && game.team2score > game.team1score)) {
-              addWin(teamid);
-            }
-            //Loss
-            else {
-              addLoss(teamid);
-            }
-            countdown--;
-            if (countdown === 0) return;
-          })(i);
-        }
-      });
     });
   };
 
@@ -126,50 +97,6 @@ angular.module('localCast.services', [])
       function (resp) {
         return resp.data;
       });
-  };
-
-  var addWin = function (teamid) {
-    return $http({
-      method: 'PUT',
-      url: '/teams',
-      data: {
-        teamid: teamid,
-        outcome: 'win'
-      }
-    });
-  };
-
-  var addLoss = function (teamid) {
-    return $http({
-      method: 'PUT',
-      url: '/teams',
-      data: {
-        teamid: teamid,
-        outcome: 'loss'
-      }
-    });
-  };
-
-  var addTie = function (teamid) {
-    return $http({
-      method: 'PUT',
-      url: '/teams',
-      data: {
-        teamid: teamid,
-        outcome: 'tie'
-      }
-    });
-  };
-
-  var resetTeam = function (teamid) {
-    return $http({
-      method: 'PUT',
-      url: '/teams',
-      data: {
-        teamid: teamid,
-        outcome: 'reset'
-      }
-    });
   };
 
   var getTeamId = function (teamname) {
@@ -199,10 +126,6 @@ angular.module('localCast.services', [])
     getTeamId: getTeamId,
     getTeamName: getTeamName,
     getGames: getGames,
-    deleteGame: deleteGame,
-    addWin: addWin,
-    addLoss: addLoss,
-    addTie: addTie,
-    recalculateTeam: recalculateTeam
+    deleteGame: deleteGame
   };
 });

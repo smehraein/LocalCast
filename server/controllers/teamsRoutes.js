@@ -68,6 +68,12 @@ module.exports = {
     });
   },
   delete: function (req, res) {
+    if (req.query.gid) {
+      Teams.deleteGame(req.query.gid)
+      .then(function () {
+        res.sendStatus(200);
+      });
+    }
     if (req.query.id) {
       Teams.deleteTeam(req.query.id)
       .then(function () {

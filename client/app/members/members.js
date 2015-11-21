@@ -24,5 +24,5 @@ angular.module('localCast.members', [])
     $scope.getMembers();
   };
 
-  $scope.init();
+  // $scope.init();
 });
