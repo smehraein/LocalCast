@@ -1,34 +1,20 @@
 angular.module('localCast.teams', [])
 
-.controller('TeamsController', function ($scope, $location, $stateParams, $window, Teams, Games) {
+.controller('TeamsController', function ($scope, $stateParams, Teams) {
   $scope.data = {};
   $scope.data.teams = [];
   $scope.leagueId = $stateParams.leagueId;
   $scope.data.currentLeagueName = '';
 
   $scope.addTeam = function () {
-    Teams.createTeam($scope.data.teamname, $scope.leagueId);
+    return Teams.createTeam($scope.data.teamname, $scope.leagueId)
+    .then(function () {
+      $scope.getTeams();
+    });
   };
 
   $scope.removeTeam = function (team) {
-    return Teams.deleteTeam(team.id)
-    .then(function () {
-      return $scope.getTeams($scope.leagueId);
-    })
-    .then(function () {
-      var countdown = $scope.data.teams.length;
-      for (var i=0; i<$scope.data.teams.length; i++) {
-        (function(i){
-          return Games.recalculateTeam($scope.data.teams[i].id)
-          .then(function () {
-            countdown--;
-            if (countdown === 0) {
-              $window.location.reload(); 
-            }
-          });
-        })(i);
-      }
-    });
+    return Teams.deleteTeam(team.id);
   };
 
   $scope.getTeams = function () {

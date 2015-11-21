@@ -1,6 +1,6 @@
 angular.module('localCast.teamsService', [])
 
-.factory('Teams', function ($http, $location, $window) {
+.factory('Teams', function ($http) {
 
   var createTeam = function (name, leagueid) {
     return $http({
@@ -8,7 +8,7 @@ angular.module('localCast.teamsService', [])
       url: '/teams',
       data: {
         teamname: name,
-        leagueid: leagueid
+        leagueId: leagueid
       }
     });
   };
@@ -23,7 +23,7 @@ angular.module('localCast.teamsService', [])
   var getTeams = function (leagueid) {
     return $http({
       method: 'GET',
-      url: '/teams/?id='+leagueid
+      url: '/teams/?lid='+leagueid
     })
     .then(function (resp) {
       return resp.data;
@@ -46,4 +46,4 @@ angular.module('localCast.teamsService', [])
     getLeagueName: getLeagueName,
     deleteTeam: deleteTeam
   };
-})
+});

@@ -47,13 +47,16 @@ module.exports = {
     }
   },
   post: function (req, res) {
+    console.log(req.body);
     if (!req.body.teamname || !req.body.leagueId) {
       res.sendStatus(400);
     }
-    Teams.createTeam(req.body.teamname, req.body.leagueId)
-    .then(function () {
-      res.sendStatus(201);
-    });
+    else {
+      Teams.createTeam(req.body.teamname, req.body.leagueId)
+      .then(function () {
+        res.sendStatus(201);
+      });
+    }
   },
   put: function (req, res) {
     if (!req.body.teamId || !req.body.opponentId) {
