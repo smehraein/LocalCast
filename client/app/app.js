@@ -3,14 +3,14 @@ angular.module('localCast', [
   'localCast.leagues',
   'localCast.leaguesService',
   'localCast.teams',
+  'localCast.teamsService',
   'localCast.teampage',
   'localCast.games',
   'localCast.members',
   'localCast.auth',
-  'ui.router',
-  'ngRoute'
+  'ui.router'
 ])
-.config(function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+.config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/leagues');
 
   $stateProvider

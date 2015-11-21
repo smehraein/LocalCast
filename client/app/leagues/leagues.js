@@ -30,5 +30,4 @@ angular.module('localCast.leagues', [])
   };
 
   $scope.init();
-
 });
