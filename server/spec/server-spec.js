@@ -1,5 +1,3 @@
-/* You'll need to have MySQL running and your Node server running
- * for these tests to pass. */
 var Sequelize = require("sequelize");
 var db = require('../db');
 var rp = require('request-promise');
@@ -25,8 +23,7 @@ describe("Backend", function() {
     return rp(postOptions)
     .then(function () {
       return db.User.findById(1);
-    })
-    .then(function (user) {
+    }).then(function (user) {
       expect(user.username).to.equal("Soroush");
     });
   });
@@ -48,8 +45,7 @@ describe("Backend", function() {
     return rp(postOptions)
     .then(function () {
       return rp(getOptions);
-    })
-    .then(function (user) {
+    }).then(function (user) {
       expect(user.username).to.equal("Soroush");
     });
   });
@@ -83,8 +79,7 @@ describe("Backend", function() {
     return rp(postOptions)
     .then(function () {
       return db.League.findById(1);
-    })
-    .then(function (league) {
+    }).then(function (league) {
       expect(league.leaguename).to.equal("Soroush's Test League");
       expect(league.description).to.equal("Extreme underwater testing.");
     });
@@ -114,11 +109,9 @@ describe("Backend", function() {
     return rp(postOptions)
     .then(function () {
       return rp(postOptions2);
-    })
-    .then(function () {
+    }).then(function () {
       return db.Team.findById(1);
-    })
-    .then(function (team) {
+    }).then(function (team) {
       expect(team.teamname).to.equal("Soroush's Testing Team");
     });
   });
@@ -137,18 +130,14 @@ describe("Backend", function() {
     return rp(postOptions)
     .then(function () {
       return db.Team.findById(1);
-    })
-    .then(function (team) { // Test relation from team
+    }).then(function (team) { // Test relation from team
       return team.getUsers();
-    })
-    .then(function (users) {
+    }).then(function (users) {
       expect(users[0].username).to.equal("Soroush");
       return db.User.findById(1); // Test relation from user
-    })
-    .then(function (user) {
+    }).then(function (user) {
       return user.getTeams();
-    })
-    .then(function (teams) {
+    }).then(function (teams) {
       expect(teams[0].teamname).to.equal("Soroush's Testing Team");
     });
   });
@@ -169,8 +158,7 @@ describe("Backend", function() {
     return rp(postOptions)
     .then(function () {
       return db.Game.findById(1);
-    })
-    .then(function (game) { // Test data storage
+    }).then(function (game) { // Test data storage
       expect(game.teamId).to.equal(1);
       expect(game.opponentId).to.equal(2);
       expect(game.teamScore).to.equal(10);
@@ -206,8 +194,7 @@ describe("Backend", function() {
     return db.Team.findById(1)
     .then(function (team) {
       return team.getStats();
-    })
-    .then(function (stats) {
+    }).then(function (stats) {
       expect(stats.wins).to.equal(1);
       expect(stats.losses).to.equal(0);
       expect(stats.ties).to.equal(0);
@@ -245,12 +232,10 @@ describe("Backend", function() {
     return rp(deleteOptions)
     .then(function () {
       return db.User.findById(2);
-    })
-    .then(function (user) {
+    }).then(function (user) {
       expect(user).to.equal(null);
       return db.User.findById(1);
-    })
-    .then(function (user) { // Don't delete the other user
+    }).then(function (user) { // Don't delete the other user
       expect(user.username).to.equal("Soroush");
     });
   });
@@ -265,12 +250,13 @@ describe("Backend", function() {
     return rp(deleteOptions)
     .then(function () {
       return db.Team.findById(2);
-    })
-    .then(function (team) {
+    }).then(function (team) {
       expect(team).to.equal(null);
+      return db.Game.findById(1);
+    }).then(function (game) {
+      expect(game).to.equal(null);
       return db.Team.findById(1);
-    })
-    .then(function (team) { // Don't delete the other Team
+    }).then(function (team) { // Don't delete the other Team
       expect(team.teamname).to.equal("Soroush's Testing Team");
     });
   });
@@ -285,12 +271,10 @@ describe("Backend", function() {
     return rp(deleteOptions)
     .then(function () {
       return db.League.findById(1);
-    })
-    .then(function (league) {
+    }).then(function (league) {
       expect(league).to.equal(null);
       return db.Team.findById(1);
-    })
-    .then(function (team) { // Should also delete teams in the league
+    }).then(function (team) { // Should also delete teams in the league
       expect(team).to.equal(null);
     });
   });

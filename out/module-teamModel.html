@@ -61,14 +61,14 @@
 
     
 
-    <h4 class="name" id=".createGame"><span class="type-signature">(static) </span>createGame<span class="signature">(teamId, opponentId, teamScore, opponentScore)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id=".createGame"><span class="type-signature">(static) </span>createGame<span class="signature">(teamId, opponentId, teamScore, opponentScore)</span><span class="type-signature"> &rarr; {obj}</span></h4>
 
     
 
 
 
 <div class="description">
-    Creates a new game, which is represented as a join between two teams.
+    Creates and returns a new game, which is represented as a join between two teams.
 One team is referred to as 'opponent', so remember to search BOTH
 'teamId' and 'opponentId' when looking for a team's games.
 </div>
@@ -232,7 +232,7 @@ One team is referred to as 'opponent', so remember to search BOTH
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line110">line 110</a>
+        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line112">line 112</a>
     </li></ul></dd>
     
 
@@ -258,6 +258,10 @@ One team is referred to as 'opponent', so remember to search BOTH
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    The newly created game.
+</div>
+
 
 
 <dl>
@@ -266,7 +270,7 @@ One team is referred to as 'opponent', so remember to search BOTH
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">obj</span>
 
 
     </dd>
@@ -281,7 +285,7 @@ One team is referred to as 'opponent', so remember to search BOTH
 
     
 
-    <h4 class="name" id=".createTeam"><span class="type-signature">(static) </span>createTeam<span class="signature">(teamname, leagueId)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id=".createTeam"><span class="type-signature">(static) </span>createTeam<span class="signature">(teamname, leagueId)</span><span class="type-signature"> &rarr; {obj}</span></h4>
 
     
 
@@ -341,7 +345,7 @@ All teams must belong to a league.
 
             
 
-            <td class="description last">Name of the new team.</td>
+            <td class="description last">Name of the new team</td>
         </tr>
 
     
@@ -364,7 +368,7 @@ All teams must belong to a league.
 
             
 
-            <td class="description last">Id of the league it will belong to.</td>
+            <td class="description last">Id of the league it will belong to</td>
         </tr>
 
     
@@ -431,6 +435,10 @@ All teams must belong to a league.
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    The newly created team
+</div>
+
 
 
 <dl>
@@ -439,7 +447,7 @@ All teams must belong to a league.
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">obj</span>
 
 
     </dd>
@@ -554,7 +562,7 @@ All teams must belong to a league.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line141">line 141</a>
+        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -603,7 +611,7 @@ All teams must belong to a league.
 
     
 
-    <h4 class="name" id=".deleteTeam"><span class="type-signature">(static) </span>deleteTeam<span class="signature">(id)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id=".deleteTeam"><span class="type-signature">(static) </span>deleteTeam<span class="signature">(teamId)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
 
@@ -646,7 +654,7 @@ All teams must belong to a league.
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>teamId</code></td>
             
 
             <td class="type">
@@ -703,7 +711,7 @@ All teams must belong to a league.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line153">line 153</a>
+        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line157">line 157</a>
     </li></ul></dd>
     
 
@@ -915,7 +923,7 @@ All teams must belong to a league.
 
             
 
-            <td class="description last">Id of the team to retreive.</td>
+            <td class="description last">Id of the team to retreive</td>
         </tr>
 
     
@@ -983,7 +991,7 @@ All teams must belong to a league.
 
         
 <div class="param-desc">
-    team object from database
+    Team object from database
 </div>
 
 
@@ -1572,7 +1580,7 @@ with the game info and the names of the participating teams.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line127">line 127</a>
+        <a href="teamModel.js.html">teamModel.js</a>, <a href="teamModel.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -1642,7 +1650,7 @@ with the game info and the names of the participating teams.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Nov 22 2015 20:39:22 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Nov 23 2015 00:08:44 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>

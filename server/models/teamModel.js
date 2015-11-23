@@ -7,8 +7,8 @@ var db = require('../db');
 
 /**
  * Returns a team from the database based on Id.
- * @param  {int} teamId Id of the team to retreive.
- * @return {obj}    team object from database
+ * @param  {int} teamId Id of the team to retreive
+ * @return {obj}        Team object from database
  */
 module.exports.getById = function (teamId) {
   return db.Team.findById(teamId)
@@ -84,28 +84,30 @@ module.exports.getAll = function () {
 /**
  * Creates a team with a given name and leagueId.
  * All teams must belong to a league.
- * @param  {string} teamname Name of the new team.
- * @param  {int} leagueId Id of the league it will belong to.
- * @return {void}
+ * @param  {string} teamname  Name of the new team
+ * @param  {int} leagueId     Id of the league it will belong to
+ * @return {obj}              The newly created team
  */
 module.exports.createTeam = function (teamname, leagueId) {
   return db.Team.create({
     teamname: teamname,
     LeagueId: leagueId,
+  }).then(function (team) {
+    return team;
   }).catch(function (err) {
     console.error("Error creating team: ", err);
   });
 };
 
 /**
- * Creates a new game, which is represented as a join between two teams.
+ * Creates and returns a new game, which is represented as a join between two teams.
  * One team is referred to as 'opponent', so remember to search BOTH
  * 'teamId' and 'opponentId' when looking for a team's games.
  * @param  {int} teamId        Id of the first team
  * @param  {int} opponentId    Id of the second team
  * @param  {int} teamScore     Score of the first team - defaults to 0
  * @param  {int} opponentScore Score of the second team - defaults to 0
- * @return {void}
+ * @return {obj}               The newly created game.
  */
 module.exports.createGame = function (teamId, opponentId, teamScore, opponentScore) {
   return db.Game.create({
@@ -113,6 +115,8 @@ module.exports.createGame = function (teamId, opponentId, teamScore, opponentSco
     opponentId: opponentId,
     teamScore: teamScore || 0,
     opponentScore: opponentScore || 0
+  }).then(function (game) {
+    return game;
   }).catch(function (err) {
     console.error("Error creating game: ", err);
   });
@@ -146,12 +150,20 @@ module.exports.deleteGame = function (gameId) {
 };
 
 /**
- * Deletes a team with the provided id.
- * @param  {int} id Id of the team to delete
+ * Deletes a team with the provided id. Will destroy all games involving the team too.
+ * @param  {int} teamId Id of the team to delete
  * @return {void}
  */
-module.exports.deleteTeam = function (id) {
-  return db.Team.destroy({where: {id: id}})
+module.exports.deleteTeam = function (teamId) {
+  return db.Game.destroy({where : {
+          $or: [
+          {teamId: teamId},
+          {opponentId: teamId}
+          ]
+        }})
+  .then(function () {
+    return db.Team.destroy({where: {id: teamId}});
+  })
   .catch(function (err) {
     console.error("Error deleting team: ", err);
   });

@@ -118,10 +118,12 @@ Team.belongsToMany(User, {through: Roster});
 
 // creates these tables in MySQL if they don't already exist. Pass in {force: true}
 // to drop any existing tables and make new ones.
-sequelize.sync();
+sequelize.sync({force:true});
 
-exports.User = User;
-exports.League = League;
-exports.Team = Team;
-exports.Game = Game;
-exports.Roster = Roster;
+module.exports = {
+  User: User,
+  League: League,
+  Team: Team,
+  Game: Game,
+  Roster: Roster
+};
