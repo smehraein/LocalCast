@@ -1,10 +1,11 @@
 var Sequelize = require("sequelize");
 var options = {
-  host     : process.env.RDS_HOSTNAME || "localCast",
+  database : process.env.RDS_DATABASE || "localCast",
   user     : process.env.RDS_USERNAME || "root",
   password : process.env.RDS_PASSWORD || "SQL",
+  host     : process.env.RDS_HOSTNAME || "localhost",
 };
-var sequelize = new Sequelize(options.host, options.user, options.password);
+var sequelize = new Sequelize(options.database, options.user, options.password, {host: options.host});
 
 var User = sequelize.define('User', {
   username: Sequelize.STRING,

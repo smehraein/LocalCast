@@ -1,5 +1,8 @@
 ### node etc ###
 
+# AWS Zip
+*.zip
+
 # Logs
 logs
 *.log
