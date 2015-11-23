@@ -7,11 +7,11 @@ var db = require('../db');
 
 /**
  * Returns a team from the database based on Id.
- * @param  {int} id teamId
+ * @param  {int} teamId Id of the team to retreive.
  * @return {obj}    team object from database
  */
-module.exports.getById = function (id) {
-  return db.Team.findById(id)
+module.exports.getById = function (teamId) {
+  return db.Team.findById(teamId)
   .then(function (team) {
     return team;
   }).catch(function (err) {
@@ -119,11 +119,26 @@ module.exports.createGame = function (teamId, opponentId, teamScore, opponentSco
 };
 
 /**
+ * Returns all teams which a team participated in.
+ * @param  {int} teamId Id of the team to get games for
+ * @return {array}      Array of the games the team participated in
+ */
+module.exports.getGames = function (teamId) {
+  return db.Team.findById(teamId)
+  .then(function (team) {
+    return team.getGames();
+  })
+  .catch(function (err) {
+    console.error("Error getting games: ", err);
+  });
+};
+
+/**
  * Deletes a game with the provided id.
- * @param  {int} id Id of the game to delete
+ * @param  {int} gameId Id of the game to delete
  * @return {void}
  */
-module.exports.deleteGame = function (id) {
+module.exports.deleteGame = function (gameId) {
   return db.Game.destroy({where: {id: id}})
   .catch(function (err) {
     console.error("Error deleting game: ", err);

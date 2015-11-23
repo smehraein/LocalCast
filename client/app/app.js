@@ -6,6 +6,7 @@ angular.module('localCast', [
   'localCast.teamsService',
   'localCast.teampage',
   'localCast.games',
+  'localCast.gamesService',
   'localCast.members',
   'ui.router'
 ])

@@ -201,6 +201,22 @@ describe("Backend", function() {
     });
   });
 
+  it("Should get the games of a team", function(done) {
+    var getOptions = {
+      method: "GET",
+      uri: "http://127.0.0.1:3000/teams/?id=1&games=true",
+      json: true
+    };
+
+    rp(getOptions)
+    .then(function (games) {
+      expect(games.length).to.equal(1);
+      expect(games[0].TeamId).to.equal(1);
+      expect(games[0].OpponentId).to.equal(2);
+      done();
+    });
+  });
+
   it("Should calculate the stats of a team", function(done) {
     db.Team.findById(1)
     .then(function (team) {

@@ -20,6 +20,17 @@ var Team = sequelize.define('Team', {
   teamname: Sequelize.STRING,
   },
   { instanceMethods: {
+    getGames: function() {
+      var teamId = this.id;
+      return Game.findAll({
+        where : {
+          $or: [
+          {TeamId: teamId},
+          {OpponentId: teamId}
+          ]
+        }
+      });
+    },
     getStats: function() {
       var teamId = this.id;
       var stats = {

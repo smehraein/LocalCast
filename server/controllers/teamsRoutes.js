@@ -21,7 +21,13 @@ var Teams = require('../models/teamModel.js');
 
 module.exports = {
   get: function (req, res) {
-    if (req.query.id) {
+    if (req.query.id && req.query.games) {
+      Teams.getGames(req.query.id)
+      .then(function (games) {
+      res.json(games);
+      });
+    }
+    else if (req.query.id) {
       Teams.getById(req.query.id)
       .then(function (team) {
       res.json(team);
