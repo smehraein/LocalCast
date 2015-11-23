@@ -211,8 +211,10 @@ describe("Backend", function() {
     rp(getOptions)
     .then(function (games) {
       expect(games.length).to.equal(1);
-      expect(games[0].TeamId).to.equal(1);
-      expect(games[0].OpponentId).to.equal(2);
+      expect(games[0][0].TeamId).to.equal(1);
+      expect(games[0][0].OpponentId).to.equal(2);
+      expect(games[0][1][0]).to.equal("Soroush's Testing Team");
+      expect(games[0][1][1]).to.equal("Yoshio's Testing Team");
       done();
     });
   });

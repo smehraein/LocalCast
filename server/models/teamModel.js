@@ -119,7 +119,8 @@ module.exports.createGame = function (teamId, opponentId, teamScore, opponentSco
 };
 
 /**
- * Returns all teams which a team participated in.
+ * Returns all games which a team participated in as an array of tuples 
+ * with the game info and the names of the participating teams.
  * @param  {int} teamId Id of the team to get games for
  * @return {array}      Array of the games the team participated in
  */
@@ -127,8 +128,7 @@ module.exports.getGames = function (teamId) {
   return db.Team.findById(teamId)
   .then(function (team) {
     return team.getGames();
-  })
-  .catch(function (err) {
+  }).catch(function (err) {
     console.error("Error getting games: ", err);
   });
 };

@@ -22,6 +22,7 @@ var Team = sequelize.define('Team', {
   { instanceMethods: {
     getGames: function() {
       var teamId = this.id;
+      var teamName = this.teamname;
       return Game.findAll({
         where : {
           $or: [
@@ -29,6 +30,22 @@ var Team = sequelize.define('Team', {
           {OpponentId: teamId}
           ]
         }
+      })
+      .then(function (games) {
+        return Sequelize.Promise.map(games, function (game) {
+          if (game.TeamId === teamId) {
+            return Team.findById(game.OpponentId)
+            .then(function (team) {
+              return [game, [teamName, team.teamname]];
+            });
+          }
+          else {
+            return Team.findById(game.TeamId)
+            .then(function (team) {
+              return [game, [team.teamname, teamName]];
+            });
+          }
+        });
       });
     },
     getStats: function() {

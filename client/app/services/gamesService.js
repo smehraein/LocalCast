@@ -25,39 +25,15 @@ angular.module('localCast.gamesService', [])
   var getGames = function (teamid) {
     return $http({
       method: 'GET',
-      url: '/teams/?id='+teamid
+      url: '/teams/?games=true&id='+teamid
     })
     .then(function (resp) {
       return resp.data;
     });
   };
 
-  var getTeamId = function (teamname) {
-    return $http({
-      method: 'GET',
-      url: '/teams/?tn='+teamname
-    })
-    .then(
-      function (resp) {
-        return resp.data;
-      });
-  };
-
-  var getTeamName = function (teamid) {
-    return $http({
-      method: 'GET',
-      url: '/teams/?tid='+teamid
-    })
-    .then(
-      function (resp) {
-        return resp.data;
-      });
-  };
-
   return {
     createGame: createGame,
-    getTeamId: getTeamId,
-    getTeamName: getTeamName,
     getGames: getGames,
     deleteGame: deleteGame
   };
