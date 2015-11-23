@@ -178,17 +178,10 @@ describe("Backend", function() {
       return db.Game.findById(1);
     })
     .then(function (game) { // Test data storage
-      expect(game.TeamId).to.equal(1);
-      expect(game.OpponentId).to.equal(2);
+      expect(game.teamId).to.equal(1);
+      expect(game.opponentId).to.equal(2);
       expect(game.teamScore).to.equal(10);
       expect(game.opponentScore).to.equal(5);
-      return db.Team.findById(1);
-    })
-    .then(function (team) { // Test relation
-      return team.getOpponent();
-    })
-    .then(function (opponent) {
-      expect(opponent[0].teamname).to.equal("Yoshio's Testing Team");
       done();
     });
   });
@@ -211,8 +204,8 @@ describe("Backend", function() {
     rp(getOptions)
     .then(function (games) {
       expect(games.length).to.equal(1);
-      expect(games[0][0].TeamId).to.equal(1);
-      expect(games[0][0].OpponentId).to.equal(2);
+      expect(games[0][0].teamId).to.equal(1);
+      expect(games[0][0].opponentId).to.equal(2);
       expect(games[0][1][0]).to.equal("Soroush's Testing Team");
       expect(games[0][1][1]).to.equal("Yoshio's Testing Team");
       done();

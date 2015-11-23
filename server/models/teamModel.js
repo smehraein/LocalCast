@@ -109,8 +109,8 @@ module.exports.createTeam = function (teamname, leagueId) {
  */
 module.exports.createGame = function (teamId, opponentId, teamScore, opponentScore) {
   return db.Game.create({
-    TeamId: teamId,
-    OpponentId: opponentId,
+    teamId: teamId,
+    opponentId: opponentId,
     teamScore: teamScore || 0,
     opponentScore: opponentScore || 0
   }).catch(function (err) {

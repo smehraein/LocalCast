@@ -1,6 +1,6 @@
 angular.module('localCast.gamesService', [])
 
-.factory('Games', function ($http, $location, $window) {
+.factory('Games', function ($http) {
 
   var createGame = function (teamId, opponentId, teamScore, opponentScore) {
     return $http({

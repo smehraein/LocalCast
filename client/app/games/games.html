@@ -6,9 +6,9 @@
 
 
     <form name="addGameForm" ng-submit='addGame()'>
-      <select name="teamSelect" id="teamSelect" ng-model="data.teamname2">
-        <option value="">---Opposing Team---</option> <!-- not selected / blank option -->
-        <option ng-repeat="team in data.teams track by $index" value="{{team}}">{{team.teamname}}</option>
+      <select name="teamSelect" id="teamSelect" ng-model="data.team2" ng-options="team.teamname for team in data.teams track by $index">
+        <!-- <option value="">---Opposing Team---</option>
+        <option ng-repeat="team in data.teams track by $index" value="{{team}}">{{team.teamname}}</option> -->
       </select>
       <div class="input-group input-group-md">
         <input type='number' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamscore1' placeholder="Team Score" novalidate required>
@@ -34,8 +34,8 @@
         </thead>
         <tbody>
           <tr ng-repeat="game in data.games track by $index">
-            <td>{{game.Team.teamname}} ({{game.team1score}})</td>
-            <td>{{game.team2name}} ({{game.team2score}})</td>
+            <td>{{game[1][0]}} ({{game[0].teamScore}})</td>
+            <td>{{game[1][1]}} ({{game[0].opponentScore}})</td>
             <td><button class="btn btn-sm btn-danger" ng-click="removeGame(game)">Delete</button></td>
           </tr>
         </tbody>

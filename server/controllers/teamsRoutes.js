@@ -67,6 +67,7 @@ module.exports = {
   put: function (req, res) {
     if (!req.body.teamId || !req.body.opponentId) {
       res.sendStatus(400);
+      res.end();
     }
     Teams.createGame(req.body.teamId, req.body.opponentId, req.body.teamScore, req.body.opponentScore)
     .then(function () {

@@ -26,21 +26,21 @@ var Team = sequelize.define('Team', {
       return Game.findAll({
         where : {
           $or: [
-          {TeamId: teamId},
-          {OpponentId: teamId}
+          {teamId: teamId},
+          {opponentId: teamId}
           ]
         }
       })
       .then(function (games) {
         return Sequelize.Promise.map(games, function (game) {
-          if (game.TeamId === teamId) {
-            return Team.findById(game.OpponentId)
+          if (game.teamId === teamId) {
+            return Team.findById(game.opponentId)
             .then(function (team) {
               return [game, [teamName, team.teamname]];
             });
           }
           else {
-            return Team.findById(game.TeamId)
+            return Team.findById(game.teamId)
             .then(function (team) {
               return [game, [team.teamname, teamName]];
             });
@@ -72,8 +72,8 @@ var Team = sequelize.define('Team', {
       return Game.findAll({
         where : {
           $or: [
-          {TeamId: teamId},
-          {OpponentId: teamId}
+          {teamId: teamId},
+          {opponentId: teamId}
           ]
         }
       })
@@ -88,6 +88,8 @@ var Team = sequelize.define('Team', {
 });
 
 var Game = sequelize.define('Game', {
+  teamId: Sequelize.INTEGER,
+  opponentId: Sequelize.INTEGER,
   teamScore: Sequelize.INTEGER,
   opponentScore: Sequelize.INTEGER
   },
@@ -97,10 +99,10 @@ var Game = sequelize.define('Game', {
         return null;
       }
       else if (this.teamScore > this.opponentScore) {
-        return this.TeamId;
+        return this.teamId;
       }
       else {
-        return this.OpponentId;
+        return this.ppponentId;
       }
     }
   }
@@ -113,7 +115,6 @@ var Roster = sequelize.define('Roster', {
 Team.belongsTo(League);
 User.belongsToMany(Team, {through: Roster});
 Team.belongsToMany(User, {through: Roster});
-Team.belongsToMany(Team, {as: "Opponent", through: Game});
 
 // creates these tables in MySQL if they don't already exist. Pass in {force: true}
 // to drop any existing tables and make new ones.
