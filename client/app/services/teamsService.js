@@ -30,6 +30,16 @@ angular.module('localCast.teamsService', [])
     });
   };
 
+  var getTeamsWithStats = function (leagueid) {
+    return $http({
+      method: 'GET',
+      url: '/teams/?stats=true&lid='+leagueid
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
   var getLeagueName = function (leagueid) {
     return $http({
       method: 'GET',
@@ -43,6 +53,7 @@ angular.module('localCast.teamsService', [])
   return {
     createTeam: createTeam,
     getTeams: getTeams,
+    getTeamsWithStats: getTeamsWithStats,
     getLeagueName: getLeagueName,
     deleteTeam: deleteTeam
   };

@@ -85,7 +85,7 @@ module.exports.getAll = function () {
  * Creates a team with a given name and leagueId.
  * All teams must belong to a league.
  * @param  {string} teamname Name of the new team.
- * @param  {[type]} leagueId Id of the league it will belong to.
+ * @param  {int} leagueId Id of the league it will belong to.
  * @return {void}
  */
 module.exports.createTeam = function (teamname, leagueId) {

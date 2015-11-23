@@ -58,11 +58,11 @@
         <div class="col-sm-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <a class="panel-title" ui-sref="teampage({leagueId: leagueId, teamId: team.id})">{{team.teamname}}</a>
-              <button class="btn btn-sm btn-danger pull-right" ng-click="removeTeam(team)">Delete</button>
+              <a class="panel-title" ui-sref="teampage({leagueId: leagueId, teamId: team[0].id})">{{team[0].teamname}}</a>
+              <button class="btn btn-sm btn-danger pull-right" ng-click="removeTeam(team[0])">Delete</button>
             </div>
             <div class="panel-body">
-              {{ team.wins }}/{{ team.losses }}/{{ team.ties }}
+              {{ team[1].wins }}/{{ team[1].losses }}/{{ team[1].ties }}
             </div>
           </div>
         </div><!-- /.col-sm-4 -->

@@ -35,11 +35,11 @@ var db = require('../db');
 
 /**
  * Returns a team from the database based on Id.
- * @param  {int} id - teamId
+ * @param  {int} teamId Id of the team to retreive.
  * @return {obj}    team object from database
  */
-module.exports.getById = function (id) {
-  return db.Team.findById(id)
+module.exports.getById = function (teamId) {
+  return db.Team.findById(teamId)
   .then(function (team) {
     return team;
   }).catch(function (err) {
@@ -49,8 +49,8 @@ module.exports.getById = function (id) {
 
 /**
  * Returns all teams which have a given leagueId.
- * @param  {int} leagueId - Id of the league to search through
- * @return {Array}          All teams within the provided league
+ * @param  {int} leagueId Id of the league to search through
+ * @return {array}        All teams within the provided league
  */
 module.exports.getByLeagueId = function (leagueId) {
   return db.Team.findAll({where: {leagueId: leagueId}})
@@ -65,8 +65,8 @@ module.exports.getByLeagueId = function (leagueId) {
  * Queries for all teams in a given league, then calls the team's 
  * getStats() method for each &amp; stores the value in a tuple with the team.
  * Used to populate a league's 'teams' page.
- * @param  {int} leagueId                Id of the league these teams belong to
- * @return {array}          Tuple with team + object containing stats
+ * @param  {int} leagueId Id of the league these teams belong to
+ * @return {array}        Tuple with team + object containing stats
  */
 module.exports.getByLeagueIdWithStats = function (leagueId) {
   return db.Team.findAll({where: {leagueId: leagueId}})
@@ -81,6 +81,12 @@ module.exports.getByLeagueIdWithStats = function (leagueId) {
   });
 };
 
+/**
+ * Returns teams from database given the name.
+ * Can return more than one team!
+ * @param  {string} teamname Name of a team
+ * @return {array}           Array of teams which have the provided name
+ */
 module.exports.getByTeamname = function (teamname) {
   return db.Team.findAll({where: {teamname: teamname}})
   .then(function (teams) {
@@ -90,6 +96,10 @@ module.exports.getByTeamname = function (teamname) {
   });
 };
 
+/**
+ * Returns all teams in the database.
+ * @return {array} Array containing all teams
+ */
 module.exports.getAll = function () {
   return db.Team.findAll()
   .then(function (teams) {
@@ -99,6 +109,13 @@ module.exports.getAll = function () {
   });
 };
 
+/**
+ * Creates a team with a given name and leagueId.
+ * All teams must belong to a league.
+ * @param  {string} teamname Name of the new team.
+ * @param  {int} leagueId Id of the league it will belong to.
+ * @return {void}
+ */
 module.exports.createTeam = function (teamname, leagueId) {
   return db.Team.create({
     teamname: teamname,
@@ -108,10 +125,20 @@ module.exports.createTeam = function (teamname, leagueId) {
   });
 };
 
+/**
+ * Creates a new game, which is represented as a join between two teams.
+ * One team is referred to as 'opponent', so remember to search BOTH
+ * 'teamId' and 'opponentId' when looking for a team's games.
+ * @param  {int} teamId        Id of the first team
+ * @param  {int} opponentId    Id of the second team
+ * @param  {int} teamScore     Score of the first team - defaults to 0
+ * @param  {int} opponentScore Score of the second team - defaults to 0
+ * @return {void}
+ */
 module.exports.createGame = function (teamId, opponentId, teamScore, opponentScore) {
   return db.Game.create({
-    TeamId: teamId,
-    OpponentId: opponentId,
+    teamId: teamId,
+    opponentId: opponentId,
     teamScore: teamScore || 0,
     opponentScore: opponentScore || 0
   }).catch(function (err) {
@@ -119,13 +146,38 @@ module.exports.createGame = function (teamId, opponentId, teamScore, opponentSco
   });
 };
 
-module.exports.deleteGame = function (id) {
-  return db.Game.destroy({where: {id: id}})
+/**
+ * Returns all games which a team participated in as an array of tuples 
+ * with the game info and the names of the participating teams.
+ * @param  {int} teamId Id of the team to get games for
+ * @return {array}      Array of the games the team participated in
+ */
+module.exports.getGames = function (teamId) {
+  return db.Team.findById(teamId)
+  .then(function (team) {
+    return team.getGames();
+  }).catch(function (err) {
+    console.error("Error getting games: ", err);
+  });
+};
+
+/**
+ * Deletes a game with the provided id.
+ * @param  {int} gameId Id of the game to delete
+ * @return {void}
+ */
+module.exports.deleteGame = function (gameId) {
+  return db.Game.destroy({where: {id: gameId}})
   .catch(function (err) {
     console.error("Error deleting game: ", err);
   });
 };
 
+/**
+ * Deletes a team with the provided id.
+ * @param  {int} id Id of the team to delete
+ * @return {void}
+ */
 module.exports.deleteTeam = function (id) {
   return db.Team.destroy({where: {id: id}})
   .catch(function (err) {
@@ -142,13 +194,13 @@ module.exports.deleteTeam = function (id) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-teamModel.html">teamModel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-leagueModel.html">leagueModel</a></li><li><a href="module-teamModel.html">teamModel</a></li><li><a href="module-userModel.html">userModel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Nov 22 2015 17:09:54 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Nov 22 2015 20:39:22 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>

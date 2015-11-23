@@ -2,10 +2,12 @@
  * Router for all requests to '/teams'.
  *
  * GET: Accepts the follow queries:
- *         'id'  - Return team by Id
- *         'lid' - Return all teams in a given league
- *         'tn'  - Return teams by teamname
- *         ''    - Returns all users
+ *         'id'           - Return team by Id
+ *         'id & games'   - Return games involving the team with Id
+ *         'lid'          - Return all teams in a given league
+ *         'lid & stats'  - Return all teams in a given league with stats
+ *         'tn'           - Return teams by teamname
+ *         ''             - Returns all users
  *
  * POST: Takes a teamname and leagueId and creates a new team.
  *
@@ -31,6 +33,12 @@ module.exports = {
       Teams.getById(req.query.id)
       .then(function (team) {
       res.json(team);
+      });
+    }
+    else if (req.query.lid && req.query.stats) {
+      Teams.getByLeagueIdWithStats(req.query.lid)
+      .then(function (teamsWithStats) {
+      res.json(teamsWithStats); 
       });
     }
     else if (req.query.lid) {
