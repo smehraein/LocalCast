@@ -6,9 +6,7 @@
 
 
     <form name="addGameForm" ng-submit='addGame()'>
-      <select name="teamSelect" id="teamSelect" ng-model="data.team2" ng-options="team.teamname for team in data.teams track by $index">
-        <!-- <option value="">---Opposing Team---</option>
-        <option ng-repeat="team in data.teams track by $index" value="{{team}}">{{team.teamname}}</option> -->
+      <select name="teamSelect" id="teamSelect" ng-model="data.team2" ng-options="team.teamname for team in data.teams | filter:teamFilter" >
       </select>
       <div class="input-group input-group-md">
         <input type='number' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamscore1' placeholder="Team Score" novalidate required>
@@ -20,8 +18,7 @@
       <button type="submit" class="btn btn-lg btn-default" ng-disabled="addGameForm.$invalid">Add Game</button>
     </form>
   </div>
-
-
+  
   <div class="row">
     <div class="col-md-6">
       <table class="table">

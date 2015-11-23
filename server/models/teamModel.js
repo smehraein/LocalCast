@@ -139,7 +139,7 @@ module.exports.getGames = function (teamId) {
  * @return {void}
  */
 module.exports.deleteGame = function (gameId) {
-  return db.Game.destroy({where: {id: id}})
+  return db.Game.destroy({where: {id: gameId}})
   .catch(function (err) {
     console.error("Error deleting game: ", err);
   });

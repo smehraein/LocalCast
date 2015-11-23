@@ -81,7 +81,7 @@ module.exports = {
         res.sendStatus(200);
       });
     }
-    if (req.query.id) {
+    else if (req.query.id) {
       Teams.deleteTeam(req.query.id)
       .then(function () {
         res.sendStatus(200);

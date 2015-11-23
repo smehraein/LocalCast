@@ -6,6 +6,7 @@ angular.module('localCast.games', [])
   $scope.data = {};
   $scope.data.games = [];
   $scope.data.teams = [];
+  $scope.data.team2;
 
   $scope.addGame = function() {
     return Games.createGame($scope.teamId, $scope.data.team2.id, $scope.data.teamscore1, $scope.data.teamscore2)
@@ -15,7 +16,14 @@ angular.module('localCast.games', [])
   };
 
   $scope.removeGame = function(game) {
-    return Games.deleteGame(game.id);
+    return Games.deleteGame(game[0].id)
+    .then(function () {
+      $scope.getGames();
+    });
+  };
+
+  $scope.teamFilter = function (team) { 
+    return (team.id != $scope.teamId);
   };
 
   $scope.getGames = function() {
@@ -29,8 +37,12 @@ angular.module('localCast.games', [])
     return Teams.getTeams($scope.leagueId)
     .then(function (teams) {
       $scope.data.teams = teams;
-    })
-    .then (function () {
+      if (teams[0].id != $scope.teamId) {
+        $scope.data.team2 = teams[0];  
+      }
+      else {
+        $scope.data.team2 = teams[1];
+      }
       return $scope.getGames();
     });
   };
