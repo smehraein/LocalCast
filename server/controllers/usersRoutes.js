@@ -42,11 +42,11 @@ module.exports = {
   },
   post: function (req, res) {
     if (!req.body.username) {
-      res.sendStatus(400);
+      res.sendStatus(400).end();
     }
     Users.createUser(req.body.username)
-    .then(function () {
-      res.sendStatus(201);
+    .then(function (user) {
+      res.status(201).send(user);
     });
   },
   put: function (req, res) {

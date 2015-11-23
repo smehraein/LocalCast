@@ -1,6 +1,6 @@
 angular.module('localCast.members', [])
 
-.controller('MembersController', function ($scope, $location, $stateParams, Members) {
+.controller('MembersController', function ($scope, $stateParams, Members) {
   $scope.teamId = $stateParams.teamId;
   $scope.data = {};
 
@@ -13,16 +13,22 @@ angular.module('localCast.members', [])
   };
 
   $scope.addMember = function () {
-    Members.addMember($scope.data.username, $scope.teamId);
+    Members.addMember($scope.data.username, $scope.teamId)
+    .then(function () {
+      $scope.getMembers();
+    });
   };
 
   $scope.removeMember = function (member) {
-    Members.deleteMember(member.id);
+    Members.deleteMember(member.id)
+    .then(function () {
+      $scope.getMembers();
+    });
   };
 
   $scope.init = function () {
     $scope.getMembers();
   };
 
-  // $scope.init();
+  $scope.init();
 });

@@ -13,10 +13,10 @@ module.exports.getById = function (id) {
   });
 };
 
-module.exports.getByTeamId = function (id) {
-  return db.User.findAll({where: {teamId: id}})
-  .then(function (users) {
-    return users;
+module.exports.getByTeamId = function (teamId) {
+  return db.Team.findById(teamId)
+  .then(function (team) {
+    return team.getUsers();
   }).catch(function (err) {
     console.error("Error getting users by team id: ", err);
   });
@@ -34,6 +34,8 @@ module.exports.getAll = function () {
 module.exports.createUser = function (username) {
   return db.User.create({
     username: username
+  }).then(function (user) {
+    return user;
   }).catch(function (err) {
     console.error("Error creating user: ", err);
   });

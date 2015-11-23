@@ -36,7 +36,6 @@ angular.module('localCast.games', [])
   $scope.init = function () {
     return Teams.getTeams($scope.leagueId)
     .then(function (teams) {
-      console.log(teams);
       $scope.data.teams = teams;
       if (teams[0].id != $scope.teamId) {
         $scope.data.team2 = teams[0];  

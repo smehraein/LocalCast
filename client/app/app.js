@@ -1,13 +1,14 @@
 angular.module('localCast', [
-  'localCast.services',
   'localCast.leagues',
   'localCast.leaguesService',
   'localCast.teams',
   'localCast.teamsService',
   'localCast.teampage',
+  'localCast.teampageService',
   'localCast.games',
   'localCast.gamesService',
   'localCast.members',
+  'localCast.membersService',
   'ui.router'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
