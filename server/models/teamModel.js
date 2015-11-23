@@ -1,5 +1,6 @@
 /**
  * @module teamModel
+ * @description Manages database access for server routes involving teams.
  */
 
 var Sequelize = require("sequelize");

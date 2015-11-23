@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: leagueModel</title>
+    <title>JSDoc: Module: leaguesRoutes</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: leagueModel</h1>
+    <h1 class="page-title">Module: leaguesRoutes</h1>
 
     
 
@@ -38,7 +38,19 @@
     <div class="container-overview">
     
         
-            <div class="description">Manages database access for server routes involving leagues.</div>
+            <div class="description">Router for all requests to '/leagues'.
+Router for all requests to '/leagues'.
+
+GET: Accepts the follow queries:
+        'id'  - Return league by Id
+        ''    - Returns all leagues
+
+POST: Takes a name and description and creates a new league.
+
+PUT:
+
+DELETE: Accepts the follow queries:
+        'id'         - Deletes a league</div>
         
 
         
@@ -87,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_leagueModel.js.html">models/leagueModel.js</a>, <a href="models_leagueModel.js.html#line1">line 1</a>
+        <a href="controllers_leaguesRoutes.js.html">controllers/leaguesRoutes.js</a>, <a href="controllers_leaguesRoutes.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -137,14 +149,312 @@
 
     
 
-    <h4 class="name" id=".createLeague"><span class="type-signature">(static) </span>createLeague<span class="signature">(leaguename, description)</span><span class="type-signature"> &rarr; {obj}</span></h4>
+    <h4 class="name" id=".delete"><span class="type-signature">(static) </span>delete<span class="signature">(id)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
 
 
 
 <div class="description">
-    Creates a new league with a given name and description, then returns it.
+    Delete handler.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Id of the league to delete</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_leaguesRoutes.js.html">controllers/leaguesRoutes.js</a>, <a href="controllers_leaguesRoutes.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".get"><span class="type-signature">(static) </span>get<span class="signature">(id)</span><span class="type-signature"> &rarr; {varies}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Get handler.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">LeagueId used to search for a specific league</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_leaguesRoutes.js.html">controllers/leaguesRoutes.js</a>, <a href="controllers_leaguesRoutes.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">varies</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".post"><span class="type-signature">(static) </span>post<span class="signature">(leaguename, description)</span><span class="type-signature"> &rarr; {obj}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Post handler.
 </div>
 
 
@@ -196,7 +506,7 @@
 
             
 
-            <td class="description last">Name of the new league</td>
+            <td class="description last">Name for a new league</td>
         </tr>
 
     
@@ -219,7 +529,7 @@
 
             
 
-            <td class="description last">Description of the new league</td>
+            <td class="description last">Description of new league</td>
         </tr>
 
     
@@ -260,7 +570,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_leagueModel.js.html">models/leagueModel.js</a>, <a href="models_leagueModel.js.html#line43">line 43</a>
+        <a href="controllers_leaguesRoutes.js.html">controllers/leaguesRoutes.js</a>, <a href="controllers_leaguesRoutes.js.html#line48">line 48</a>
     </li></ul></dd>
     
 
@@ -287,413 +597,7 @@
 
         
 <div class="param-desc">
-    Newly created league
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">obj</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".deleteLeague"><span class="type-signature">(static) </span>deleteLeague<span class="signature">(leagueId)</span><span class="type-signature"> &rarr; {void}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Deletes league with a given Id. Will destroy all teams within that league as well.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>leagueId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Id of the league to be deleted</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_leagueModel.js.html">models/leagueModel.js</a>, <a href="models_leagueModel.js.html#line59">line 59</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".getAll"><span class="type-signature">(static) </span>getAll<span class="signature">()</span><span class="type-signature"> &rarr; {array}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns all leagues in the database.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_leagueModel.js.html">models/leagueModel.js</a>, <a href="models_leagueModel.js.html#line28">line 28</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Array containing all leagues
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".getById"><span class="type-signature">(static) </span>getById<span class="signature">(leagueId)</span><span class="type-signature"> &rarr; {obj}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns a league with a given Id.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>leagueId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Id of the league to return</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_leagueModel.js.html">models/leagueModel.js</a>, <a href="models_leagueModel.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    League object from database
+    The newly created league
 </div>
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: controllers/index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,34 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: controllers/index.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module controllerIndex
+ * @description
+ * Serves as an intermediate step between /server/routes.js and the 
+ * individual router files within /servers/controllers/
+ *
+ * To add new routers, extend this object. Note that the 
+ * property name associated with a given router must be the URL
+ * being routed. E.g. the 'users' router is used when a request is
+ * made to '/users'.
+ * @type {obj}
+ */
+module.exports = {
+  users: require('./usersRoutes'),
+  leagues: require('./leaguesRoutes'),
+  teams: require('./teamsRoutes')
+};</code></pre>
+        </article>
+    </section>
 
 
 

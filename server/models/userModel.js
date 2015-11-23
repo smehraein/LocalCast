@@ -1,5 +1,6 @@
 /**
  * @module userModel
+ * @description Manages database access for server routes involving users.
  */
 
 var db = require('../db');

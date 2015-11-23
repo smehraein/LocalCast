@@ -1,4 +1,6 @@
 /**
+ * @module leaguesRoutes
+ * @description Router for all requests to '/leagues'.
  * Router for all requests to '/leagues'.
  *
  * GET: Accepts the follow queries:
@@ -18,6 +20,11 @@
 var Leagues = require('../models/leagueModel.js');
 
 module.exports = {
+  /**
+   * Get handler.
+   * @param  {int} id LeagueId used to search for a specific league
+   * @return {varies}
+   */
   get: function (req, res) {
     if (req.query.id) {
       Leagues.getById(req.query.id)
@@ -32,18 +39,29 @@ module.exports = {
       });
     }
   },
+  /**
+   * Post handler.
+   * @param  {string} leaguename  Name for a new league
+   * @param  {string} description Description of new league
+   * @return {obj}                The newly created league
+   */
   post: function (req, res) {
     if (!req.body.leaguename || !req.body.description) {
       res.sendStatus(400);
     }
     Leagues.createLeague(req.body.leaguename, req.body.description)
-    .then(function () {
-      res.sendStatus(201);
+    .then(function (league) {
+      res.status(201).json(league);
     });
   },
   put: function (req, res) {
 
   },
+  /**
+   * Delete handler.
+   * @param  {int} id Id of the league to delete
+   * @return {void}
+   */
   delete: function (req, res) {
     if (req.query.id) {
       Leagues.deleteLeague(req.query.id)
