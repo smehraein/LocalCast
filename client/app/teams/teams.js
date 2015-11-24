@@ -19,16 +19,16 @@ angular.module('localCast.teams', [])
 
   $scope.getTeams = function () {
     return Teams.getTeamsWithStats($scope.leagueId)
-      .then(function (respData) {
-        $scope.data.teams = respData;
+    .then(function (respData) {
+      $scope.data.teams = respData;
     });
   };
 
   $scope.init = function () {
     Teams.getLeagueName($scope.leagueId)
-      .then(function(respData) {
-        $scope.data.currentLeagueName = respData.leaguename;
-      });
+    .then(function(respData) {
+      $scope.data.currentLeagueName = respData.leaguename;
+    });
     $scope.getTeams();
   };
 

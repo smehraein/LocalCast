@@ -24,8 +24,7 @@ angular.module('localCast.teamsService', [])
     return $http({
       method: 'GET',
       url: '/teams/?lid='+leagueid
-    })
-    .then(function (resp) {
+    }).then(function (resp) {
       return resp.data;
     });
   };
@@ -34,8 +33,7 @@ angular.module('localCast.teamsService', [])
     return $http({
       method: 'GET',
       url: '/teams/?stats=true&lid='+leagueid
-    })
-    .then(function (resp) {
+    }).then(function (resp) {
       return resp.data;
     });
   };
@@ -44,8 +42,7 @@ angular.module('localCast.teamsService', [])
     return $http({
       method: 'GET',
       url: '/leagues/?id='+leagueid
-    })
-    .then(function (resp) {
+    }).then(function (resp) {
       return resp.data;
     });
   };

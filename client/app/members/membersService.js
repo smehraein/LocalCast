@@ -18,8 +18,7 @@ angular.module('localCast.membersService', [])
       data: {
         username: username
       }
-    }).
-    then(function (user) {
+    }).then(function (user) {
       return $http({
         method: 'PUT',
         url: '/users',

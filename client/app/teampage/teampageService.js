@@ -9,7 +9,7 @@ angular.module('localCast.teampageService', [])
       return resp.data;
     });
   };
-
+  
   return {
     getTeam: getTeam
   };

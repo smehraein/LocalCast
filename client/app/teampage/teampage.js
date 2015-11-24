@@ -7,9 +7,9 @@ angular.module('localCast.teampage', [])
 
   $scope.init = function () {
     TeamPage.getTeam($scope.teamId)
-      .then(function(respData) {
-        $scope.currentTeamName = respData.teamname;
-      });
+    .then(function(respData) {
+      $scope.currentTeamName = respData.teamname;
+    });
   };
 
   $scope.init();
