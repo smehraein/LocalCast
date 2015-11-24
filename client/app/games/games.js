@@ -6,7 +6,7 @@ angular.module('localCast.games', [])
   $scope.data = {};
   $scope.data.games = [];
   $scope.data.teams = [];
-  $scope.data.team2;
+  $scope.data.team2 = null;
 
   $scope.addGame = function() {
     return Games.createGame($scope.teamId, $scope.data.team2.id, $scope.data.teamscore1, $scope.data.teamscore2)
