@@ -6,10 +6,11 @@ var expect = require('../../node_modules/chai/chai').expect;
 describe("Backend", function() {
 
   before(function() {
-    sequelize = new Sequelize("localCast", "root", "SQL");
-    sequelize.sync({force:true})
-    .then(function() {
-    });
+    return db.reset();
+  });
+
+  after(function() {
+    return db.reset();
   });
 
   it("Should insert a user into the DB", function() {

@@ -160,6 +160,14 @@ var Game = sequelize.define('Game', {
 var Roster = sequelize.define('Roster', {
 });
 
+/**
+ * Resets all tables in the database.
+ * @return {promise} Resolves when tables are remade
+ */
+var reset = function () {
+  return sequelize.sync({force:true});  
+};
+
 // Assign associations
 Team.belongsTo(League);
 User.belongsToMany(Team, {through: Roster});
@@ -174,5 +182,6 @@ module.exports = {
   League: League,
   Team: Team,
   Game: Game,
-  Roster: Roster
+  Roster: Roster,
+  reset: reset
 };
