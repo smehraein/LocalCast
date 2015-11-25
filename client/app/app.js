@@ -9,7 +9,8 @@ angular.module('localCast', [
   'localCast.gamesService',
   'localCast.members',
   'localCast.membersService',
-  'ui.router'
+  'ui.router', 
+  'ngMaterial'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/leagues');
