@@ -9,10 +9,19 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
   </head>
   <body ng-app="localCast">
-    <!-- navigation bar -->
+
+    <!-- Navigation Bar -->
     <md-toolbar>
       <div class="md-toolbar-tools">
+      <h2>
+        <span>
+          <a ui-sref="leagues">Local Cast</a>
+          </span>
+      </h2>
         <span flex=""></span>
+        <md-button class="md-icon-button" aria-label="GitHub">
+          <i class="fa fa-question fa-3x"></i>
+        </md-button>
         <md-button class="md-icon-button" aria-label="GitHub">
           <i class="fa fa-github fa-3x"></i>
         </md-button>
@@ -21,33 +30,10 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-toolbar id="nav" layout="row" layout-align="center end" class="md-tall">
-      <div flex flex-sm="100" flex-gt-sm="95" flex-gt-md="80" layout="column">
-          <h1>LocalCast</h1>
-          <span flex></span>
-          <md-tabs md-selected="currentTab" md-stretch-tabs="always" class="md-primary md-hue-2 main-nav">
-              <!-- nav tab button for Leagues view -->
-              <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1"  layout-fill>
-                <md-tab-label>Home</md-tab-label>
-                <md-tab-content>
-                  <div ui-view></div>
-                </md-tab-content>
-              </md-tab>
-              <!-- nav tab button for Profile view -->
-              <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
-                <md-tab-label>Profile</md-tab-label>
-              </md-tab>
-              <!-- nav tab button for About view -->
-              <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
-                <md-tab-label>About</md-tab-label>
-              </md-tab>
-          </md-tabs>
-      </div>
-    </md-toolbar>
-    <!-- end nav -->
+    <!-- End Navigation Bar -->
 
     <!-- UI-View -->
-    
+    <div ui-view></div>
 
     <!-- Angular Material Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
