@@ -1,0 +1,1 @@
+angular.module('localCast', ['ui.router', 'ngMaterial', 'ngMessages']);

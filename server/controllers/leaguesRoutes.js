@@ -49,10 +49,12 @@ module.exports = {
     if (!req.body.leaguename || !req.body.description) {
       res.sendStatus(400);
     }
-    Leagues.createLeague(req.body.leaguename, req.body.description)
-    .then(function (league) {
-      res.status(201).json(league);
-    });
+    else {
+      Leagues.createLeague(req.body.leaguename, req.body.description)
+      .then(function (league) {
+        res.status(201).json(league);
+      });
+    }
   },
   put: function (req, res) {
 

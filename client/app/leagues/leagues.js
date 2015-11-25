@@ -1,33 +1,44 @@
-angular.module('localCast.leagues', [])
+(function () {
+  'use strict';
 
-.controller('LeaguesController', function ($scope, Leagues) {
-  $scope.data = {};
-  $scope.data.leagues = [];
+  angular.module('localCast')
+  .controller('LeaguesCtrl', LeaguesCtrl);
 
-  $scope.getLeagues = function () {
-    return Leagues.getLeagues()
-    .then(function (respData) {
-      $scope.data.leagues = respData;
-    });
-  };
+  LeaguesCtrl.$inject = ['leaguesFactory'];
 
-  $scope.removeLeague = function (league) {
-    return Leagues.deleteLeague(league.id)
-    .then(function () {
-      $scope.getLeagues();
-    });
-  };  
+  function LeaguesCtrl (leaguesFactory) {
+    var self  = this;
+    self.data = {};
 
-  $scope.createLeague = function () {
-    return Leagues.createLeague($scope.data.leaguename, $scope.data.description)
-    .then(function () {
-      $scope.getLeagues();
-    });
-  };
+    self.getLeagues   = getLeagues;
+    self.removeLeague = removeLeague;
+    self.createLeague = createLeague;
 
-  $scope.init = function () {
-    $scope.getLeagues();
-  };
+    activate();
 
-  $scope.init();
-});
+    function activate () {
+      getLeagues();
+    }
+
+    function getLeagues () {
+      return leaguesFactory.getLeagues()
+      .then(function (respData) {
+        self.data.leagues = respData;
+      });
+    }
+
+    function removeLeague (league) {
+      return leaguesFactory.deleteLeague(league.id)
+      .then(function () {
+        getLeagues();
+      });
+    }
+
+    function createLeague () {
+      return leaguesFactory.createLeague(self.data.leaguename, self.data.description)
+      .then(function () {
+        getLeagues();
+      });
+    }
+  }
+})();

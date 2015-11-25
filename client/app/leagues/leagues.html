@@ -1,26 +1,14 @@
-<div class="container theme-showcase" role="main">
-
-  <br>
-  <br>
-  <br>
-
-  <div class="jumbotron">
-  <h1>Welcome to Local Cast</h1>
-  <p>Join a league or create your own! Keep track of teams, games and players
-  all in one place. </p>
-  </div>
-
+<div id="user" ng-controller='LeaguesCtrl as vm' layout="column">
   <div class="container">
-    <div class="page-header">
+    
       <h1>Create a League</h1>
-    </div>
 
-    <form name="createLeagueForm" ng-submit='createLeague()'>
+    <form name="createLeagueForm" ng-submit='vm.createLeague()'>
       <div class="input-group input-group-lg">
-        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.leaguename' placeholder="League Name" novalidate required>
+        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='vm.data.leaguename' placeholder="League Name" novalidate required>
       </div>
       <div class="input-group input-group-lg">
-        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.description' placeholder="Description" novalidate required>
+        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='vm.data.description' placeholder="Description" novalidate required>
       </div>
       <br>
       <button type="submit" class="btn btn-lg btn-default" ng-disabled="createLeagueForm.$invalid">Create League</button>
@@ -32,13 +20,13 @@
       <h1>Active Leagues</h1>
     </div>
 
-    <div ng-repeat="league in data.leagues">
+    <div ng-repeat="league in vm.data.leagues">
       <div class="row">
         <div class="col-sm-4">
           <div class="panel panel-default">
             <div class="panel-heading">
               <a class="panel-title" ui-sref="teams({leagueId: league.id})">{{league.leaguename}}</a>
-              <button class="btn btn-sm btn-danger pull-right" ng-click="removeLeague(league)">Delete</button>
+              <button class="btn btn-sm btn-danger pull-right" ng-click="vm.removeLeague(league)">Delete</button>
             </div>
             <div class="panel-body">
               {{ league.description }}

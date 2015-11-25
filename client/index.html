@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
     <!-- <link rel="stylesheet" type="text/css" href="styles/style.css" /> -->
   </head>
-  <body ng-app="app">
+  <body ng-app="localCast">
       <!-- navigation bar -->
       <md-toolbar>
         <div class="md-toolbar-tools">
@@ -55,11 +55,13 @@
 
     <!-- Angular UI-Router -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+
+    <!-- Angular Messages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-messages.min.js"></script>
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-    <script src="app/leagues/leagues.js"></script>
-    <script src="app/leagues/leaguesService.js"></script>
     <script src="app/teams/teams.js"></script>
     <script src="app/teams/teamsService.js"></script>
     <script src="app/teampage/teampage.js"></script>
@@ -68,6 +70,9 @@
     <script src="app/games/gamesService.js"></script>
     <script src="app/members/members.js"></script>
     <script src="app/members/membersService.js"></script>
-    <script src="app/app.js"></script>
+    <script src="app/app-module.js"></script>
+    <script src="app/app-routes.js"></script>
+    <script src="app/leagues/leagues.js"></script>
+    <script src="app/leagues/leaguesFactory.js"></script>
   </body>
 </html>
