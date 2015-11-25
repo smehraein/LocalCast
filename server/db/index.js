@@ -175,7 +175,7 @@ Team.belongsToMany(User, {through: Roster});
 
 // Creates these tables in MySQL if they don't already exist. Pass in {force: true}
 // to drop any existing tables and make new ones.
-sequelize.sync({force:true});
+sequelize.sync();
 
 module.exports = {
   User: User,
