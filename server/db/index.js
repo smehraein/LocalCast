@@ -147,7 +147,8 @@ var Game = sequelize.define('Game', {
         return this.teamId;
       }
       else {
-        return this.ppponentId;
+        console.log(this.opponentId);
+        return this.opponentId;
       }
     }
   }
