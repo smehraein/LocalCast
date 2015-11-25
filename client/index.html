@@ -6,43 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="styles/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
   </head>
   <body ng-app="localCast">
-      <!-- navigation bar -->
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <span flex=""></span>
-          <md-button class="md-icon-button" aria-label="GitHub">
-            <i class="fa fa-github fa-3x"></i>
-          </md-button>
-          <md-button class="md-icon-button" aria-label="Documentation">
-            <i class="fa fa-book fa-3x"></i>
-          </md-button>
-        </div>
-      </md-toolbar>
-      <md-toolbar id="nav" layout="row" layout-align="center end" class="md-tall">
-        <div flex flex-sm="100" flex-gt-sm="95" flex-gt-md="80" layout="column">
-            <h1>LocalCast</h1>
-            <span flex></span>
-            <md-tabs md-selected="currentTab" md-stretch-tabs="always" class="md-primary md-hue-2">
-                <!-- nav tab button for Leagues view -->
-                <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
-                  <md-tab-label>Home</md-tab-label>
-                </md-tab>
-                <!-- nav tab button for Profile view -->
-                <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
-                  <md-tab-label>Profile</md-tab-label>
-                </md-tab>
-                <!-- nav tab button for About view -->
-                <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
-                  <md-tab-label>About</md-tab-label>
-                </md-tab>
-            </md-tabs>
-        </div>
-      </md-toolbar>
-      <!-- end nav -->
+    <!-- navigation bar -->
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <span flex=""></span>
+        <md-button class="md-icon-button" aria-label="GitHub">
+          <i class="fa fa-github fa-3x"></i>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Documentation">
+          <i class="fa fa-book fa-3x"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-toolbar id="nav" layout="row" layout-align="center end" class="md-tall">
+      <div flex flex-sm="100" flex-gt-sm="95" flex-gt-md="80" layout="column">
+          <h1>LocalCast</h1>
+          <span flex></span>
+          <md-tabs md-selected="currentTab" md-stretch-tabs="always" class="md-primary md-hue-2">
+              <!-- nav tab button for Leagues view -->
+              <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
+                <md-tab-label>Home</md-tab-label>
+              </md-tab>
+              <!-- nav tab button for Profile view -->
+              <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
+                <md-tab-label>Profile</md-tab-label>
+              </md-tab>
+              <!-- nav tab button for About view -->
+              <md-tab ui-sref="leagues" id="leagues/leagues.html" aria-controls="Tab 1">
+                <md-tab-label>About</md-tab-label>
+              </md-tab>
+          </md-tabs>
+      </div>
+    </md-toolbar>
+    <!-- end nav -->
 
+    <!-- UI-View -->
     <div ui-view></div>
 
     <!-- Angular Material Dependencies -->
