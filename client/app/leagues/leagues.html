@@ -1,17 +1,7 @@
 <div id="leagues" ng-controller='LeaguesCtrl as ctrl' layout="column">
-    
-      <h1>Create a League</h1>
-
-    <form name="createLeagueForm" ng-submit='ctrl.createLeague()'>
-      <div class="input-group input-group-lg">
-        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='ctrl.data.leaguename' placeholder="League Name" novalidate required>
-      </div>
-      <div class="input-group input-group-lg">
-        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='ctrl.data.description' placeholder="Description" novalidate required>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-lg btn-default" ng-disabled="createLeagueForm.$invalid">Create League</button>
-    </form>
+    <md-button class="md-primary md-raised" ng-click="ctrl.showCreateLeague($event)" flex-sm="100" flex-md="100" flex-gt-md="auto">
+      Create League
+    </md-button>
 
   <md-toolbar class="md-warn">
     <div class="md-toolbar-tools">

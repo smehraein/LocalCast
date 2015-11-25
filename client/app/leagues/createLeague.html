@@ -1,0 +1,40 @@
+<md-dialog aria-label="Create League"  ng-cloak>
+  <form name="newLeagueForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create League</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancel">
+          <i class="fa fa-ban fa-2x"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <div class="md-dialog-content">
+        <form>
+          <md-input-container class="md-block">
+            <label>Name</label>
+            <input md-maxlength="30" required name="description" ng-model="newLeague.name">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Description</label>
+            <input required name="clientName" md-maxlength="100" ng-model="newLeague.description">
+            <div ng-messages="projectForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The description has to be less than 100 characters long.</div>
+            </div>
+          </md-input-container>
+        </form>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="create([newLeague.name, newLeague.description])" ng-disabled="newLeagueForm.$invalid" style="margin-right:20px;">
+        Create
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
