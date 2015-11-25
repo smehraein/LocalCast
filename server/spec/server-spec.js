@@ -16,7 +16,7 @@ describe("Backend", function() {
   it("Should insert a user into the DB", function() {
     var postOptions = {
       method: "POST",
-      uri: "http://127.0.0.1:3000/users",
+      uri: "http://127.0.0.1:3000/api/users",
       body: { username: "Soroush" },
       json: true
     };
@@ -32,14 +32,14 @@ describe("Backend", function() {
   it("Should get users by ID", function() {
     var postOptions = {
       method: "POST",
-      uri: "http://127.0.0.1:3000/users",
+      uri: "http://127.0.0.1:3000/api/users",
       body: { username: "Yoshio" },
       json: true
     };
 
     var getOptions = {
       method: "GET",
-      uri: "http://127.0.0.1:3000/users/?id=1",
+      uri: "http://127.0.0.1:3000/api/users/?id=1",
       json: true
     };
 
@@ -54,7 +54,7 @@ describe("Backend", function() {
   it("Should get all users", function() {
     var getOptions = {
       method: "GET",
-      uri: "http://127.0.0.1:3000/users",
+      uri: "http://127.0.0.1:3000/api/users",
       json: true
     };
 
@@ -69,7 +69,7 @@ describe("Backend", function() {
   it("Should insert a league into the DB", function() {
     var postOptions = {
       method: "POST",
-      uri: "http://127.0.0.1:3000/leagues",
+      uri: "http://127.0.0.1:3000/api/leagues",
       body: {
         leaguename: "Soroush's Test League",
         description: "Extreme underwater testing."
@@ -89,7 +89,7 @@ describe("Backend", function() {
   it("Should insert a team into the DB", function() {
     var postOptions = {
       method: "POST",
-      uri: "http://127.0.0.1:3000/teams",
+      uri: "http://127.0.0.1:3000/api/teams",
       body: {
         teamname: "Soroush's Testing Team",
         leagueId: 1
@@ -99,7 +99,7 @@ describe("Backend", function() {
 
     var postOptions2 = {
       method: "POST",
-      uri: "http://127.0.0.1:3000/teams",
+      uri: "http://127.0.0.1:3000/api/teams",
       body: {
         teamname: "Yoshio's Testing Team",
         leagueId: 1
@@ -120,7 +120,7 @@ describe("Backend", function() {
   it("Should put a user on a team", function() {
     var postOptions = {
       method: "PUT",
-      uri: "http://127.0.0.1:3000/users",
+      uri: "http://127.0.0.1:3000/api/users",
       body: {
         userId: 1,
         teamId: 1
@@ -143,10 +143,10 @@ describe("Backend", function() {
     });
   });
 
-  it("Should insert a game into the DB", function() {
+  it("Should insert a game into the DB where the home team wins", function() {
     var postOptions = {
       method: "PUT",
-      uri: "http://127.0.0.1:3000/teams",
+      uri: "http://127.0.0.1:3000/api/teams",
       body: {
         teamId: 1,
         opponentId: 2,
@@ -167,23 +167,48 @@ describe("Backend", function() {
     });
   });
 
+  it("Should insert a game into the DB where the away team wins", function() {
+    var postOptions = {
+      method: "PUT",
+      uri: "http://127.0.0.1:3000/api/teams",
+      body: {
+        teamId: 1,
+        opponentId: 2,
+        teamScore: 5,
+        opponentScore: 10
+      },
+      json: true
+    };
+
+    return rp(postOptions)
+    .then(function () {
+      return db.Game.findById(2);
+    }).then(function (game) { // Test data storage
+      expect(game.teamId).to.equal(1);
+      expect(game.opponentId).to.equal(2);
+      expect(game.teamScore).to.equal(5);
+      expect(game.opponentScore).to.equal(10);
+    });
+  });
+
   it("Should calculate the winner of a game", function() {
-    return db.Game.findById(1)
-    .then(function (game) {
-      expect(game.getWinner()).to.equal(1);
+    return db.Game.findAll()
+    .then(function (games) {
+      expect(games[0].getWinner()).to.equal(1);
+      expect(games[1].getWinner()).to.equal(2);
     });
   });
 
   it("Should get the games of a team", function() {
     var getOptions = {
       method: "GET",
-      uri: "http://127.0.0.1:3000/teams/?id=1&games=true",
+      uri: "http://127.0.0.1:3000/api/teams/?id=1&games=true",
       json: true
     };
 
     return rp(getOptions)
     .then(function (games) {
-      expect(games.length).to.equal(1);
+      expect(games.length).to.equal(2);
       expect(games[0][0].teamId).to.equal(1);
       expect(games[0][0].opponentId).to.equal(2);
       expect(games[0][1][0]).to.equal("Soroush's Testing Team");
@@ -197,7 +222,7 @@ describe("Backend", function() {
       return team.getStats();
     }).then(function (stats) {
       expect(stats.wins).to.equal(1);
-      expect(stats.losses).to.equal(0);
+      expect(stats.losses).to.equal(1);
       expect(stats.ties).to.equal(0);
     });
   });
@@ -205,7 +230,7 @@ describe("Backend", function() {
   it("Should send stats with teams", function() {
     var getOptions = {
       method: "GET",
-      uri: "http://127.0.0.1:3000/teams/?lid=1&stats=true",
+      uri: "http://127.0.0.1:3000/api/teams/?lid=1&stats=true",
       json: true
     };
 
@@ -215,9 +240,9 @@ describe("Backend", function() {
       expect(teamWithStats[0][0].id).to.equal(1);
       expect(teamWithStats[1][0].id).to.equal(2);
       expect(teamWithStats[0][1].wins).to.equal(1);
-      expect(teamWithStats[0][1].losses).to.equal(0);
+      expect(teamWithStats[0][1].losses).to.equal(1);
       expect(teamWithStats[0][1].ties).to.equal(0);
-      expect(teamWithStats[1][1].wins).to.equal(0);
+      expect(teamWithStats[1][1].wins).to.equal(1);
       expect(teamWithStats[1][1].losses).to.equal(1);
       expect(teamWithStats[1][1].ties).to.equal(0);
     });
@@ -226,7 +251,7 @@ describe("Backend", function() {
   it("Should delete a user", function() {
     var deleteOptions = {
       method: "DELETE",
-      uri: "http://127.0.0.1:3000/users/?id=2",
+      uri: "http://127.0.0.1:3000/api/users/?id=2",
       json: true
     };
 
@@ -244,7 +269,7 @@ describe("Backend", function() {
   it("Should delete a team", function() {
     var deleteOptions = {
       method: "DELETE",
-      uri: "http://127.0.0.1:3000/teams/?id=2",
+      uri: "http://127.0.0.1:3000/api/teams/?id=2",
       json: true
     };
 
@@ -265,7 +290,7 @@ describe("Backend", function() {
   it("Should delete a league", function() {
     var deleteOptions = {
       method: "DELETE",
-      uri: "http://127.0.0.1:3000/leagues/?id=1",
+      uri: "http://127.0.0.1:3000/api/leagues/?id=1",
       json: true
     };
 

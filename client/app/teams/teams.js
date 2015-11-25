@@ -14,12 +14,16 @@ angular.module('localCast.teams', [])
   };
 
   $scope.removeTeam = function (team) {
-    return Teams.deleteTeam(team.id);
+    return Teams.deleteTeam(team.id)
+    .then(function () {
+      $scope.getTeams();
+    });
   };
 
   $scope.getTeams = function () {
     return Teams.getTeamsWithStats($scope.leagueId)
     .then(function (respData) {
+      console.log(respData);
       $scope.data.teams = respData;
     });
   };

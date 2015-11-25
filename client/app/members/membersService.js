@@ -4,7 +4,7 @@ angular.module('localCast.membersService', [])
   var getMembers = function (teamid) {
     return $http({
       method: 'GET',
-      url: '/users/?tid='+teamid
+      url: '/api/users/?tid='+teamid
     })
     .then(function (resp) {
       return resp.data;
@@ -14,14 +14,14 @@ angular.module('localCast.membersService', [])
   var addMember = function (username, teamid) {
     return $http({
       method: 'POST',
-      url: '/users',
+      url: '/api/users',
       data: {
         username: username
       }
     }).then(function (user) {
       return $http({
         method: 'PUT',
-        url: '/users',
+        url: '/api/users',
         data: {
           userId: user.data.id,
           teamId: teamid
@@ -33,7 +33,7 @@ angular.module('localCast.membersService', [])
   var deleteMember = function (userid) {
     return $http({
       method: 'DELETE',
-      url: '/users?id='+userid,
+      url: '/api/users?id='+userid,
     });
   };
 

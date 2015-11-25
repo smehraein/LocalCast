@@ -11,7 +11,7 @@
  * @type {obj}
  */
 module.exports = {
-  users: require('./usersRoutes'),
-  leagues: require('./leaguesRoutes'),
-  teams: require('./teamsRoutes')
+  'api/users': require('./usersRoutes'),
+  'api/leagues': require('./leaguesRoutes'),
+  'api/teams': require('./teamsRoutes')
 };

@@ -5,7 +5,7 @@ angular.module('localCast.gamesService', [])
   var createGame = function (teamId, opponentId, teamScore, opponentScore) {
     return $http({
       method: 'PUT',
-      url: '/teams',
+      url: '/api/teams',
       data: {
         teamId:        teamId,
         opponentId:    opponentId,
@@ -18,14 +18,14 @@ angular.module('localCast.gamesService', [])
   var deleteGame = function (gameid) {
     return $http({
       method: 'DELETE',
-      url: '/teams/?gid='+gameid
+      url: '/api/teams/?gid='+gameid
     });
   };
 
   var getGames = function (teamid) {
     return $http({
       method: 'GET',
-      url: '/teams/?games=true&id='+teamid
+      url: '/api/teams/?games=true&id='+teamid
     })
     .then(function (resp) {
       return resp.data;

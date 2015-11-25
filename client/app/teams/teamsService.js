@@ -5,7 +5,7 @@ angular.module('localCast.teamsService', [])
   var createTeam = function (name, leagueid) {
     return $http({
       method: 'POST',
-      url: '/teams',
+      url: '/api/teams',
       data: {
         teamname: name,
         leagueId: leagueid
@@ -16,14 +16,14 @@ angular.module('localCast.teamsService', [])
   var deleteTeam = function (teamid) {
     return $http({
       method: 'DELETE',
-      url: '/teams/?id='+teamid
+      url: '/api/teams/?id='+teamid
     });
   };
 
   var getTeams = function (leagueid) {
     return $http({
       method: 'GET',
-      url: '/teams/?lid='+leagueid
+      url: '/api/teams/?lid='+leagueid
     }).then(function (resp) {
       return resp.data;
     });
@@ -32,7 +32,7 @@ angular.module('localCast.teamsService', [])
   var getTeamsWithStats = function (leagueid) {
     return $http({
       method: 'GET',
-      url: '/teams/?stats=true&lid='+leagueid
+      url: '/api/teams/?stats=true&lid='+leagueid
     }).then(function (resp) {
       return resp.data;
     });
@@ -41,7 +41,7 @@ angular.module('localCast.teamsService', [])
   var getLeagueName = function (leagueid) {
     return $http({
       method: 'GET',
-      url: '/leagues/?id='+leagueid
+      url: '/api/leagues/?id='+leagueid
     }).then(function (resp) {
       return resp.data;
     });

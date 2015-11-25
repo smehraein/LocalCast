@@ -4,7 +4,7 @@ angular.module('localCast.teampageService', [])
   var getTeam = function (teamid) {
     return $http({
       method: 'GET',
-      url: '/teams/?id='+teamid
+      url: '/api/teams/?id='+teamid
     }).then(function (resp) {
       return resp.data;
     });

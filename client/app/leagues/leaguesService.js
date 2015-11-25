@@ -4,7 +4,7 @@ angular.module('localCast.leaguesService', [])
   var createLeague = function (name, description) {
     return $http({
       method: 'POST',
-      url: '/leagues',
+      url: '/api/leagues',
       data: {
         leaguename: name,
         description: description
@@ -15,7 +15,7 @@ angular.module('localCast.leaguesService', [])
   var getLeagues = function () { 
     return $http({
       method: 'GET',
-      url: '/leagues'
+      url: '/api/leagues'
     }).then(function (resp) {
       return resp.data;
     });
@@ -24,7 +24,7 @@ angular.module('localCast.leaguesService', [])
   var deleteLeague = function (id) {
     return $http({
       method: 'DELETE',
-      url: '/leagues/?id='+id
+      url: '/api/leagues/?id='+id
     });
   };
 
