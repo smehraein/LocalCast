@@ -23,7 +23,9 @@
     <md-grid-tile class="league" ng-repeat="league in ctrl.data.leagues | filter:ctrl.filter"
         md-rowspan="1" md-colspan="2" md-colspan-sm="1">
       <md-grid-tile-header>
-        <h2 class="md-title">{{league.leaguename}}</h2>
+        <h2 class="md-title">
+          <a ui-sref="teampage({leagueId: league.id})">{{league.leaguename}}</a>
+        </h2>
       </md-grid-tile-header>
           <p>{{league.description}}</p>
           <md-button class="md-icon-button" aria-label="Delete" ng-click="ctrl.removeLeague(league)">
