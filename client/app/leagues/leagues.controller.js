@@ -36,10 +36,12 @@
     }
 
     function createLeague (leagueTuple) {
-      return leaguesFactory.createLeague(leagueTuple[0], leagueTuple[1])
-      .then(function () {
-        getLeagues();
-      });
+      if (isValidLeague(leagueTuple)) {
+        return leaguesFactory.createLeague(leagueTuple[0], leagueTuple[1])
+        .then(function () {
+          getLeagues();
+        });
+      }
     }
 
     function showCreateLeague (ev) {
@@ -64,6 +66,15 @@
         $scope.create = function(league) {
           $mdDialog.hide(league);
         };
+      }
+    }
+
+    function isValidLeague (leagueTuple) {
+      if (!leagueTuple) {
+        return false;
+      }
+      else {
+        return (typeof leagueTuple[0] === "string" && typeof leagueTuple[1] === "string");
       }
     }
 
