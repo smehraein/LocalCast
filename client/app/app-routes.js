@@ -20,7 +20,7 @@
     .state('teams', {
       templateUrl: 'app/teams/teams.html',
       url: '/teams/:leagueId',
-      controller: 'TeamsController'
+      controller: 'TeamsCtrl'
     })
     .state('teampage', {
       url: '/teampage/:leagueId/:teamId',

@@ -1,57 +1,58 @@
-angular.module('localCast.teamsService', [])
+(function() {
+  'use strict';
 
-.factory('Teams', function ($http) {
+  angular.module('localCast')
+  .factory('teamsFactory', teamsFactory);
 
-  var createTeam = function (name, leagueid) {
-    return $http({
-      method: 'POST',
-      url: '/api/teams',
-      data: {
-        teamname: name,
-        leagueId: leagueid
-      }
-    });
-  };
+  teamsFactory.$inject = ['$http'];
 
-  var deleteTeam = function (teamid) {
-    return $http({
-      method: 'DELETE',
-      url: '/api/teams/?id='+teamid
-    });
-  };
+  function teamsFactory($http) {
+    var services = {
+      
+      createTeam           : createTeam,
+      getTeamsWithStats    : getTeamsWithStats,
+      getLeagueName        : getLeagueName,
+      deleteTeam           : deleteTeam
 
-  var getTeams = function (leagueid) {
-    return $http({
-      method: 'GET',
-      url: '/api/teams/?lid='+leagueid
-    }).then(function (resp) {
-      return resp.data;
-    });
-  };
+    };
 
-  var getTeamsWithStats = function (leagueid) {
-    return $http({
-      method: 'GET',
-      url: '/api/teams/?stats=true&lid='+leagueid
-    }).then(function (resp) {
-      return resp.data;
-    });
-  };
+    return services;
 
-  var getLeagueName = function (leagueid) {
-    return $http({
-      method: 'GET',
-      url: '/api/leagues/?id='+leagueid
-    }).then(function (resp) {
-      return resp.data;
-    });
-  };
+    function createTeam (name, leagueId) {
+      return $http({
+        method: 'POST',
+        url: '/api/teams',
+        data: {
+          teamname: name,
+          leagueId: leagueId
+        }
+      });
+    }
 
-  return {
-    createTeam: createTeam,
-    getTeams: getTeams,
-    getTeamsWithStats: getTeamsWithStats,
-    getLeagueName: getLeagueName,
-    deleteTeam: deleteTeam
-  };
-});
+    function getTeamsWithStats (leagueId) { 
+      return $http({
+        method: 'GET',
+        url: '/api/teams/?stats=true&lid='+leagueId
+      }).then(function (resp) {
+        return resp.data;
+      });
+    }
+
+    function deleteTeam (id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/teams/?id='+id
+      });
+    }
+
+    function getLeagueName (leagueid) {
+      return $http({
+        method: 'GET',
+        url: '/api/leagues/?id='+leagueid
+      }).then(function (resp) {
+        return resp.data.leaguename;
+      });
+    }
+
+  }
+})();

@@ -42,7 +42,7 @@
 
     function createTeam (teamName) {
       if (isValidTeam(teamName)) {
-        return teamsFactory.createTeam(teamName)
+        return teamsFactory.createTeam(teamName, self.data.leagueId)
         .then(function () {
           return getTeams();
         });
@@ -52,7 +52,7 @@
     function showCreateTeam (ev) {
       $mdDialog.show({
         controller: CreateTeamCtrl,
-        templateUrl: 'app/leagues/createTeam.html',
+        templateUrl: 'app/teams/createTeam.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true
@@ -61,7 +61,7 @@
         self.createTeam(teamName);
       }, function() {
       });
-      function CreateLeagueCtrl ($scope, $mdDialog) {
+      function CreateTeamCtrl ($scope, $mdDialog) {
         $scope.hide = function() {
           $mdDialog.hide();
         };
