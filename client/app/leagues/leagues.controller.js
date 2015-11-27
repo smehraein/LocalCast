@@ -10,9 +10,9 @@
     var self  = this;
     self.data = {};
 
-    self.getLeagues   = getLeagues;
-    self.removeLeague = removeLeague;
-    self.createLeague = createLeague;
+    self.getLeagues       = getLeagues;
+    self.removeLeague     = removeLeague;
+    self.createLeague     = createLeague;
     self.showCreateLeague = showCreateLeague;
 
     activate();
@@ -39,7 +39,7 @@
       if (isValidLeague(leagueTuple)) {
         return leaguesFactory.createLeague(leagueTuple[0], leagueTuple[1])
         .then(function () {
-          getLeagues();
+          return getLeagues();
         });
       }
     }
@@ -53,7 +53,7 @@
         clickOutsideToClose:true
       })
       .then(function (leagueTuple) {
-        self.createLeague(leagueTuple);
+        return self.createLeague(leagueTuple);
       }, function() {
       });
       function CreateLeagueCtrl ($scope, $mdDialog) {
@@ -63,8 +63,8 @@
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
-        $scope.create = function(league) {
-          $mdDialog.hide(league);
+        $scope.create = function(leagueTuple) {
+          $mdDialog.hide(leagueTuple);
         };
       }
     }
