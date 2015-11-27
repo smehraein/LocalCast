@@ -1,7 +1,9 @@
 <div id="leagues" ng-controller='LeaguesCtrl as ctrl' layout="column">
-    <md-button class="md-primary md-raised" ng-click="ctrl.showCreateLeague($event)" flex-sm="100" flex-md="100" flex-gt-md="auto">
-      Create League
-    </md-button>
+  <h1 class="md-display-2">Welcome to LocalCast!</h1>
+
+  <md-button class="md-primary md-raised" ng-click="ctrl.showCreateLeague($event)" flex-sm="100" flex-md="100" flex-gt-md="auto">
+    Create League
+  </md-button>
 
   <md-toolbar class="md-warn">
     <div class="md-toolbar-tools">
@@ -24,7 +26,7 @@
         md-rowspan="1" md-colspan="2" md-colspan-sm="1">
       <md-grid-tile-header>
         <h2 class="md-title">
-          <a ui-sref="teampage({leagueId: league.id})">{{league.leaguename}}</a>
+          <a ui-sref="teams({leagueId: league.id})">{{league.leaguename}}</a>
         </h2>
       </md-grid-tile-header>
           <p>{{league.description}}</p>

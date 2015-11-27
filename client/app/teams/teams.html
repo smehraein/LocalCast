@@ -1,39 +1,23 @@
 <div id="teams" ng-controller='TeamsCtrl as ctrl' layout="column">
+  <h1 class="md-display-2">{{ctrl.data.currentLeagueName}} League Page</h1>
 
-  <br>
-  <br>
-  <br>
+  <md-button class="md-primary md-raised" ng-click="ctrl.showCreateTeam($event)" flex-sm="100" flex-md="100" flex-gt-md="auto">
+    Create Team
+  </md-button>
 
-  <div class="jumbotron">
-  <h1>{{data.currentLeagueName}} League Page</h1>
-  </div>
-
-  <div class="container">
-    <div class="page-header">
-      <h1>Create a Team</h1>
-    </div>
-
-    <form name="createTeamForm" ng-submit='addTeam()'>
-      <div class="input-group input-group-lg">
-        <input type='text' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamname' placeholder="Team Name" novalidate required>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-lg btn-default" ng-disabled="createTeamForm.$invalid">Create Team</button>
-    </form>
-  </div>
 
   <div class="container">
     <div class="page-header">
       <h1>Active Teams</h1>
     </div>
 
-    <div ng-repeat="team in data.teams | orderBy:'-wins'">
+    <div ng-repeat="team in ctrl.data.teams | orderBy:'-wins'">
       <div class="row">
         <div class="col-sm-4">
           <div class="panel panel-default">
             <div class="panel-heading">
               <a class="panel-title" ui-sref="teampage({leagueId: leagueId, teamId: team[0].id})">{{team[0].teamname}}</a>
-              <button class="btn btn-sm btn-danger pull-right" ng-click="removeTeam(team[0])">Delete</button>
+              <button class="btn btn-sm btn-danger pull-right" ng-click="ctrl.removeTeam(team[0])">Delete</button>
             </div>
             <div class="panel-body">
               {{ team[1].wins }}/{{ team[1].losses }}/{{ team[1].ties }}
