@@ -1,10 +1,10 @@
-<md-dialog aria-label="Create League"  ng-cloak>
+<md-dialog aria-label="Create League"  ng-cloak flex="50">
   <form name="newLeagueForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Create League</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancel">
+        <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancel" type="button">
           <i class="fa fa-ban fa-2x"></i>
         </md-button>
       </div>
@@ -32,7 +32,7 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="create([newLeague.name, newLeague.description])" ng-disabled="newLeagueForm.$invalid" style="margin-right:20px;">
+      <md-button ng-click="create([newLeague.name, newLeague.description])" ng-disabled="newLeagueForm.$invalid" style="margin-right:20px;" type="submit">
         Create
       </md-button>
     </md-dialog-actions>

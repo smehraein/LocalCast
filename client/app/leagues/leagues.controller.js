@@ -53,7 +53,6 @@
       .then(function (leagueTuple) {
         self.createLeague(leagueTuple);
       }, function() {
-        self.status = 'You cancelled the dialog.';
       });
       function CreateLeagueCtrl ($scope, $mdDialog) {
         $scope.hide = function() {
