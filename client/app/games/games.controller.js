@@ -31,7 +31,6 @@
     function getGames () {
       return gamesFactory.getGames(self.data.teamId)
       .then(function (games) {
-        console.log(games);
         self.data.games = games;
       });
     }

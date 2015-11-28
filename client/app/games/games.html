@@ -10,10 +10,11 @@
       <span>Previous Games</span>
     </h2>
   </md-toolbar>
-
-  <md-list-item ng-repeat="game in ctrl.data.games track by $index" class="secondary-button-padding">
-    <p>{{game[1][0]}} ({{game[0].teamScore}})</p>
-    <p>{{game[1][1]}} ({{game[0].opponentScore}})</p>
-    <md-button class="md-warn" ng-click="ctrl.removeGame(game)">Delete</md-button>
-  </md-list-item>
+  <md-content>
+    <md-list-item ng-repeat="game in ctrl.data.games track by $index" class="secondary-button-padding">
+      <p>{{game[1][0]}} ({{game[0].teamScore}})</p>
+      <p>{{game[1][1]}} ({{game[0].opponentScore}})</p>
+      <md-button class="md-warn" ng-click="ctrl.removeGame(game)">Delete</md-button>
+    </md-list-item>
+  </md-content>
 </div>

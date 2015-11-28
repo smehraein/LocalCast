@@ -21,7 +21,7 @@
 
   <md-content>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="team in ctrl.data.teams">
+      <md-list-item class="md-3-line" ng-repeat="team in ctrl.data.teams | filter:ctrl.filter">
         <div class="md-list-item-text">
           <h3>
             <md-button ui-sref="teampage({leagueId: ctrl.data.leagueId, teamId: team[0].id})">{{team[0].teamname}}</md-button>
