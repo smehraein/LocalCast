@@ -1,30 +1,44 @@
 <md-dialog aria-label="Create Team"  ng-cloak flex="50">
-  <form name="newTeamForm">
+  <form name="newGameForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Create Team</h2>
+        <h2>Add Game</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancel" type="button">
           <i class="fa fa-ban fa-2x"></i>
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:800px;max-height:810px; ">
+    <md-dialog-content style="max-width:800px;max-height:810px;">
       <div class="md-dialog-content">
         <form>
-          <md-input-container class="md-block">
-            <label>Name</label>
-            <input md-maxlength="30" required name="description" ng-model="newTeam.name">
-            <div ng-messages="projectForm.description.$error">
-              <div ng-message="required">This is required.</div>
-              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-            </div>
-          </md-input-container>
+        <md-input-container flex>
+          <label>Opposing Team</label>
+          <md-select required placeholder="Opposing Team" ng-model="game.opponentId">
+            <md-option ng-repeat="team in teams | filter:teamFilter" value="{{team.id}}">
+              {{team.teamname}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Your Team's Score</label>
+          <input required type="number" step="any" name="teamScore" ng-model="game.teamScore">
+          <div ng-messages="projectForm.description.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Opposing Team's Score</label>
+          <input required type="number" step="any" name="opponentScore" ng-model="game.opponentScore">
+          <div ng-messages="projectForm.description.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
         </form>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="create(newTeam.name)" ng-disabled="newTeamForm.$invalid" style="margin-right:20px;" type="submit">
+      <md-button ng-click="create(game)" ng-disabled="newGameForm.$invalid" style="margin-right:20px;" type="submit">
         Create
       </md-button>
     </md-dialog-actions>

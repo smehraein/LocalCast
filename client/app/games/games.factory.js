@@ -33,7 +33,7 @@
     function getGames (teamId) { 
       return $http({
         method: 'GET',
-        url: '/api/teams/?games=true&id='+teamid
+        url: '/api/teams/?games=true&id='+teamId
       }).then(function (resp) {
         return resp.data;
       });

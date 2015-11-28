@@ -1,42 +1,19 @@
-<div class="container theme-showcase" role="main">
-  <div class="container">
-    <div class="page-header">
-      <h1>Games</h1>
-    </div>
+<div id="games" ng-controller='GamesCtrl as ctrl' layout="column">
+  <h1 class="md-display-1">Games</h1>
 
+  <md-button class="md-primary md-raised" ng-click="ctrl.showCreateGame($event)" flex-sm="100" flex-md="100" flex-gt-md="auto">
+    Add Game
+  </md-button>
 
-    <form name="addGameForm" ng-submit='addGame()'>
-      <select name="teamSelect" id="teamSelect" ng-model="data.team2" ng-options="team.teamname for team in data.teams | filter:teamFilter" required>
-      </select>
-      <div class="input-group input-group-md">
-        <input type='number' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamscore1' placeholder="Team Score" novalidate required>
-      </div>
-      <div class="input-group input-group-md">
-        <input type='number' class="form-control" aria-describedby="sizing-addon1" ng-model='data.teamscore2' placeholder="Opposing Score" novalidate required>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-lg btn-default" ng-disabled="addGameForm.$invalid">Add Game</button>
-    </form>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-6">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Home Team</th>
-            <th>Away Team</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="game in data.games track by $index">
-            <td>{{game[1][0]}} ({{game[0].teamScore}})</td>
-            <td>{{game[1][1]}} ({{game[0].opponentScore}})</td>
-            <td><button class="btn btn-sm btn-danger" ng-click="removeGame(game)">Delete</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span>Previous Games</span>
+    </h2>
+  </md-toolbar>
+
+  <md-list-item ng-repeat="game in ctrl.data.games track by $index" class="secondary-button-padding">
+    <p>{{game[1][0]}} ({{game[0].teamScore}})</p>
+    <p>{{game[1][1]}} ({{game[0].opponentScore}})</p>
+    <md-button class="md-warn" ng-click="ctrl.removeGame(game)">Delete</md-button>
+  </md-list-item>
 </div>

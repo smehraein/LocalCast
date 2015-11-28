@@ -5,15 +5,15 @@
   <md-grid-list
         md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
         md-row-height-gt-md="1:1" md-row-height="2:2"
-        md-gutter="12px" md-gutter-gt-sm="8px" >
+        md-gutter="12px" md-gutter-gt-sm="8px">
     <md-grid-tile md-rowspan="3" md-colspan="2">
-      <div ui-view="games"></div>
+      <div class="md-tile-content" ui-view="games"></div>
     </md-grid-tile>
     <md-grid-tile md-rowspan="3" md-colspan="2">
-      <div>PLACEHOLDER FOR NEWS</div>
+      <div class="md-tile-content">PLACEHOLDER FOR NEWS</div>
     </md-grid-tile>
     <md-grid-tile md-rowspan="3" md-colspan="2">
-      <div ui-view="members"></div>
+      <div class="md-tile-content" ui-view="members"></div>
     </md-grid-tile>
   </md-grid-list>
 </div>

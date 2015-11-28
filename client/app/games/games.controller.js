@@ -19,17 +19,11 @@
     activate();
 
     function activate () {
-      self.data.leagueId = $stateParams.leagueId;
-      self.data.teamId   = $stateParams.teamId;
+      self.data.leagueId = +$stateParams.leagueId;
+      self.data.teamId   = +$stateParams.teamId;
       return teamsFactory.getTeams(self.data.leagueId)
       .then(function (teams) {
         self.data.teams = teams;
-        if (teams[0].id != self.data.teamId) {
-          self.data.team2 = teams[0];
-        }
-        else {
-          self.data.team2 = teams[1];
-        }
         return self.getGames();
       });
     }
@@ -37,6 +31,7 @@
     function getGames () {
       return gamesFactory.getGames(self.data.teamId)
       .then(function (games) {
+        console.log(games);
         self.data.games = games;
       });
     }
@@ -50,7 +45,7 @@
 
     function addGame (game) {
       if (isValidGame(game)) {
-        return gameFactory.createGame(game)
+        return gamesFactory.createGame(game)
         .then(function () {
           return getGames();
         });
@@ -60,16 +55,23 @@
     function showCreateGame (ev) {
       $mdDialog.show({
         controller: CreateGameCtrl,
-        templateUrl: 'app/teams/createGame.html',
+        templateUrl: 'app/games/createGame.html',
         parent: angular.element(document.body),
         targetEvent: ev,
-        clickOutsideToClose:true
+        clickOutsideToClose:true,
+        locals: {
+          teams      : self.data.teams,
+          teamFilter : teamFilter
+        }
       })
       .then(function (game) {
-        self.createGame(game);
+        self.addGame(game);
       }, function() {
       });
-      function CreateGameCtrl ($scope, $mdDialog) {
+      function CreateGameCtrl ($scope, $mdDialog, teams, teamFilter) {
+        $scope.teams = teams;
+        $scope.teamFilter = teamFilter;
+        $scope.game = {};
         $scope.hide = function() {
           $mdDialog.hide();
         };
@@ -77,6 +79,8 @@
           $mdDialog.cancel();
         };
         $scope.create = function(game) {
+          game.teamId = self.data.teamId;
+          game.opponentId = +game.opponentId;
           $mdDialog.hide(game);
         };
       }
