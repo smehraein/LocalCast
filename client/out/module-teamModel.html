@@ -308,7 +308,7 @@ One team is referred to as 'opponent', so remember to search BOTH
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line113">line 113</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -485,7 +485,7 @@ All teams must belong to a league.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line92">line 92</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -638,7 +638,7 @@ All teams must belong to a league.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line146">line 146</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line165">line 165</a>
     </li></ul></dd>
     
 
@@ -787,7 +787,7 @@ All teams must belong to a league.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line158">line 158</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -887,7 +887,7 @@ All teams must belong to a league.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line76">line 76</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -1093,6 +1093,159 @@ All teams must belong to a league.
 
     
 
+    <h4 class="name" id=".getByIdWithStats"><span class="type-signature">(static) </span>getByIdWithStats<span class="signature">(teamId)</span><span class="type-signature"> &rarr; {array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns a team from the database based on Id with stats.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>teamId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Id of the team to retreive</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Tuple with team object from database and stats
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".getByLeagueId"><span class="type-signature">(static) </span>getByLeagueId<span class="signature">(leagueId)</span><span class="type-signature"> &rarr; {array}</span></h4>
 
     
@@ -1193,7 +1346,7 @@ All teams must belong to a league.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line28">line 28</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -1348,7 +1501,7 @@ Used to populate a league's 'teams' page.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line44">line 44</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -1375,7 +1528,7 @@ Used to populate a league's 'teams' page.
 
         
 <div class="param-desc">
-    Tuple with team + object containing stats
+    Array of tuples with team + object containing stats
 </div>
 
 
@@ -1502,7 +1655,7 @@ Can return more than one team!
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line63">line 63</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line82">line 82</a>
     </li></ul></dd>
     
 
@@ -1656,7 +1809,7 @@ with the game info and the names of the participating teams.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line132">line 132</a>
+        <a href="models_teamModel.js.html">models/teamModel.js</a>, <a href="models_teamModel.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -1726,7 +1879,7 @@ with the game info and the names of the participating teams.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Nov 23 2015 01:43:42 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Nov 27 2015 23:45:26 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>
