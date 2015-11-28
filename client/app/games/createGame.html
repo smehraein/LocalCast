@@ -1,0 +1,32 @@
+<md-dialog aria-label="Create Team"  ng-cloak flex="50">
+  <form name="newTeamForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create Team</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancel" type="button">
+          <i class="fa fa-ban fa-2x"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <div class="md-dialog-content">
+        <form>
+          <md-input-container class="md-block">
+            <label>Name</label>
+            <input md-maxlength="30" required name="description" ng-model="newTeam.name">
+            <div ng-messages="projectForm.description.$error">
+              <div ng-message="required">This is required.</div>
+              <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+        </form>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="create(newTeam.name)" ng-disabled="newTeamForm.$invalid" style="margin-right:20px;" type="submit">
+        Create
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

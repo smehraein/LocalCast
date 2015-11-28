@@ -30,7 +30,7 @@
         },
         'games@teampage': {
           templateUrl: 'app/games/games.html',
-          controller: 'GamesController'
+          controller: 'GamesCtrl'
         },
         'members@teampage': {
           templateUrl: 'app/members/members.html',

@@ -10,6 +10,7 @@
     var services = {
       
       createTeam        : createTeam,
+      getTeams          : getTeams,
       getTeamWithStats  : getTeamWithStats,
       getTeamsWithStats : getTeamsWithStats,
       getLeagueName     : getLeagueName,
@@ -34,6 +35,15 @@
       return $http({
         method: 'GET',
         url: '/api/teams/?stats=true&lid='+leagueId
+      }).then(function (resp) {
+        return resp.data;
+      });
+    }
+
+    function getTeams (leagueId) { 
+      return $http({
+        method: 'GET',
+        url: '/api/teams/?lid='+leagueId
       }).then(function (resp) {
         return resp.data;
       });
