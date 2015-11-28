@@ -21,6 +21,25 @@ module.exports.getById = function (teamId) {
 };
 
 /**
+ * Returns a team from the database based on Id with stats.
+ * @param  {int} teamId Id of the team to retreive
+ * @return {array}      Tuple with team object from database and stats
+ */
+module.exports.getByIdWithStats = function (teamId) {
+  var teamTuple = [];
+  return db.Team.findById(teamId)
+  .then(function (team) {
+    teamTuple.push(team);
+    return team.getStats();
+  }).then(function (stats) {
+    teamTuple.push(stats);
+    return teamTuple;
+  }).catch(function (err) {
+    console.error("Error getting team and stats with id ", id, " : ", err);
+  });
+};
+
+/**
  * Returns all teams which have a given leagueId.
  * @param  {int} leagueId Id of the league to search through
  * @return {array}        All teams within the provided league
@@ -39,7 +58,7 @@ module.exports.getByLeagueId = function (leagueId) {
  * getStats() method for each & stores the value in a tuple with the team.
  * Used to populate a league's 'teams' page.
  * @param  {int} leagueId Id of the league these teams belong to
- * @return {array}        Tuple with team + object containing stats
+ * @return {array}        Array of tuples with team + object containing stats
  */
 module.exports.getByLeagueIdWithStats = function (leagueId) {
   return db.Team.findAll({where: {leagueId: leagueId}})

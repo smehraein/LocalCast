@@ -31,6 +31,12 @@ module.exports = {
       res.json(games);
       });
     }
+    else if (req.query.id && req.query.stats) {
+      Teams.getByIdWithStats(req.query.id)
+      .then(function (teamWithStats) {
+      res.json(teamWithStats);
+      });
+    }
     else if (req.query.id) {
       Teams.getById(req.query.id)
       .then(function (team) {

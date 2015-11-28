@@ -26,8 +26,7 @@
       url: '/teampage/:leagueId/:teamId',
       views: {
         '' : {
-          templateUrl: 'app/teampage/teampage.html',
-          controller: 'TeamPageController',
+          templateUrl: 'app/teampage/teampage.html'
         },
         'games@teampage': {
           templateUrl: 'app/games/games.html',

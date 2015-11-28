@@ -9,10 +9,11 @@
   function teamsFactory($http) {
     var services = {
       
-      createTeam           : createTeam,
-      getTeamsWithStats    : getTeamsWithStats,
-      getLeagueName        : getLeagueName,
-      deleteTeam           : deleteTeam
+      createTeam        : createTeam,
+      getTeamWithStats  : getTeamWithStats,
+      getTeamsWithStats : getTeamsWithStats,
+      getLeagueName     : getLeagueName,
+      deleteTeam        : deleteTeam
 
     };
 
@@ -33,6 +34,15 @@
       return $http({
         method: 'GET',
         url: '/api/teams/?stats=true&lid='+leagueId
+      }).then(function (resp) {
+        return resp.data;
+      });
+    }
+
+    function getTeamWithStats (id) { 
+      return $http({
+        method: 'GET',
+        url: '/api/teams/?stats=true&id='+id
       }).then(function (resp) {
         return resp.data;
       });

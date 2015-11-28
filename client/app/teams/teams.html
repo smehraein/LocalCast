@@ -24,7 +24,7 @@
       <md-list-item class="md-3-line" ng-repeat="team in ctrl.data.teams">
         <div class="md-list-item-text">
           <h3>
-            <md-button ui-sref="teampage({leagueId: leagueId, teamId: team[0].id})">{{team[0].teamname}}</md-button>
+            <md-button ui-sref="teampage({leagueId: ctrl.data.leagueId, teamId: team[0].id})">{{team[0].teamname}}</md-button>
           </h3>
           <h4>{{ team[1].wins }}/{{ team[1].losses }}/{{ team[1].ties }}</h4>
         </div>
