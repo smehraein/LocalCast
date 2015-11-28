@@ -227,7 +227,24 @@ describe("Backend", function() {
     });
   });
 
-  it("Should send stats with teams", function() {
+  it("Should send stats with a single teams", function() {
+    var getOptions = {
+      method: "GET",
+      uri: "http://127.0.0.1:3000/api/teams/?id=1&stats=true",
+      json: true
+    };
+
+    return rp(getOptions)
+    .then(function (teamWithStats) {
+      expect(teamWithStats.length).to.equal(2);
+      expect(teamWithStats[0].id).to.equal(1);
+      expect(teamWithStats[1].wins).to.equal(1);
+      expect(teamWithStats[1].losses).to.equal(1);
+      expect(teamWithStats[1].ties).to.equal(0);
+    });
+  });
+
+  it("Should send stats with multiple teams", function() {
     var getOptions = {
       method: "GET",
       uri: "http://127.0.0.1:3000/api/teams/?lid=1&stats=true",
@@ -235,16 +252,16 @@ describe("Backend", function() {
     };
 
     return rp(getOptions)
-    .then(function (teamWithStats) {
-      expect(teamWithStats.length).to.equal(2);
-      expect(teamWithStats[0][0].id).to.equal(1);
-      expect(teamWithStats[1][0].id).to.equal(2);
-      expect(teamWithStats[0][1].wins).to.equal(1);
-      expect(teamWithStats[0][1].losses).to.equal(1);
-      expect(teamWithStats[0][1].ties).to.equal(0);
-      expect(teamWithStats[1][1].wins).to.equal(1);
-      expect(teamWithStats[1][1].losses).to.equal(1);
-      expect(teamWithStats[1][1].ties).to.equal(0);
+    .then(function (teamsWithStats) {
+      expect(teamsWithStats.length).to.equal(2);
+      expect(teamsWithStats[0][0].id).to.equal(1);
+      expect(teamsWithStats[1][0].id).to.equal(2);
+      expect(teamsWithStats[0][1].wins).to.equal(1);
+      expect(teamsWithStats[0][1].losses).to.equal(1);
+      expect(teamsWithStats[0][1].ties).to.equal(0);
+      expect(teamsWithStats[1][1].wins).to.equal(1);
+      expect(teamsWithStats[1][1].losses).to.equal(1);
+      expect(teamsWithStats[1][1].ties).to.equal(0);
     });
   });
 
