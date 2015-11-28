@@ -1,10 +1,19 @@
-<div id="teams" ng-controller='TeamPageCtrl as ctrl' layout="column">
+<div id="team-page" ng-controller='TeamPageCtrl as ctrl' layout="column">
+  <md-button ui-sref="teams({leagueId: ctrl.data.leagueId})">Back to League</md-button>
   <h1 class="md-display-2">{{ctrl.data.currentTeamName}}</h1>
 
-  <div class="teaminfo col-sm-4">
-    <div ui-view="games"></div>
-  </div>
-  <div class="teaminfo col-sm-4 pull-right">
-    <div ui-view="members"></div>
-  </div>
+  <md-grid-list
+        md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="2:2"
+        md-gutter="12px" md-gutter-gt-sm="8px" >
+    <md-grid-tile md-rowspan="3" md-colspan="2">
+      <div ui-view="games"></div>
+    </md-grid-tile>
+    <md-grid-tile md-rowspan="3" md-colspan="2">
+      <div>PLACEHOLDER FOR NEWS</div>
+    </md-grid-tile>
+    <md-grid-tile md-rowspan="3" md-colspan="2">
+      <div ui-view="members"></div>
+    </md-grid-tile>
+  </md-grid-list>
 </div>

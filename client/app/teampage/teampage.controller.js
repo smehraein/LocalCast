@@ -18,7 +18,6 @@
       return teamsFactory.getTeamWithStats(self.data.teamId)
       .then(function (teamTuple) {
         self.data.currentTeamName = teamTuple[0].teamname;
-        return self.getTeams();
       });
     }
 
